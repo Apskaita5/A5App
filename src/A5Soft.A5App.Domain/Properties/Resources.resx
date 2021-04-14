@@ -1,0 +1,826 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="DataAnnotations_ErrorMessage_AtLeastOneRequired" xml:space="preserve">
+    <value>Either {0} or {1} should be specified.</value>
+  </data>
+  <data name="DataAnnotations_ErrorMessage_CompareStrings" xml:space="preserve">
+    <value>{0} does not match {1}.</value>
+  </data>
+  <data name="DataAnnotations_ErrorMessage_DateSanity" xml:space="preserve">
+    <value>{0} is either in future or way too far in past.</value>
+  </data>
+  <data name="DataAnnotations_ErrorMessage_EmailAddress" xml:space="preserve">
+    <value>Value for {0} is not a valid email address.</value>
+  </data>
+  <data name="DataAnnotations_ErrorMessage_Range_ForMax" xml:space="preserve">
+    <value>Value for {0} cannot exceed {2}.</value>
+  </data>
+  <data name="DataAnnotations_ErrorMessage_Range_ForMin" xml:space="preserve">
+    <value>Value for {0} cannot be less than {1}.</value>
+  </data>
+  <data name="DataAnnotations_ErrorMessage_Range_ForRange" xml:space="preserve">
+    <value>Value for {0} should be between {1} and {2}.</value>
+  </data>
+  <data name="DataAnnotations_ErrorMessage_Required" xml:space="preserve">
+    <value>{0} is not specified.</value>
+  </data>
+  <data name="DataAnnotations_ErrorMessage_StringLength_ForExact" xml:space="preserve">
+    <value>Length of {0} shall be {1} characters.</value>
+  </data>
+  <data name="DataAnnotations_ErrorMessage_StringLength_ForMax" xml:space="preserve">
+    <value>Length of {0} shall not exceed {2} characters.</value>
+  </data>
+  <data name="DataAnnotations_ErrorMessage_StringLength_ForRange" xml:space="preserve">
+    <value>Length of {0} shall be between {1} and {2} characters.</value>
+  </data>
+  <data name="IAuditableEntity_GroupName" xml:space="preserve">
+    <value>Audit Trace</value>
+  </data>
+  <data name="IAuditableEntity_InsertedAt_Description" xml:space="preserve">
+    <value>When the data has been inserted.</value>
+  </data>
+  <data name="IAuditableEntity_InsertedAt_Name" xml:space="preserve">
+    <value>Inserted At</value>
+  </data>
+  <data name="IAuditableEntity_InsertedAt_ShortName" xml:space="preserve">
+    <value>Inserted At</value>
+  </data>
+  <data name="IAuditableEntity_InsertedBy_Description" xml:space="preserve">
+    <value>An email of the user who inserted the data.</value>
+  </data>
+  <data name="IAuditableEntity_InsertedBy_Name" xml:space="preserve">
+    <value>Inserted By</value>
+  </data>
+  <data name="IAuditableEntity_InsertedBy_ShortName" xml:space="preserve">
+    <value>Inserted By</value>
+  </data>
+  <data name="IAuditableEntity_UpdatedAt_Description" xml:space="preserve">
+    <value>When the data has been updated last.</value>
+  </data>
+  <data name="IAuditableEntity_UpdatedAt_Name" xml:space="preserve">
+    <value>Updated At</value>
+  </data>
+  <data name="IAuditableEntity_UpdatedAt_ShortName" xml:space="preserve">
+    <value>Updated At</value>
+  </data>
+  <data name="IAuditableEntity_UpdatedBy_Description" xml:space="preserve">
+    <value>An email of the last user who updated the data.</value>
+  </data>
+  <data name="IAuditableEntity_UpdatedBy_Name" xml:space="preserve">
+    <value>Updated By</value>
+  </data>
+  <data name="IAuditableEntity_UpdatedBy_ShortName" xml:space="preserve">
+    <value>Updated By</value>
+  </data>
+  <data name="Security_IUserGroup_GroupName_Description" xml:space="preserve">
+    <value>An arbitrary user group name for human friendly reference.</value>
+  </data>
+  <data name="Security_IUserGroup_GroupName_Name" xml:space="preserve">
+    <value>Group Name</value>
+  </data>
+  <data name="Security_IUserGroup_GroupName_Prompt" xml:space="preserve">
+    <value>Specify user group name</value>
+  </data>
+  <data name="Security_IUserGroup_GroupName_ShortName" xml:space="preserve">
+    <value>Name</value>
+  </data>
+  <data name="Security_IUserGroup_MaxTenants_Description" xml:space="preserve">
+    <value>Maximum allowed tenants within the group.</value>
+  </data>
+  <data name="Security_IUserGroup_MaxTenants_Name" xml:space="preserve">
+    <value>Max tenants per group</value>
+  </data>
+  <data name="Security_IUserGroup_MaxTenants_Prompt" xml:space="preserve">
+    <value>Specify max allowed tenants within the group</value>
+  </data>
+  <data name="Security_IUserGroup_MaxTenants_ShortName" xml:space="preserve">
+    <value>Max tenants</value>
+  </data>
+  <data name="Security_IUserGroup_MaxUsers_Description" xml:space="preserve">
+    <value>Maximum allowed users within the group.</value>
+  </data>
+  <data name="Security_IUserGroup_MaxUsers_Name" xml:space="preserve">
+    <value>Max users per group</value>
+  </data>
+  <data name="Security_IUserGroup_MaxUsers_Prompt" xml:space="preserve">
+    <value>Specify max allowed users within the group</value>
+  </data>
+  <data name="Security_IUserGroup_MaxUsers_ShortName" xml:space="preserve">
+    <value>Max users</value>
+  </data>
+  <data name="ValidationException_Message" xml:space="preserve">
+    <value>Data for document {0} is invalid:
+{1}</value>
+  </data>
+  <data name="ConcurrencyException_Message" xml:space="preserve">
+    <value>Cannot update the document as a user {0} has updated it while you were editing.</value>
+  </data>
+  <data name="Security_UserGroupLookup_ToString" xml:space="preserve">
+    <value>{0}</value>
+  </data>
+  <data name="Security_UserGroupQueryResult_DisplayNameForNew" xml:space="preserve">
+    <value>User Group Index</value>
+  </data>
+  <data name="Security_UserGroupQueryResult_TenantCount_Description" xml:space="preserve">
+    <value>Actual count of tenants assigned to the group.</value>
+  </data>
+  <data name="Security_UserGroupQueryResult_TenantCount_Name" xml:space="preserve">
+    <value>Tenant Count</value>
+  </data>
+  <data name="Security_UserGroupQueryResult_TenantCount_ShortName" xml:space="preserve">
+    <value>Tenants</value>
+  </data>
+  <data name="Security_IUserGroup_UserCount_Description" xml:space="preserve">
+    <value>Actual count of users assigned to the group.</value>
+  </data>
+  <data name="Security_IUserGroup_UserCount_Name" xml:space="preserve">
+    <value>User Count</value>
+  </data>
+  <data name="Security_IUserGroup_UserCount_ShortName" xml:space="preserve">
+    <value>Users</value>
+  </data>
+  <data name="Security_IUserRolePermission_Assigned_Description" xml:space="preserve">
+    <value>Whether the user role has the permission.</value>
+  </data>
+  <data name="Security_IUserRolePermission_Assigned_Name" xml:space="preserve">
+    <value>Is Assigned</value>
+  </data>
+  <data name="Security_IUserRolePermission_Assigned_ShortName" xml:space="preserve">
+    <value>Is Assigned</value>
+  </data>
+  <data name="Security_IUserRolePermission_Description_Description" xml:space="preserve">
+    <value>A description of the assignable permission.</value>
+  </data>
+  <data name="Security_IUserRolePermission_Description_Name" xml:space="preserve">
+    <value>Description</value>
+  </data>
+  <data name="Security_IUserRolePermission_Description_ShortName" xml:space="preserve">
+    <value>Description       </value>
+  </data>
+  <data name="Security_IUserRolePermission_GroupName_Description" xml:space="preserve">
+    <value>A name of the permission group that the permission belongs to.</value>
+  </data>
+  <data name="Security_IUserRolePermission_GroupName_Name" xml:space="preserve">
+    <value>Permission Group Name</value>
+  </data>
+  <data name="Security_IUserRolePermission_GroupName_ShortName" xml:space="preserve">
+    <value>Group Name</value>
+  </data>
+  <data name="Security_IUserRolePermission_Name_Description" xml:space="preserve">
+    <value>A name of the assignable permission.</value>
+  </data>
+  <data name="Security_IUserRolePermission_Name_Name" xml:space="preserve">
+    <value>Permission Name</value>
+  </data>
+  <data name="Security_IUserRolePermission_Name_ShortName" xml:space="preserve">
+    <value>Name       </value>
+  </data>
+  <data name="Security_IUserRole_Description_Description" xml:space="preserve">
+    <value>A description of the role that is displayed as a tooltip for lookup values.</value>
+  </data>
+  <data name="Security_IUserRole_Description_Name" xml:space="preserve">
+    <value>User Role Description</value>
+  </data>
+  <data name="Security_IUserRole_Description_Prompt" xml:space="preserve">
+    <value>Specify role description       </value>
+  </data>
+  <data name="Security_IUserRole_Description_ShortName" xml:space="preserve">
+    <value>Description</value>
+  </data>
+  <data name="Security_IUserRole_DisplayNameForCreateNew" xml:space="preserve">
+    <value>New User Role       </value>
+  </data>
+  <data name="Security_IUserRole_DisplayNameForNew" xml:space="preserve">
+    <value>New User Role</value>
+  </data>
+  <data name="Security_IUserRole_DisplayNameForOld" xml:space="preserve">
+    <value>User Role</value>
+  </data>
+  <data name="Security_IUserRole_Name_Description" xml:space="preserve">
+    <value>A human readable name that is displayed in a lookup for a role assignment.</value>
+  </data>
+  <data name="Security_IUserRole_Name_Name" xml:space="preserve">
+    <value>User Role Name</value>
+  </data>
+  <data name="Security_IUserRole_Name_Prompt" xml:space="preserve">
+    <value>Specify role name       </value>
+  </data>
+  <data name="Security_IUserRole_Name_ShortName" xml:space="preserve">
+    <value>Name</value>
+  </data>
+  <data name="Security_IUserRole_Permissions_Description" xml:space="preserve">
+    <value>A list of permissions that will be assigned to a user for this role.</value>
+  </data>
+  <data name="Security_IUserRole_Permissions_Name" xml:space="preserve">
+    <value>Permissions For User Role</value>
+  </data>
+  <data name="Security_IUserRole_Permissions_Prompt" xml:space="preserve">
+    <value>Specify role permissions</value>
+  </data>
+  <data name="Security_IUserRole_Permissions_ShortName" xml:space="preserve">
+    <value>Permissions</value>
+  </data>
+  <data name="Security_IUserPermission_Assigned_Description" xml:space="preserve">
+    <value>Whether the user has the permission.</value>
+  </data>
+  <data name="Security_IUserPermission_Assigned_Name" xml:space="preserve">
+    <value>Is Assigned</value>
+  </data>
+  <data name="Security_IUserPermission_Assigned_ShortName" xml:space="preserve">
+    <value>Is Assigned</value>
+  </data>
+  <data name="Security_IUserPermission_Description_Description" xml:space="preserve">
+    <value>A description of the assignable permission.</value>
+  </data>
+  <data name="Security_IUserPermission_Description_Name" xml:space="preserve">
+    <value>Description</value>
+  </data>
+  <data name="Security_IUserPermission_Description_ShortName" xml:space="preserve">
+    <value>Description       </value>
+  </data>
+  <data name="Security_IUserPermission_GroupName_Description" xml:space="preserve">
+    <value>A name of the permission group that the permission belongs to.</value>
+  </data>
+  <data name="Security_IUserPermission_GroupName_Name" xml:space="preserve">
+    <value>Permission Group Name</value>
+  </data>
+  <data name="Security_IUserPermission_GroupName_ShortName" xml:space="preserve">
+    <value>Group Name       </value>
+  </data>
+  <data name="Security_IUserPermission_Name_Description" xml:space="preserve">
+    <value>A name of the assignable permission.</value>
+  </data>
+  <data name="Security_IUserPermission_Name_Name" xml:space="preserve">
+    <value>Permission Name</value>
+  </data>
+  <data name="Security_IUserPermission_Name_ShortName" xml:space="preserve">
+    <value>Name</value>
+  </data>
+  <data name="Security_ICustomUserRole_DisplayNameForCreateNew" xml:space="preserve">
+    <value>Create Custom Role</value>
+  </data>
+  <data name="Security_ICustomUserRole_DisplayNameForNew" xml:space="preserve">
+    <value>New Custom Role For Tenant</value>
+  </data>
+  <data name="Security_ICustomUserRole_DisplayNameForOld" xml:space="preserve">
+    <value> Custom Role For Tenant</value>
+  </data>
+  <data name="Security_ICustomUserRole_Permissions_Description" xml:space="preserve">
+    <value>A list of permissions for the user to have while managing the tenant data.</value>
+  </data>
+  <data name="Security_ICustomUserRole_Permissions_Name" xml:space="preserve">
+    <value>Permissions</value>
+  </data>
+  <data name="Security_ICustomUserRole_Permissions_ShortName" xml:space="preserve">
+    <value>Permissions</value>
+  </data>
+  <data name="Security_ICustomUserRole_TenantName_Description" xml:space="preserve">
+    <value>A name of the tenant whom the custom user role is configured for.</value>
+  </data>
+  <data name="Security_ICustomUserRole_TenantName_Name" xml:space="preserve">
+    <value>Tenant Name</value>
+  </data>
+  <data name="Security_ICustomUserRole_TenantName_ShortName" xml:space="preserve">
+    <value>Tenant</value>
+  </data>
+  <data name="Security_ICustomUserRole_UserName_Description" xml:space="preserve">
+    <value>A name of the user whom the custom role is configured for.</value>
+  </data>
+  <data name="Security_ICustomUserRole_UserName_Name" xml:space="preserve">
+    <value>User Name</value>
+  </data>
+  <data name="Security_ICustomUserRole_UserName_ShortName" xml:space="preserve">
+    <value>User   </value>
+  </data>
+  <data name="Security_UserRoleLookup_Custom_Role_Description" xml:space="preserve">
+    <value>Custom user permissions are configured.</value>
+  </data>
+  <data name="Security_UserRoleLookup_Custom_Role_Name" xml:space="preserve">
+    <value>Custom Role</value>
+  </data>
+  <data name="Security_IUserRole_UserCount_Description" xml:space="preserve">
+    <value>A number of users (excluding disabled) that have the role assigned.</value>
+  </data>
+  <data name="Security_IUserRole_UserCount_Name" xml:space="preserve">
+    <value>User Count</value>
+  </data>
+  <data name="Security_IUserRole_UserCount_ShortName" xml:space="preserve">
+    <value>Users</value>
+  </data>
+  <data name="Security_UserRoleQueryResult_DisplayNameForNew" xml:space="preserve">
+    <value>User Role Index</value>
+  </data>
+  <data name="Security_ITenant_DatabaseName_Description" xml:space="preserve">
+    <value>A name of the database where the client company data is stored.</value>
+  </data>
+  <data name="Security_ITenant_DatabaseName_Name" xml:space="preserve">
+    <value>Database Name</value>
+  </data>
+  <data name="Security_ITenant_DatabaseName_Prompt" xml:space="preserve">
+    <value>Specify tenant database name.</value>
+  </data>
+  <data name="Security_ITenant_DatabaseName_ShortName" xml:space="preserve">
+    <value>Database</value>
+  </data>
+  <data name="Security_ITenant_DisplayNameForCreateNew" xml:space="preserve">
+    <value>New Tenant       </value>
+  </data>
+  <data name="Security_ITenant_DisplayNameForNew" xml:space="preserve">
+    <value>New Tenant</value>
+  </data>
+  <data name="Security_ITenant_DisplayNameForOld" xml:space="preserve">
+    <value>Tenant</value>
+  </data>
+  <data name="Security_ITenant_Name_Description" xml:space="preserve">
+    <value>A name of the client company which data is stored in an app database.</value>
+  </data>
+  <data name="Security_ITenant_Name_Name" xml:space="preserve">
+    <value>Tenant Name</value>
+  </data>
+  <data name="Security_ITenant_Name_Prompt" xml:space="preserve">
+    <value>Specify tenant name.       </value>
+  </data>
+  <data name="Security_ITenant_Name_ShortName" xml:space="preserve">
+    <value>Name</value>
+  </data>
+  <data name="Security_IUserTenant_DisplayNameForNew" xml:space="preserve">
+    <value>User Role For Tenant           </value>
+  </data>
+  <data name="Security_IUserTenant_Role_Description" xml:space="preserve">
+    <value>A user role for the tenant.</value>
+  </data>
+  <data name="Security_IUserTenant_Role_Name" xml:space="preserve">
+    <value>User Role</value>
+  </data>
+  <data name="Security_IUserTenant_Role_Prompt" xml:space="preserve">
+    <value>Specify user role.</value>
+  </data>
+  <data name="Security_IUserTenant_Role_ShortName" xml:space="preserve">
+    <value>Role</value>
+  </data>
+  <data name="Security_IUserTenant_TenantName_Description" xml:space="preserve">
+    <value>A name of the tenant to set a user role for.</value>
+  </data>
+  <data name="Security_IUserTenant_TenantName_Name" xml:space="preserve">
+    <value>Tenant Name</value>
+  </data>
+  <data name="Security_IUserTenant_TenantName_ShortName" xml:space="preserve">
+    <value>Tenant Name       </value>
+  </data>
+  <data name="Security_AdministrativeRole_Admin_Description" xml:space="preserve">
+    <value>A user with an admin priviledge is authorized to perform any administrative action as well as any action for any tenant.</value>
+  </data>
+  <data name="Security_AdministrativeRole_Admin_Name" xml:space="preserve">
+    <value>Application Administrator</value>
+  </data>
+  <data name="Security_AdministrativeRole_Admin_ShortName" xml:space="preserve">
+    <value>Admin</value>
+  </data>
+  <data name="Security_AdministrativeRole_GroupAdmin_Description" xml:space="preserve">
+    <value>A user with an user group admin priviledge is authorized to perform any action for the tenants that are assigned to the user group as well as manage users that are assigned to the user group.</value>
+  </data>
+  <data name="Security_AdministrativeRole_GroupAdmin_Name" xml:space="preserve">
+    <value>Group Administrator</value>
+  </data>
+  <data name="Security_AdministrativeRole_GroupAdmin_ShortName" xml:space="preserve">
+    <value>Group Admin</value>
+  </data>
+  <data name="Security_AdministrativeRole_None_Description" xml:space="preserve">
+    <value>A user with no admin priviledges is only authorized to perform actions for tenants subject to their roles for the respective tenants.</value>
+  </data>
+  <data name="Security_AdministrativeRole_None_Name" xml:space="preserve">
+    <value>None</value>
+  </data>
+  <data name="Security_AdministrativeRole_None_ShortName" xml:space="preserve">
+    <value>None</value>
+  </data>
+  <data name="Security_IUser_AdminRole_Description" xml:space="preserve">
+    <value>Administrative role of the user.</value>
+  </data>
+  <data name="Security_IUser_AdminRole_Name" xml:space="preserve">
+    <value>Administrative Role</value>
+  </data>
+  <data name="Security_IUser_AdminRole_Prompt" xml:space="preserve">
+    <value>Specify user administrative role.       </value>
+  </data>
+  <data name="Security_IUser_AdminRole_ShortName" xml:space="preserve">
+    <value>Admin Role</value>
+  </data>
+  <data name="Security_IUser_DisplayNameForCreateNew" xml:space="preserve">
+    <value>New User       </value>
+  </data>
+  <data name="Security_IUser_DisplayNameForNew" xml:space="preserve">
+    <value>New User</value>
+  </data>
+  <data name="Security_IUser_DisplayNameForOld" xml:space="preserve">
+    <value>User</value>
+  </data>
+  <data name="Security_IUser_Email_Description" xml:space="preserve">
+    <value>An email of the user that is also used as a user name for login.</value>
+  </data>
+  <data name="Security_IUser_Email_Name" xml:space="preserve">
+    <value>Email</value>
+  </data>
+  <data name="Security_IUser_Email_Prompt" xml:space="preserve">
+    <value>Specify user email.       </value>
+  </data>
+  <data name="Security_IUser_Email_ShortName" xml:space="preserve">
+    <value>Email</value>
+  </data>
+  <data name="Security_IUser_IsDisabled_Description" xml:space="preserve">
+    <value>Whether the user is disabled, i.e. no longer in use, only left as a historic record.</value>
+  </data>
+  <data name="Security_IUser_IsDisabled_Name" xml:space="preserve">
+    <value>Is Disabled</value>
+  </data>
+  <data name="Security_IUser_IsDisabled_ShortName" xml:space="preserve">
+    <value>Disabled       </value>
+  </data>
+  <data name="Security_IUser_IsSuspended_Description" xml:space="preserve">
+    <value>Whether the user is (temporaly) suspended. Suspended users only have readonly privileges (irrespective of their configured roles).</value>
+  </data>
+  <data name="Security_IUser_IsSuspended_Name" xml:space="preserve">
+    <value>Is Suspended</value>
+  </data>
+  <data name="Security_IUser_IsSuspended_ShortName" xml:space="preserve">
+    <value>Suspended       </value>
+  </data>
+  <data name="Security_IUser_Name_Description" xml:space="preserve">
+    <value>A given name of the user.</value>
+  </data>
+  <data name="Security_IUser_Name_Name" xml:space="preserve">
+    <value>Given Name</value>
+  </data>
+  <data name="Security_IUser_Name_Prompt" xml:space="preserve">
+    <value>Specify user (given) name.       </value>
+  </data>
+  <data name="Security_IUser_Name_ShortName" xml:space="preserve">
+    <value>Name</value>
+  </data>
+  <data name="Security_IUser_Phone_Description" xml:space="preserve">
+    <value>A phone No of the user.</value>
+  </data>
+  <data name="Security_IUser_Phone_Name" xml:space="preserve">
+    <value>Phone No</value>
+  </data>
+  <data name="Security_IUser_Phone_Prompt" xml:space="preserve">
+    <value>Specify user phone.       </value>
+  </data>
+  <data name="Security_IUser_Phone_ShortName" xml:space="preserve">
+    <value>Phone</value>
+  </data>
+  <data name="Security_IUser_RolesForTenants_Description" xml:space="preserve">
+    <value>Configure user roles per tenant (for users with no administrative privileges).</value>
+  </data>
+  <data name="Security_IUser_RolesForTenants_Name" xml:space="preserve">
+    <value>Roles For Tenants</value>
+  </data>
+  <data name="Security_IUser_RolesForTenants_Prompt" xml:space="preserve">
+    <value>Configure user roles per tenant (for users with no administrative privileges).</value>
+  </data>
+  <data name="Security_IUser_RolesForTenants_ShortName" xml:space="preserve">
+    <value>Roles For Tenants</value>
+  </data>
+  <data name="Security_IUser_TwoFactorEnabled_Description" xml:space="preserve">
+    <value>Whether to require two factor authentication for the user. E.g. when a particular user works from an unsafe environment.</value>
+  </data>
+  <data name="Security_IUser_TwoFactorEnabled_Name" xml:space="preserve">
+    <value>Require Two Factor Authentication</value>
+  </data>
+  <data name="Security_IUser_TwoFactorEnabled_ShortName" xml:space="preserve">
+    <value>Require Two Factor Authentication       </value>
+  </data>
+  <data name="Security_IUser_UserGroup_Description" xml:space="preserve">
+    <value>An user group that the user belongs to (if any).</value>
+  </data>
+  <data name="Security_IUser_UserGroup_Name" xml:space="preserve">
+    <value>User Group</value>
+  </data>
+  <data name="Security_IUser_UserGroup_Prompt" xml:space="preserve">
+    <value>Specify the user group for the user (if any)       </value>
+  </data>
+  <data name="Security_IUser_UserGroup_ShortName" xml:space="preserve">
+    <value>Group</value>
+  </data>
+  <data name="Security_TenantQueryResult_DisplayNameForNew" xml:space="preserve">
+    <value>Tenant Index</value>
+  </data>
+  <data name="Security_TenantQueryResult_UserCount_Description" xml:space="preserve">
+    <value>Number of the users that have access to the tenant data (excluding user group admins).</value>
+  </data>
+  <data name="Security_TenantQueryResult_UserCount_Name" xml:space="preserve">
+    <value>User Count</value>
+  </data>
+  <data name="Security_TenantQueryResult_UserCount_ShortName" xml:space="preserve">
+    <value>Users</value>
+  </data>
+  <data name="Security_TenantQueryResult_UserGroups_Description" xml:space="preserve">
+    <value>User groups that have access to the tenant data.</value>
+  </data>
+  <data name="Security_TenantQueryResult_UserGroups_Name" xml:space="preserve">
+    <value>User Groups</value>
+  </data>
+  <data name="Security_TenantQueryResult_UserGroups_ShortName" xml:space="preserve">
+    <value>User Groups</value>
+  </data>
+  <data name="UserQueryResult_DisplayNameForNew" xml:space="preserve">
+    <value>User Index</value>
+  </data>
+  <data name="UserQueryResult_Roles_Description" xml:space="preserve">
+    <value>Roles that the user has.</value>
+  </data>
+  <data name="UserQueryResult_Roles_Name" xml:space="preserve">
+    <value>Roles</value>
+  </data>
+  <data name="UserQueryResult_Roles_ShortName" xml:space="preserve">
+    <value>Roles</value>
+  </data>
+  <data name="UserQueryResult_TenantCount_Description" xml:space="preserve">
+    <value>Number of tenants that the user has access to.</value>
+  </data>
+  <data name="UserQueryResult_TenantCount_Name" xml:space="preserve">
+    <value>Tenant Count</value>
+  </data>
+  <data name="UserQueryResult_TenantCount_ShortName" xml:space="preserve">
+    <value>Tenants</value>
+  </data>
+  <data name="Security_ITenantGroupAssignment_DisplayNameForCreateNew" xml:space="preserve">
+    <value>Add New Group</value>
+  </data>
+  <data name="Security_ITenantGroupAssignment_Group_Description" xml:space="preserve">
+    <value>A user group that the tenant is assigned to.</value>
+  </data>
+  <data name="Security_ITenantGroupAssignment_Group_Name" xml:space="preserve">
+    <value>User Group</value>
+  </data>
+  <data name="Security_ITenantGroupAssignment_Group_ShortName" xml:space="preserve">
+    <value>User Group</value>
+  </data>
+  <data name="Security_ITenantGroupAssignments_Assignments_Description" xml:space="preserve">
+    <value>A list of assignments.</value>
+  </data>
+  <data name="Security_ITenantGroupAssignments_Assignments_Name" xml:space="preserve">
+    <value>Assignments</value>
+  </data>
+  <data name="Security_ITenantGroupAssignments_Assignments_Prompt" xml:space="preserve">
+    <value>Specify user groups to assign the tenant to.</value>
+  </data>
+  <data name="Security_ITenantGroupAssignments_Assignments_ShortName" xml:space="preserve">
+    <value>Assignments</value>
+  </data>
+  <data name="Security_ITenantGroupAssignments_DisplayNameForOld" xml:space="preserve">
+    <value>Tenant User Group Assignments       </value>
+  </data>
+  <data name="Security_ITenantGroupAssignments_TenantName_Description" xml:space="preserve">
+    <value>A name of the tenant to manage user group assignments for.</value>
+  </data>
+  <data name="Security_ITenantGroupAssignments_TenantName_Name" xml:space="preserve">
+    <value>Tenant Name</value>
+  </data>
+  <data name="Security_ITenantGroupAssignments_TenantName_ShortName" xml:space="preserve">
+    <value>Tenant Name</value>
+  </data>
+  <data name="Security_LoginRequestQueryCriteria_DisplayNameForNew" xml:space="preserve">
+    <value>Login</value>
+  </data>
+  <data name="Security_LoginRequestQueryCriteria_Email_Description" xml:space="preserve">
+    <value>An email of the user that is used as a user account id.</value>
+  </data>
+  <data name="Security_LoginRequestQueryCriteria_Email_Name" xml:space="preserve">
+    <value>User Email</value>
+  </data>
+  <data name="Security_LoginRequestQueryCriteria_Email_Prompt" xml:space="preserve">
+    <value>Enter your email.</value>
+  </data>
+  <data name="Security_LoginRequestQueryCriteria_Email_ShortName" xml:space="preserve">
+    <value>User Email</value>
+  </data>
+  <data name="Security_LoginRequestQueryCriteria_Password_Description" xml:space="preserve">
+    <value>User password.</value>
+  </data>
+  <data name="Security_LoginRequestQueryCriteria_Password_Name" xml:space="preserve">
+    <value>User Password</value>
+  </data>
+  <data name="Security_LoginRequestQueryCriteria_Password_Prompt" xml:space="preserve">
+    <value>Enter your password.</value>
+  </data>
+  <data name="Security_LoginRequestQueryCriteria_Password_ShortName" xml:space="preserve">
+    <value>User Password</value>
+  </data>
+  <data name="Security_ResetPasswordRequestQueryCriteria_DisplayNameForNew" xml:space="preserve">
+    <value>Reset Password       </value>
+  </data>
+  <data name="Security_ResetPasswordRequestQueryCriteria_Email_Description" xml:space="preserve">
+    <value>A user email that is used as the app account id.</value>
+  </data>
+  <data name="Security_ResetPasswordRequestQueryCriteria_Email_Name" xml:space="preserve">
+    <value>User Email</value>
+  </data>
+  <data name="Security_ResetPasswordRequestQueryCriteria_Email_Prompt" xml:space="preserve">
+    <value>Enter your email.</value>
+  </data>
+  <data name="Security_ResetPasswordRequestQueryCriteria_Email_ShortName" xml:space="preserve">
+    <value>User Email</value>
+  </data>
+  <data name="Security_ChangePasswordRequestQueryCriteria_CurrentPassword_Description" xml:space="preserve">
+    <value>Current user password.</value>
+  </data>
+  <data name="Security_ChangePasswordRequestQueryCriteria_CurrentPassword_Name" xml:space="preserve">
+    <value>Current Password</value>
+  </data>
+  <data name="Security_ChangePasswordRequestQueryCriteria_CurrentPassword_Prompt" xml:space="preserve">
+    <value>Enter your current password.       </value>
+  </data>
+  <data name="Security_ChangePasswordRequestQueryCriteria_CurrentPassword_ShortName" xml:space="preserve">
+    <value>Current Password</value>
+  </data>
+  <data name="Security_ChangePasswordRequest_DisplayNameForNew" xml:space="preserve">
+    <value>Change Password       </value>
+  </data>
+  <data name="Security_ChangePasswordRequestQueryCriteria_NewPassword_Description" xml:space="preserve">
+    <value>New user password.</value>
+  </data>
+  <data name="Security_ChangePasswordRequestQueryCriteria_NewPassword_Name" xml:space="preserve">
+    <value>New Password</value>
+  </data>
+  <data name="Security_ChangePasswordRequestQueryCriteria_NewPassword_Prompt" xml:space="preserve">
+    <value>Enter new password.       </value>
+  </data>
+  <data name="Security_ChangePasswordRequestQueryCriteria_NewPassword_ShortName" xml:space="preserve">
+    <value>New Password</value>
+  </data>
+  <data name="Security_ChangePasswordRequestQueryCriteria_RepeatedPassword_Description" xml:space="preserve">
+    <value>Repeated new user password.</value>
+  </data>
+  <data name="Security_ChangePasswordRequestQueryCriteria_RepeatedPassword_Name" xml:space="preserve">
+    <value>Repeat New Password</value>
+  </data>
+  <data name="Security_ChangePasswordRequestQueryCriteria_RepeatedPassword_Prompt" xml:space="preserve">
+    <value>Repeat new password.</value>
+  </data>
+  <data name="Security_ChangePasswordRequestQueryCriteria_RepeatedPassword_ShortName" xml:space="preserve">
+    <value>Repeat New Password</value>
+  </data>
+  <data name="Security_IUserGroup_DisplayNameForCreateNew" xml:space="preserve">
+    <value>New User Group</value>
+  </data>
+  <data name="Security_IUserGroup_DisplayNameForNew" xml:space="preserve">
+    <value>New User Group</value>
+  </data>
+  <data name="Security_IUserGroup_DisplayNameForOld" xml:space="preserve">
+    <value>User Group</value>
+  </data>
+  <data name="Security_IUserPermission_ModuleName_Description" xml:space="preserve">
+    <value>A name of the application module that the permission belongs to.</value>
+  </data>
+  <data name="Security_IUserPermission_ModuleName_Name" xml:space="preserve">
+    <value>Module Name</value>
+  </data>
+  <data name="Security_IUserPermission_ModuleName_ShortName" xml:space="preserve">
+    <value>Module</value>
+  </data>
+  <data name="Security_IUserRolePermission_ModuleName_Description" xml:space="preserve">
+    <value>A name of the application module that the permission belongs to.</value>
+  </data>
+  <data name="Security_IUserRolePermission_ModuleName_Name" xml:space="preserve">
+    <value>Module Name</value>
+  </data>
+  <data name="Security_IUserRolePermission_ModuleName_ShortName" xml:space="preserve">
+    <value>Module</value>
+  </data>
+  <data name="Security_TwoFactorLoginRequest_DisplayNameForNew" xml:space="preserve">
+    <value>Two Factor Login Second Step</value>
+  </data>
+  <data name="Security_TwoFactorLoginRequest_Token_Description" xml:space="preserve">
+    <value>A two factor authentication token that has been sent to you after the first login step.</value>
+  </data>
+  <data name="Security_TwoFactorLoginRequest_Token_Name" xml:space="preserve">
+    <value>Token</value>
+  </data>
+  <data name="Security_TwoFactorLoginRequest_Token_Prompt" xml:space="preserve">
+    <value>Enter the token you received.</value>
+  </data>
+  <data name="Security_TwoFactorLoginRequest_Token_ShortName" xml:space="preserve">
+    <value>Token</value>
+  </data>
+  <data name="Security_User_Cannot_Assign_Admin_UserGroup" xml:space="preserve">
+    <value>Cannot assign admin to any user group.</value>
+  </data>
+</root>

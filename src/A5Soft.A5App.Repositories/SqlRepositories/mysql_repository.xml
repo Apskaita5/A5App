@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="utf-8"?>
+<SqlRepository xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+ <Application>A5</Application>
+ <Description />
+ <Extension />
+ <ExtensionGuid />
+ <SqlImplementation>mysql</SqlImplementation>
+ <Items>
+  <SqlRepositoryItem>
+   <Token>FetchDatabaseName</Token>
+   <Query>SELECT db_name FROM tenants WHERE id = ?CD;</Query>
+   <UsedByTypes>Base.OrmServiceProvider</UsedByTypes>
+  </SqlRepositoryItem>
+  <SqlRepositoryItem>
+   <Token>QueryUserRoles</Token>
+   <Query>SELECT r.id AS Id, r.role_name AS Name, r.role_description AS Description, r.inserted_at AS InsertedAt, r.inserted_by AS InsertedBy, r.updated_at As UpdatedAt, r.updated_by AS UpdatedBy, COUNT(DISTINCT s.id) AS UserCount FROM roles r LEFT JOIN user_roles u ON u.role_id = r.id LEFT JOIN users s ON s.id = u.user_id AND s.is_disabled &lt; 1 GROUP BY r.id ORDER BY r.role_name;</Query>
+   <UsedByTypes>Security.UserRoleRepository</UsedByTypes>
+  </SqlRepositoryItem>
+  <SqlRepositoryItem>
+   <Token>FetchUserRole</Token>
+   <Query>SELECT r.id AS Id, r.role_name AS Name, r.role_description AS Description, r.inserted_at AS InsertedAt, r.inserted_by AS InsertedBy, r.updated_at As UpdatedAt, r.updated_by AS UpdatedBy, COUNT(DISTINCT s.id) AS UserCount FROM roles r LEFT JOIN user_roles u ON u.role_id = r.id LEFT JOIN users s ON s.id = u.user_id AND s.is_disabled &lt; 1 WHERE r.id = ?id GROUP BY r.id ORDER BY r.role_name;</Query>
+   <UsedByTypes>Security.UserRoleRepository</UsedByTypes>
+  </SqlRepositoryItem>
+  <SqlRepositoryItem>
+   <Token>FetchUserRolePermissions</Token>
+   <Query>SELECT r.id, r.permission_id FROM role_permissions r WHERE r.role_id = ?CD;</Query>
+   <UsedByTypes>Security.UserRoleRepository</UsedByTypes>
+  </SqlRepositoryItem>
+  <SqlRepositoryItem>
+   <Token>FetchCustomUserRolePermissions</Token>
+   <Query>SELECT r.id, r.permission_id FROM user_permissions r WHERE r.user_id = ?UD AND r.tenant_id = ?TD ;</Query>
+   <UsedByTypes>Security.CustomUserRoleRepository</UsedByTypes>
+  </SqlRepositoryItem>
+  <SqlRepositoryItem>
+   <Token>FetchCustomUserRole</Token>
+   <Query>SELECT u.user_name, u.user_group_id, u.administrative_role_id, u.updated_at, u.updated_by, t.tenant_name FROM users u LEFT JOIN tenants t ON t.id=?TD WHERE u.id = ?UD;</Query>
+   <UsedByTypes>Security.CustomUserRoleRepository</UsedByTypes>
+  </SqlRepositoryItem>
+  <SqlRepositoryItem>
+   <Token>DeleteCustomUserRole</Token>
+   <Query>DELETE FROM user_permissions WHERE user_permissions.user_id = ?UD AND user_permissions.tenant_id = ?TD ;</Query>
+   <UsedByTypes>Security.CustomUserRoleRepository</UsedByTypes>
+  </SqlRepositoryItem>
+  <SqlRepositoryItem>
+   <Token>FetchTenantLookupForUser</Token>
+   <Query>SELECT DISTINCT q.Id, q.Name FROM (SELECT t.id As Id, t.tenant_name AS Name, COUNT(r.id) AS UserMatches FROM tenants t LEFT JOIN user_roles r ON r.tenant_id = t.id AND r.user_id = ?UD GROUP BY t.id HAVING UserMatches &gt; 0 UNION SELECT t.id As Id, t.tenant_name AS Name, COUNT(r.id) AS UserMatches FROM tenants t LEFT JOIN user_permissions r ON r.tenant_id = t.id AND r.user_id = ?UD GROUP BY t.id HAVING UserMatches &gt; 0 UNION SELECT t.id As Id, t.tenant_name AS Name, SUM(CASE WHEN u.id IS NULL THEN 0 ELSE 1 END) AS UserMatches FROM tenants t LEFT JOIN user_group_tenants g ON g.tenant_id = t.id LEFT JOIN users u ON u.user_group_id = g.user_group_id AND u.administrative_role_id = 1 AND u.id = ?UD GROUP BY t.id HAVING UserMatches &gt; 0) q;</Query>
+   <UsedByTypes>Security.TenantRepository</UsedByTypes>
+  </SqlRepositoryItem>
+  <SqlRepositoryItem>
+   <Token>FetchTenantQueryResult</Token>
+   <Query>SELECT t.id AS Id, t.tenant_name AS Name, t.db_name AS DatabaseName, t.inserted_at AS InsertedAt, t.inserted_by AS InsertedBy, GROUP_CONCAT(DISTINCT g.group_name SEPARATOR ', ') AS UserGroups, (IFNULL(w.UserCount, 0) + IFNULL(q.UserCount, 0)) AS UserCount FROM tenants t LEFT JOIN (SELECT r.tenant_id AS TenantId, COUNT(DISTINCT u.id) AS UserCount FROM user_roles r LEFT JOIN users u ON u.id = r.user_id GROUP BY r.tenant_id) w ON w.TenantId = t.id LEFT JOIN (SELECT r.tenant_id AS TenantId, COUNT(DISTINCT u.id) AS UserCount FROM user_permissions r LEFT JOIN users u ON u.id = r.user_id GROUP BY r.tenant_id) q ON q.TenantId = t.id LEFT JOIN user_group_tenants e ON e.tenant_id = t.id LEFT JOIN user_groups g ON g.id = e.user_group_id GROUP BY t.id ORDER BY t.tenant_name;</Query>
+   <UsedByTypes>Security.TenantRepository</UsedByTypes>
+  </SqlRepositoryItem>
+  <SqlRepositoryItem>
+   <Token>FetchUserRolesForTenants</Token>
+   <Query>SELECT r.id AS Id, r.role_id AS RoleId, r.tenant_id AS TenantId, 0 AS IsCustomRole FROM user_roles r WHERE r.user_id = ?user_id GROUP BY r.id UNION SELECT NULL AS Id, NULL AS RoleId, p.tenant_id AS TenantId, 1 AS IsCustomRole FROM user_permissions p WHERE p.user_id = ?user_id GROUP BY p.tenant_id;</Query>
+   <UsedByTypes>Security.UserRepository</UsedByTypes>
+  </SqlRepositoryItem>
+  <SqlRepositoryItem>
+   <Token>DeleteRoleForTenant</Token>
+   <Query>DELETE FROM user_roles WHERE user_roles.user_id = ?UD AND user_roles.tenant_id = ?TD ;</Query>
+   <UsedByTypes>Security.CustomUserRoleRepository</UsedByTypes>
+  </SqlRepositoryItem>
+  <SqlRepositoryItem>
+   <Token>UpdateUserPassword</Token>
+   <Query>UPDATE users SET password_hash = ?PS WHERE id = ?UD;</Query>
+   <UsedByTypes>Security.UserRepository</UsedByTypes>
+  </SqlRepositoryItem>
+  <SqlRepositoryItem>
+   <Token>FetchUserQueryResult</Token>
+   <Query>SELECT u.id AS Id, u.user_group_id AS GroupId, g.group_name AS GroupName, u.user_name AS Name, u.user_email AS Email, u.user_phone AS Phone, u.is_suspended AS IsSuspended, u.is_disabled AS IsDisabled, u.two_factor_enabled AS TwoFactorEnabled, u.administrative_role_id AS AdminRole, z.Roles, (IFNULL(q.TenantCount, 0) + IFNULL(w.TenantCount, 0)) AS TenantCount, u.inserted_at AS InsertedAt, u.inserted_by AS InsertedBy,u.updated_at AS UpdatedAt, u.updated_by AS UpdatedBy FROM users u LEFT JOIN user_groups g ON g.id = u.user_group_id LEFT JOIN (SELECT r.user_id AS id, COUNT(DISTINCT r.tenant_id) AS TenantCount FROM user_roles r GROUP BY r.user_id) q ON q.id = u.id LEFT JOIN (SELECT p.user_id AS id, COUNT(DISTINCT p.tenant_id) AS TenantCount FROM user_permissions p GROUP BY p.user_id) w ON w.id = u.id LEFT JOIN (SELECT r.user_id AS id, GROUP_CONCAT(DISTINCT s.role_name SEPARATOR ', ') AS Roles FROM user_roles r LEFT JOIN roles s ON s.id = r.role_id GROUP BY r.user_id) z ON z.id = u.id ORDER BY g.group_name, u.user_name;</Query>
+   <UsedByTypes>Security.UserRepository</UsedByTypes>
+  </SqlRepositoryItem>
+  <SqlRepositoryItem>
+   <Token>DeleteCustomUserRoles</Token>
+   <Query>DELETE FROM user_permissions WHERE user_permissions.user_id = ?UD ;</Query>
+   <UsedByTypes>Security.UserRepository</UsedByTypes>
+  </SqlRepositoryItem>
+  <SqlRepositoryItem>
+   <Token>DeleteUserRoles</Token>
+   <Query>DELETE FROM user_roles WHERE user_roles.user_id = ?UD ;</Query>
+   <UsedByTypes>Security.UserRepository</UsedByTypes>
+  </SqlRepositoryItem>
+  <SqlRepositoryItem>
+   <Token>FetchCanAssignToUserGroup</Token>
+   <Query>SELECT g.max_tenants AS MaxTenants, COUNT(DISTINCT t.tenant_id) AS TenantCount FROM user_groups g LEFT JOIN user_group_tenants t ON t.user_group_id = g.id WHERE g.id = ?CD GROUP BY g.id;</Query>
+   <UsedByTypes>Security.TenantRepository</UsedByTypes>
+  </SqlRepositoryItem>
+  <SqlRepositoryItem>
+   <Token>FetchLoginCredentials</Token>
+   <Query>SELECT u.id, u.password_hash FROM users u WHERE LOWER(TRIM(u.user_email)) = LOWER(TRIM(?CD));</Query>
+   <UsedByTypes>Security.UserRepository</UsedByTypes>
+  </SqlRepositoryItem>
+  <SqlRepositoryItem>
+   <Token>FetchUserIdentity</Token>
+   <Query>SELECT u.id AS Id, u.user_group_id AS GroupId, g.group_name AS GroupName, u.user_name AS Name, u.user_email AS Email, u.user_phone AS Phone, u.is_suspended AS IsSuspended, u.is_disabled AS IsDisabled, u.two_factor_enabled AS TwoFactorEnabled, u.administrative_role_id AS AdminRole, u.updated_at AS UpdatedAt FROM users u LEFT JOIN user_groups g ON g.id = u.user_group_id WHERE u.id = ?CD;</Query>
+   <UsedByTypes>Security.UserRepository</UsedByTypes>
+  </SqlRepositoryItem>
+  <SqlRepositoryItem>
+   <Token>FetchUserPermissionsForTenant</Token>
+   <Query>SELECT DISTINCT w.PermissionId FROM (SELECT DISTINCT p.permission_id AS PermissionId FROM user_permissions p WHERE p.user_id = ?UD AND p.tenant_id = ?TD UNION SELECT DISTINCT p.permission_id AS PermissionId FROM user_roles u LEFT JOIN role_permissions p ON p.role_id = u.role_id WHERE u.user_id = ?UD AND u.tenant_id = ?TD) w;</Query>
+   <UsedByTypes>Security.UserRepository</UsedByTypes>
+  </SqlRepositoryItem>
+  <SqlRepositoryItem>
+   <Token>QueryUserGroups</Token>
+   <Query>SELECT u.id AS Id, u.group_name AS GroupName, u.max_users AS MaxUsers, u.max_tenants AS MaxTenants, u.inserted_at AS InsertedAt, u.inserted_by AS InsertedBy, u.updated_at AS UpdatedAt, u.updated_by AS UpdatedBy, q.UserCount, w.TenantCount FROM user_groups u LEFT JOIN (SELECT u.user_group_id AS UserGroupId, COUNT(u.id) AS UserCount FROM users u GROUP BY u.user_group_id) q ON q.UserGroupId = u.id LEFT JOIN (SELECT u.user_group_id AS UserGroupId, COUNT(u.id) AS TenantCount FROM user_group_tenants u GROUP BY u.user_group_id) w ON w.UserGroupId = u.id ORDER BY u.group_name;</Query>
+   <UsedByTypes>Security.UserGroupRepository</UsedByTypes>
+  </SqlRepositoryItem>
+  <SqlRepositoryItem>
+   <Token>FetchUserGroup</Token>
+   <Query>SELECT u.id AS Id, u.group_name AS GroupName, u.max_users AS MaxUsers, u.max_tenants AS MaxTenants, u.inserted_at AS InsertedAt, u.inserted_by AS InsertedBy, u.updated_at AS UpdatedAt, u.updated_by AS UpdatedBy, COUNT(q.id) AS UserCount FROM user_groups u LEFT JOIN users q ON q.user_group_id = u.id WHERE u.id = ?id GROUP BY u.id;</Query>
+   <UsedByTypes>Security.UserGroupRepository</UsedByTypes>
+  </SqlRepositoryItem>
+ </Items>
+</SqlRepository>

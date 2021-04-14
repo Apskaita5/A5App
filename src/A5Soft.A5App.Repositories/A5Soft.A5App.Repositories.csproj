@@ -1,0 +1,34 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="SqlRepositories\mysql_repository.xml" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="SqlRepositories\mysql_repository.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\A5Soft.A5App.Application\A5Soft.A5App.Application.csproj" />
+    <ProjectReference Include="..\A5Soft.A5App.Domain\A5Soft.A5App.Domain.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Reference Include="A5Soft.CARMA.Application">
+      <HintPath>..\..\..\CARMA\src\A5Soft.CARMA.Application\bin\Release\netstandard2.0\A5Soft.CARMA.Application.dll</HintPath>
+    </Reference>
+    <Reference Include="A5Soft.CARMA.Domain">
+      <HintPath>..\..\..\CARMA\src\A5Soft.CARMA.Domain\bin\Release\netstandard2.0\A5Soft.CARMA.Domain.dll</HintPath>
+    </Reference>
+    <Reference Include="A5Soft.DAL.Core">
+      <HintPath>..\..\..\DAL\src\A5Soft.DAL.Core\bin\Release\netstandard2.0\A5Soft.DAL.Core.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+
+</Project>

@@ -1,0 +1,291 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="AuthorizationException_Message" xml:space="preserve">
+    <value>User is not authorized to {0}.</value>
+  </data>
+  <data name="DefaultPermissions_Admin_CreateUserGroup_Name" xml:space="preserve">
+    <value>create a user group</value>
+  </data>
+  <data name="DefaultPermissions_Admin_UpdateUserGroup_Name" xml:space="preserve">
+    <value>update a user group</value>
+  </data>
+  <data name="DefaultPermissions_ModuleName_Security" xml:space="preserve">
+    <value>Security</value>
+  </data>
+  <data name="DefaultPermissions_Security_CreateUserGroup_Description" xml:space="preserve">
+    <value>A permission to create a new user group.</value>
+  </data>
+  <data name="DefaultPermissions_Security_CreateUserGroup_Name" xml:space="preserve">
+    <value>create a user group</value>
+  </data>
+  <data name="DefaultPermissions_Security_GroupName_UserGroup" xml:space="preserve">
+    <value>UserGroups</value>
+  </data>
+  <data name="NotFoundException_Message" xml:space="preserve">
+    <value>{0} not found (id = {1}).</value>
+  </data>
+  <data name="UnAuthenticatedException_Message" xml:space="preserve">
+    <value>User is not logged in.</value>
+  </data>
+  <data name="Security_DeleteUserGroupUseCase_Cannot_Delete_Non_Empty_UserGroup" xml:space="preserve">
+    <value>Cannot delete a user group that has assigned users.</value>
+  </data>
+  <data name="DefaultPermissions_Admin_DeleteUserGroup_Name" xml:space="preserve">
+    <value>delete a user group</value>
+  </data>
+  <data name="DefaultPermissions_Admin_FetchUserGroup_Name" xml:space="preserve">
+    <value>fetch a user group</value>
+  </data>
+  <data name="DefaultPermissions_Admin_QueryUserGroups_Name" xml:space="preserve">
+    <value>query user groups</value>
+  </data>
+  <data name="Security_LoginUseCase_Account_LockedOut" xml:space="preserve">
+    <value>Your account has been temporally suspended due to multiple failed logins. Lockout will end in {0} min. {1} sec.</value>
+  </data>
+  <data name="Security_LoginUseCase_Invalid_Password_Or_Email" xml:space="preserve">
+    <value>Invalid password or email.</value>
+  </data>
+  <data name="Security_ResetPasswordUseCase_Cannot_Reset_For_Disabled_Account" xml:space="preserve">
+    <value>reset password for disabled account</value>
+  </data>
+  <data name="Security_LoginUseCase_Account_Disabled" xml:space="preserve">
+    <value>Your account has been disabled.</value>
+  </data>
+  <data name="Security_ConfirmResetPasswordUseCase_Account_Disabled" xml:space="preserve">
+    <value>Your account has been disabled.</value>
+  </data>
+  <data name="Security_LoginTenantUseCase_NotAuthorized" xml:space="preserve">
+    <value>You are not authorized to access the tenant data.</value>
+  </data>
+  <data name="DefaultPermissions_Admin_CreateUserRole_Name" xml:space="preserve">
+    <value>create a new user role</value>
+  </data>
+  <data name="DefaultPermissions_Admin_DeleteUserRole_Name" xml:space="preserve">
+    <value>delete a user role</value>
+  </data>
+  <data name="DefaultPermissions_Admin_FetchUserRole_Name" xml:space="preserve">
+    <value>fetch a user role</value>
+  </data>
+  <data name="DefaultPermissions_Admin_QueryUserRoles_Name" xml:space="preserve">
+    <value>query user roles</value>
+  </data>
+  <data name="DefaultPermissions_Admin_UpdateUserRole_Name" xml:space="preserve">
+    <value>update a user role</value>
+  </data>
+  <data name="No_Id_For_Deleted_Entity" xml:space="preserve">
+    <value>Id is not specified for entity to delete of type {0}.</value>
+  </data>
+  <data name="No_Id_For_Updated_Entity" xml:space="preserve">
+    <value>Id is not specified for entity to update of type {0}.</value>
+  </data>
+  <data name="Security_ChangePasswordUseCase_Password_Invalid" xml:space="preserve">
+    <value>Password invalid.</value>
+  </data>
+  <data name="DefaultPermissions_Admin_QueryTenants_Name" xml:space="preserve">
+    <value>query tenants</value>
+  </data>
+  <data name="DefaultPermissions_Admin_FetchTenantGroupAssignment_Name" xml:space="preserve">
+    <value>fetch tenant assignments to user groups</value>
+  </data>
+  <data name="DefaultPermissions_Admin_UpdateTenantGroupAssignment_Name" xml:space="preserve">
+    <value>update tenant assignment to user groups</value>
+  </data>
+  <data name="DefaultPermissions_Admin_CreateUser_Name" xml:space="preserve">
+    <value>create a new user</value>
+  </data>
+  <data name="DefaultPermissions_Admin_FetchUser_Name" xml:space="preserve">
+    <value>fetch a user data</value>
+  </data>
+  <data name="DefaultPermissions_Admin_UpdateUser_Name" xml:space="preserve">
+    <value>update a user data</value>
+  </data>
+  <data name="DefaultPermissions_Admin_DeleteUser_Name" xml:space="preserve">
+    <value>delete a user</value>
+  </data>
+  <data name="DefaultPermissions_Admin_QueryUsers_Name" xml:space="preserve">
+    <value>query users</value>
+  </data>
+  <data name="DefaultPermissions_Admin_FetchCustomUserRole_Name" xml:space="preserve">
+    <value>fetch a custom user role</value>
+  </data>
+  <data name="Security_CreateUserUseCase_Cannot_Create_Without_Group" xml:space="preserve">
+    <value>User group administrators cannot create users that wouldn't belong to any group.</value>
+  </data>
+  <data name="Security_CreateUserUseCase_Cannot_Create_For_Other_Group" xml:space="preserve">
+    <value>User group administrators cannot create users that wouldn't belong to the group they administrate.</value>
+  </data>
+  <data name="Security_CreateUserUseCase_Cannot_Create_With_Admin_Privileges" xml:space="preserve">
+    <value>User group administrators cannot create users with administrative privileges.</value>
+  </data>
+  <data name="Security_CreateUserUseCase_User_Group_Already_Full" xml:space="preserve">
+    <value>User group already has maximum allowed user count.</value>
+  </data>
+  <data name="Security_DeleteUserRoleUseCase_Cannot_Delete_Role_In_Use" xml:space="preserve">
+    <value>Cannot delete a user role that is assigned to active (not disabled) users.</value>
+  </data>
+  <data name="Security_DeleteUserUseCase_Cannot_Delete_Null_Group" xml:space="preserve">
+    <value>User group administrators cannot delete users that do not belong to any user group.</value>
+  </data>
+  <data name="Security_DeleteUserUseCase_Cannot_Delete_Other_Group" xml:space="preserve">
+    <value>User group administrators cannot delete users that belong to other user groups.</value>
+  </data>
+  <data name="Security_DeleteUserUseCase_No_Harakiri" xml:space="preserve">
+    <value>No harakiri.</value>
+  </data>
+  <data name="Security_FetchUserUseCase_No_Self_Fetch" xml:space="preserve">
+    <value>fetch self data</value>
+  </data>
+  <data name="Security_FetchUserUseCase_Unauthorized_For_GroupAdmin" xml:space="preserve">
+    <value>access data of the users outside of your group</value>
+  </data>
+  <data name="Security_FetchUserUseCase_Unauthorized_Admin_Fetch_By_GroupAdmin" xml:space="preserve">
+    <value>access data of admin users</value>
+  </data>
+  <data name="DefaultPermissions_Admin_UpdateCustomUserRole_Name" xml:space="preserve">
+    <value>update a custom user role for tenant</value>
+  </data>
+  <data name="Security_UpdateUserUseCase_Cannot_Update_Self" xml:space="preserve">
+    <value>update data about self</value>
+  </data>
+  <data name="Security_UpdateUserUseCase_No_Update_For_Other_Groups" xml:space="preserve">
+    <value>update users who belong to other user groups</value>
+  </data>
+  <data name="Security_UpdateUserUseCase_No_Update_Admin_Users" xml:space="preserve">
+    <value>update users with administrative privileges</value>
+  </data>
+  <data name="Security_UpdateUserUseCase_Cannot_Update_UserGroup" xml:space="preserve">
+    <value>Cannot update user group.</value>
+  </data>
+  <data name="Security_UpdateUserUseCase_Cannot_Grant_Admin" xml:space="preserve">
+    <value>Cannot grant administrative privileges.</value>
+  </data>
+  <data name="Security_UpdateCustomUserRoleUseCase_Cannot_Set_For_Self" xml:space="preserve">
+    <value>set custom user role for self</value>
+  </data>
+  <data name="Security_UpdateCustomUserRoleUseCase_Cannot_Set_For_Other_UserGroups" xml:space="preserve">
+    <value>set custom user roles for users that do not belong to his group</value>
+  </data>
+  <data name="Security_FetchCustomUserRoleUseCase_No_Self_Fetch" xml:space="preserve">
+    <value>fetch custom user role for self</value>
+  </data>
+  <data name="Security_FetchCustomUserRoleUseCase_No_Fetch_For_Other_UserGroups" xml:space="preserve">
+    <value>fetch a custom user role for a user that does not belong to the user group</value>
+  </data>
+</root>
