@@ -7,44 +7,22 @@ namespace A5Soft.A5App.Repositories
 {
     internal static class Extensions
     {
-
-        internal static void EnsureValidIdentityFor<T>(this IDomainEntityIdentity id)
+        internal static string CreateMD5(this string input)
         {
-            if (null == id) throw new ArgumentNullException(nameof(id));
-            if (id.IsNew) throw new ArgumentException(
-                $"Cannot fetch entity for non existent (IsNew) identity.", nameof(id));
-            if (id.DomainEntityType != typeof(T)) throw new InvalidOperationException(
-                $"Required identity for {typeof(T).FullName} while received {id.DomainEntityType.FullName}.");
-        }
+            // Use input string to calculate MD5 hash
+            using (System.Security.Cryptography.MD5 md5 = System.Security.Cryptography.MD5.Create())
+            {
+                byte[] inputBytes = new UTF8Encoding().GetBytes(input);
+                byte[] hashBytes = md5.ComputeHash(inputBytes);
 
-        internal static bool IsNullOrNew(this IDomainEntityIdentity id)
-        {
-            return (id?.IsNew ?? true);
+                // Convert the byte array to hexadecimal string
+                StringBuilder sb = new StringBuilder();
+                for (int i = 0; i < hashBytes.Length; i++)
+                {
+                    sb.Append(hashBytes[i].ToString("X2"));
+                }
+                return sb.ToString();
+            }
         }
-
-        internal static IDomainEntityIdentity ToIdentity<T>(this Guid value)
-        {
-            if (value == Guid.Empty) return new GuidDomainEntityIdentity(typeof(T));
-            return new GuidDomainEntityIdentity(value, typeof(T));
-        }
-
-        internal static IDomainEntityIdentity ToIdentity<T>(this Guid? value)
-        {
-            if (!value.HasValue || value.Value == Guid.Empty) return new GuidDomainEntityIdentity(typeof(T));
-            return new GuidDomainEntityIdentity(value.Value, typeof(T));
-        }
-
-        internal static IDomainEntityIdentity ToIdentity<T>(this int value)
-        {
-            if (!value.IsValidKey()) return new IntDomainEntityIdentity(typeof(T));
-            return new IntDomainEntityIdentity(value, typeof(T));
-        }
-
-        internal static IDomainEntityIdentity ToIdentity<T>(this int? value)
-        {
-            if (!value.IsValidKey()) return new IntDomainEntityIdentity(typeof(T));
-            return new IntDomainEntityIdentity(value.Value, typeof(T));
-        }
-
     }
 }

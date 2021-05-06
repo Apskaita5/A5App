@@ -129,14 +129,14 @@
   <data name="DefaultPermissions_ModuleName_Security" xml:space="preserve">
     <value>Security</value>
   </data>
-  <data name="DefaultPermissions_Security_CreateUserGroup_Description" xml:space="preserve">
-    <value>A permission to create a new user group.</value>
+  <data name="DefaultPermissions_Security_AccessAuditTrace_Description" xml:space="preserve">
+    <value>A permission to access audit trace data for documents (created at, created by, last updated at, last updated by).</value>
   </data>
-  <data name="DefaultPermissions_Security_CreateUserGroup_Name" xml:space="preserve">
-    <value>create a user group</value>
+  <data name="DefaultPermissions_Security_AccessAuditTrace_Name" xml:space="preserve">
+    <value>access audit trace</value>
   </data>
-  <data name="DefaultPermissions_Security_GroupName_UserGroup" xml:space="preserve">
-    <value>UserGroups</value>
+  <data name="DefaultPermissions_Security_GroupName_Security" xml:space="preserve">
+    <value>Security</value>
   </data>
   <data name="NotFoundException_Message" xml:space="preserve">
     <value>{0} not found (id = {1}).</value>
@@ -287,5 +287,50 @@
   </data>
   <data name="Security_FetchCustomUserRoleUseCase_No_Fetch_For_Other_UserGroups" xml:space="preserve">
     <value>fetch a custom user role for a user that does not belong to the user group</value>
+  </data>
+  <data name="ApplicationMenu_CommonGroup_Name" xml:space="preserve">
+    <value>Common</value>
+  </data>
+  <data name="ApplicationMenu_CommonGroup_Description" xml:space="preserve">
+    <value>Common application settings and user administration.</value>
+  </data>
+  <data name="ApplicationMenu_UserAdminMenuGroup_Name" xml:space="preserve">
+    <value>User Administration</value>
+  </data>
+  <data name="ApplicationMenu_UserAdminMenuGroup_Description" xml:space="preserve">
+    <value>User administration actions.</value>
+  </data>
+  <data name="ApplicationMenu_UsersMenuItem_Name" xml:space="preserve">
+    <value>Users</value>
+  </data>
+  <data name="ApplicationMenu_UsersMenuItem_Description" xml:space="preserve">
+    <value>User index.</value>
+  </data>
+  <data name="ApplicationMenu_UserRolesMenuItem_Name" xml:space="preserve">
+    <value>User Roles</value>
+  </data>
+  <data name="ApplicationMenu_UserRolesMenuItem_Description" xml:space="preserve">
+    <value>User role index</value>
+  </data>
+  <data name="ApplicationMenu_UserGroupsMenuItem_Name" xml:space="preserve">
+    <value>User Groups</value>
+  </data>
+  <data name="ApplicationMenu_UserGroupsMenuItem_Description" xml:space="preserve">
+    <value>User group index.</value>
+  </data>
+  <data name="ApplicationMenu_LoginTenantMenuGroup_Name" xml:space="preserve">
+    <value>Login Tenant</value>
+  </data>
+  <data name="ApplicationMenu_LoginTenantMenuGroup_Description" xml:space="preserve">
+    <value>Login to a tenant database.</value>
+  </data>
+  <data name="LoginTenantMenuItem_Logout" xml:space="preserve">
+    <value>Logout Tenant</value>
+  </data>
+  <data name="ApplicationMenu_ChangePasswordMenuItem_Name" xml:space="preserve">
+    <value>Change Password</value>
+  </data>
+  <data name="ApplicationMenu_ChangePasswordMenuItem_Description" xml:space="preserve">
+    <value>Change your password.</value>
   </data>
 </root>

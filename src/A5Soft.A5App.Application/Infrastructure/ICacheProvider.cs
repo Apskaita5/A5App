@@ -1,4 +1,5 @@
-﻿using System;
+﻿using A5Soft.CARMA.Domain;
+using System;
 using System.Threading.Tasks;
 
 namespace A5Soft.A5App.Application.Infrastructure
@@ -8,7 +9,8 @@ namespace A5Soft.A5App.Application.Infrastructure
     /// Represents an interface that should be implemented by a particular caching
     /// implementation, e.g. System.Runtime.Caching.MemoryCache for full .NET
     /// or Microsoft.Extensions.Caching.Memory.IMemoryCache for .NET core.
-    /// </summary>
+    /// </summary>  
+    [Service(ServiceLifetime.Singleton)]
     public interface ICacheProvider
     {
 
@@ -38,21 +40,21 @@ namespace A5Soft.A5App.Application.Infrastructure
         /// <typeparam name="T">a type of the cached item to retrieve</typeparam>
         /// <param name="factory">a method to fetch the item to cache</param>
         /// <param name="tenantId">an id of the tenant to retrieve or create a cached item for</param>
-        Task<T> GetOrCreate<T>(string tenantId, Func<Task<T>> factory);
+        Task<T> GetOrCreate<T>(Guid tenantId, Func<Task<T>> factory);
 
         /// <summary>
         /// Remove item of type <typeparamref name="T"/> from cache for tenant.
         /// </summary>
         /// <typeparam name="T">a type of the cached item to clear</typeparam> 
         /// <param name="tenantId">an id of the tenant to retrieve or create a cached item for</param>
-        void Clear<T>(string tenantId);
+        void Clear<T>(Guid tenantId);
 
         /// <summary>
         /// Remove item of type specified from cache for tenant.
         /// </summary>
         /// <param name="cachedItemType">a type of the cached item to clear</param>  
         /// <param name="tenantId">an id of the tenant to retrieve or create a cached item for</param>
-        void Clear(string tenantId, Type cachedItemType);
+        void Clear(Guid tenantId, Type cachedItemType);
 
     }
 }

@@ -6,7 +6,6 @@ using A5Soft.A5App.Application.UseCases.Security;
 using A5Soft.A5App.Domain.Security;
 using A5Soft.A5App.Domain.Security.Lookups;
 using A5Soft.A5App.Domain.Security.Queries;
-using A5Soft.CARMA.Application;
 using A5Soft.CARMA.Domain;
 using static A5Soft.A5App.Domain.Security.User;
 

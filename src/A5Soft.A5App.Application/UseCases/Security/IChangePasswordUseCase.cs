@@ -12,7 +12,7 @@ namespace A5Soft.A5App.Application.UseCases.Security
     /// </summary> 
     [UseCase(ServiceLifetime.Transient)]
     [AuthenticatedAuthorization]
-    public interface IChangePasswordUseCase
+    public interface IChangePasswordUseCase : IAuthorizedUseCase
     {
         /// <summary>
         /// Change the current user password.

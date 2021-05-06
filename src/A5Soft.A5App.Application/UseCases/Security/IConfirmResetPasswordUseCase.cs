@@ -10,7 +10,7 @@ namespace A5Soft.A5App.Application.UseCases.Security
     /// A use case for confirming user password reset.
     /// </summary> 
     [UseCase(ServiceLifetime.Singleton)]
-    public interface IConfirmResetPasswordUseCase
+    public interface IConfirmResetPasswordUseCase : IUseCase
     {
         /// <summary>
         /// Confirm password reset and login by specifying the password reset confirmation token (in url). 

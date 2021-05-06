@@ -1,0 +1,184 @@
+﻿@using System.Linq.Expressions
+@using System.Reflection
+@using InputType = BlazorStrap.InputType
+@using System.ComponentModel.DataAnnotations
+@using A5Soft.CARMA.Domain
+@using A5Soft.CARMA.Domain.Metadata
+
+@typeparam T
+    
+@if (inputType == InputType.Checkbox)
+{
+<BSFormGroup IsCheck="true">
+    <BSInput InputType="InputType.Checkbox" ValueChanged="async (T v) => await OnValueChanged(v)" 
+             ValueExpression="For"/>
+    <BSLabel>@metadata?.GetDisplayName()</BSLabel>
+    <BSFormFeedback For="@For" />
+</BSFormGroup>
+}
+else
+{
+    <BSFormGroup>
+        <BSAlert Color="Color.Info" IsOpen="@isOpen">
+            @metadata?.GetDisplayDescription()
+        </BSAlert>
+        <BSLabel>
+            @metadata?.GetDisplayName()
+            @if (!metadata?.GetDisplayDescription()?.IsNullOrWhiteSpace() ?? false)
+            {
+                <i class="far fa-question-circle" @onclick="() => isOpen = !isOpen"></i>
+            }
+        </BSLabel>
+        <BSInput InputType="@inputType" Id="@InputId" ValueChanged="async (T v) => await OnValueChanged(v)"
+                 ValueExpression="For" ValidateOnChange="true" PlaceHolder="@metadata?.GetDisplayPrompt()" @ref="Input"/>
+        <BSFormFeedback For="@For"/>
+    </BSFormGroup>
+}
+
+
+@code {
+
+    [Parameter]
+    public Expression<Func<T>> For { get; set; }
+
+    [Parameter]
+    public T FieldValue { get; set; }
+
+    [Parameter]
+    public EventCallback<T> FieldValueChanged { get; set; }
+
+    [Inject]
+    private IMetadataProvider metadataProvider { get; set; }
+    [Inject]
+    private IJSRuntime jsRuntime { get; set; }
+
+    private InputType inputType;
+    private bool inputIsInteger;
+    private IPropertyMetadata metadata;
+    private bool isOpen;
+    private BSInput<T> Input { get; set; }
+    private string InputId = Guid.NewGuid().ToString("N");
+
+    private async Task OnValueChanged(T value)
+    {
+        FieldValue = value;
+        await FieldValueChanged.InvokeAsync(FieldValue);
+    }
+
+    /// <inheritdoc />
+    protected override Task OnInitializedAsync()
+    {
+        var valueType = Nullable.GetUnderlyingType(typeof(T));
+        if (null == valueType) valueType = typeof(T);
+
+        bool inputTypeResolved = true;
+
+        if (valueType == typeof(string)) inputType = InputType.Text;
+        else if (valueType == typeof(DateTime)) inputType = InputType.Date;
+        else if (valueType == typeof(bool)) inputType = InputType.Checkbox;
+        else if (IsInteger(valueType)) inputType = InputType.Number;
+        else if (IsNumeric(valueType)) inputType = InputType.Number;
+        else inputTypeResolved = false;
+
+        inputIsInteger = IsInteger(valueType);
+
+        var dataTypeAttribute = GetPropertyInfo(For)?.GetCustomAttributes(typeof(DataTypeAttribute)).FirstOrDefault();
+        if (null != dataTypeAttribute)
+        {
+            if (((DataTypeAttribute) dataTypeAttribute).DataType == DataType.Password)
+            {
+                inputType = InputType.Password;
+                inputTypeResolved = true;
+            }
+            else if (((DataTypeAttribute)dataTypeAttribute).DataType == DataType.EmailAddress)
+            {
+                inputType = InputType.Email;
+                inputTypeResolved = true;
+            }
+            else if (((DataTypeAttribute)dataTypeAttribute).DataType == DataType.Html)
+            {
+                inputType = InputType.TextArea;
+                inputTypeResolved = true;
+            }
+            else if (((DataTypeAttribute)dataTypeAttribute).DataType == DataType.MultilineText)
+            {
+                inputType = InputType.TextArea;
+                inputTypeResolved = true;
+            }
+            else if (((DataTypeAttribute)dataTypeAttribute).DataType == DataType.Upload)
+            {
+                inputType = InputType.File;
+                inputTypeResolved = true;
+            }
+            else if (((DataTypeAttribute)dataTypeAttribute).DataType == DataType.Url)
+            {
+                inputType = InputType.Url;
+                inputTypeResolved = true;
+            }
+        }
+
+        if (!inputTypeResolved) throw new InvalidOperationException(
+            $"InputField component cannot handle input type {valueType.FullName}.");
+
+        return base.OnInitializedAsync();
+    }
+
+    private bool IsInteger(Type type)
+    {
+        return type == typeof(byte) || type == typeof(short) || type == typeof(int) || type == typeof(long) ||
+            type == typeof(byte?) || type == typeof(short?) || type == typeof(int?) || type == typeof(long?);
+    }
+
+    private bool IsNumeric(Type type)
+    {
+        return type == typeof(Single) || type == typeof(double) || type == typeof(decimal) ||
+            type == typeof(Single?) || type == typeof(double?) || type == typeof(decimal?);
+    }
+
+    /// <inheritdoc />
+    protected override Task OnParametersSetAsync()
+    {
+        var fieldIdentifier = FieldIdentifier.Create(For);
+        var entityMetadata = metadataProvider.GetEntityMetadata(fieldIdentifier.Model.GetType());
+        metadata = null;
+        if (entityMetadata.Properties.ContainsKey(fieldIdentifier.FieldName))
+            metadata = entityMetadata.Properties[fieldIdentifier.FieldName];
+
+        return base.OnParametersSetAsync();
+    }
+
+    /// <inheritdoc />
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        Input.Value = FieldValue;
+        StateHasChanged();
+        if (firstRender && inputIsInteger)
+        {
+            _ = await jsRuntime.InvokeAsync<string>("blazorExtensions.SetIntegerFilter",
+                InputId);
+        }
+        await base.OnAfterRenderAsync(firstRender);
+    }
+
+    /// <summary>
+    ///     Gets the corresponding <see cref="PropertyInfo" /> from an <see cref="Expression" />.
+    /// </summary>
+    /// <param name="expression">The expression that selects the property to get info on.</param>
+    /// <returns>The property info collected from the expression.</returns>
+    /// <exception cref="ArgumentNullException">When <paramref name="expression" /> is <c>null</c>.</exception>
+    /// <exception cref="ArgumentException">The expression doesn't indicate a valid property."</exception>
+    private static PropertyInfo GetPropertyInfo<TC>(Expression<Func<TC>> expression)
+    {
+        switch (expression?.Body) {
+            case null:
+                throw new ArgumentNullException(nameof(expression));
+            case UnaryExpression unaryExp when unaryExp.Operand is MemberExpression memberExp:
+                return (PropertyInfo)memberExp.Member;
+            case MemberExpression memberExp:
+                return (PropertyInfo)memberExp.Member;
+            default:
+                throw new ArgumentException($"The expression doesn't indicate a valid property. [ {expression} ]");
+        }
+    }
+
+}

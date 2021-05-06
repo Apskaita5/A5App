@@ -1,0 +1,36 @@
+﻿@using A5Soft.CARMA.Application.Navigation
+@inherits LayoutComponentBase 
+@inject SmartNavigationManager Navigation
+
+@if (MenuItem.ItemType == MenuItemType.UseCase)
+{
+    <BSDropdownItem OnClick="() => Navigation.NavigateToUseCase(MenuItem.UseCaseType)">@MenuItem.GetDisplayName()</BSDropdownItem>
+}
+else if (MenuItem.ItemType == MenuItemType.Separator)
+{
+    <BSDropdownItem IsDivider="true" />
+}
+else
+{
+    <BSDropdown DropdownDirection="DropdownDirection.Right">
+        <BSDropdownToggle IsLink="true" Color="Color.Secondary">@MenuItem.GetDisplayName()</BSDropdownToggle>
+        <BSDropdownMenu>
+            @foreach (var subItem in MenuItem.Items)
+            {
+                if (subItem.IsEnabled)
+                {
+                    <NavMenuItem MenuItem=subItem />
+                }
+            }
+        </BSDropdownMenu>
+    </BSDropdown>
+}
+
+
+@code
+{
+    [Parameter]
+    public MenuItem MenuItem { get; set; }
+
+
+}

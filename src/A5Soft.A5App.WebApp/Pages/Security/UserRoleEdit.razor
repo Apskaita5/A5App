@@ -1,0 +1,105 @@
+﻿@page "/Security/UserRoleEdit"
+@page "/Security/UserRoleEdit/{EntityId}"
+@using A5Soft.A5App.Application.UseCases.Security.UserRoles
+@using A5Soft.A5App.Domain.Security
+@using A5Soft.CARMA.Domain
+@using A5Soft.CARMA.Domain.Metadata
+@using System.Threading
+@using InputType = BlazorStrap.InputType
+
+@if (null == Current)
+{
+    <i class="fas fa-spinner fa-spin fa-5x"></i>
+}
+else
+{
+    <h3>@(Current.IsNew ? EntityMetadata?.GetDisplayNameForNew() : EntityMetadata?.GetDisplayNameForOld())</h3>
+
+    <InputForm Model="@Current" OnSubmitAsync=SaveAsync OnCancel=GoBack >
+        <InputField For="@(() => Current.Name)" @bind-FieldValue="@Current.Name" />
+        <InputField For="@(() => Current.Description)" @bind-FieldValue="@Current.Description" />
+        @foreach (var module in Current.Permissions
+          .Select(p => p.ModuleName.Trim())
+          .Distinct(StringComparer.CurrentCultureIgnoreCase))
+        {
+            <h4>@module</h4>
+            @foreach (var group in Current.Permissions
+               .Where(p => p.ModuleName.Trim().Equals(module, StringComparison.CurrentCultureIgnoreCase))
+               .Select(p => p.GroupName.Trim())
+               .Distinct(StringComparer.CurrentCultureIgnoreCase))
+            {
+                <h5>@group</h5>
+                @foreach (var permission in Current.Permissions
+                    .Where(p => p.ModuleName.Trim().Equals(module, StringComparison.CurrentCultureIgnoreCase)
+                    && p.GroupName.Trim().Equals(group, StringComparison.CurrentCultureIgnoreCase)))
+                {
+                    <BSFormGroup IsCheck="true">
+                        <BSInput InputType="InputType.Checkbox" @bind-Value="permission.Assigned" />
+                        <BSLabel>@permission.Name</BSLabel>
+                    </BSFormGroup>
+                }
+            }
+        }
+    </InputForm>
+}
+
+
+@code {
+    [Inject]
+    private ICreateUserRoleUseCase CreateUseCase { get; set; }
+    [Inject]
+    private IInitializeNewUserRoleUseCase InitUseCase { get; set; }
+    [Inject]
+    private IFetchUserRoleUseCase FetchUseCase { get; set; }
+    [Inject]
+    private IUpdateUserRoleUseCase UpdateUseCase { get; set; }
+    [CascadingParameter(Name = "ErrorHandler")]
+    private ErrorModal ErrorHandler { get; set; }
+    [Inject]
+    private SmartNavigationManager Navigator { get; set; }
+
+    [Parameter]
+    public string EntityId { get; set; }
+
+    private UserRole Current;
+    private IEntityMetadata EntityMetadata;
+
+
+    /// <inheritdoc />
+    protected override async Task OnInitializedAsync()
+    {
+        await base.OnInitializedAsync();
+        if (EntityId.IsNullOrWhiteSpace())
+        {
+            var success = await ErrorHandler.ExecuteWithError(async () =>
+            {
+                Current = await InitUseCase.FetchAsync();
+            });
+            if (!success) Navigator.NavigateBackOrMain();
+        }
+        else
+        {
+            var success = await ErrorHandler.ExecuteWithError(async () =>
+            {
+                var id = new GuidDomainEntityIdentity(new Guid(EntityId), typeof(UserRole));
+                Current = await FetchUseCase.FetchAsync(id, CancellationToken.None);
+                this.StateHasChanged();
+            });
+            if (!success) Navigator.NavigateBackOrMain();
+        }
+    }
+
+    private async Task SaveAsync(EditContext context)
+    {
+        if (Current.IsNew) await CreateUseCase.SaveAsync(Current);
+        else await UpdateUseCase.SaveAsync(Current);
+        this.StateHasChanged();
+        Navigator.NavigateBackOrMain();
+    }
+
+    private void GoBack()
+    {
+        Navigator.NavigateBackOrMain();
+    }
+
+}

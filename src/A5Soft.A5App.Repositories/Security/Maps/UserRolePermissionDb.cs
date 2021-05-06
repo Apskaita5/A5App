@@ -2,6 +2,7 @@
 using A5Soft.CARMA.Domain;
 using A5Soft.DAL.Core.MicroOrm;
 using System;
+using A5Soft.A5App.Application;
 
 namespace A5Soft.A5App.Repositories.Security.Maps
 {
@@ -11,7 +12,7 @@ namespace A5Soft.A5App.Repositories.Security.Maps
         private static readonly IdentityMapParentGuid<UserRolePermissionDb> _identityMap =
             new IdentityMapParentGuid<UserRolePermissionDb>("role_permissions", "id",
                 nameof(Id), () => new UserRolePermissionDb(), 
-                (c) => (Guid)c.Id.IdentityValue,
+                (c) => (Guid?)c.Id?.IdentityValue,
                 (c, v) => c.Id = v.ToIdentity<UserRolePermission>());
         private static readonly FieldMapGuid<UserRolePermissionDb> _roleIdMap = 
             new FieldMapGuid<UserRolePermissionDb>("role_id", nameof(RoleId), 

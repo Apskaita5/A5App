@@ -1,10 +1,11 @@
 ﻿using System;
 using System.Linq;
-using System.Security.Claims;
 using System.Threading;
 using System.Threading.Tasks;
+using A5Soft.A5App.Application.Infrastructure;
 using A5Soft.A5App.Application.Properties;
 using A5Soft.A5App.Application.Repositories.Security;
+using A5Soft.A5App.Application.UseCases.Security.ClaimsIdentityExtensions;
 using A5Soft.A5App.Domain.Security;
 using A5Soft.CARMA.Application;
 using A5Soft.CARMA.Application.Authorization;
@@ -20,16 +21,21 @@ namespace A5Soft.A5App.Application.UseCases.Security
     public class LoginTenantUseCase : QueryWithCriteriaUseCaseBase<LoginResponse, Guid>, ILoginTenantUseCase
     {
         private readonly IUserRepository _repository;
+        private readonly ISecurityTokenProvider _securityTokenProvider;
         private readonly ISecurityPolicy _policy;
 
 
         /// <inheritdoc />
-        public LoginTenantUseCase(IUserRepository repository, ISecurityPolicy policy, ClaimsIdentity user, 
-            IUseCaseAuthorizer authorizer, IClientDataPortal dataPortal,
+        public LoginTenantUseCase(IAuthenticationStateProvider authenticationStateProvider, 
+            IAuthorizationProvider authorizer, IClientDataPortal dataPortal,
             IValidationEngineProvider validationProvider, IMetadataProvider metadataProvider, 
-            ILogger logger) : base(user, authorizer, dataPortal, validationProvider, metadataProvider, logger)
+            ILogger logger, IUserRepository repository, ISecurityTokenProvider securityTokenProvider, 
+            ISecurityPolicy policy) 
+            : base(authenticationStateProvider, authorizer, dataPortal, validationProvider, metadataProvider, logger)
         {
             _repository = repository ?? throw new ArgumentNullException(nameof(repository));
+            _securityTokenProvider =
+                securityTokenProvider ?? throw new ArgumentNullException(nameof(securityTokenProvider));
             _policy = policy ?? throw new ArgumentNullException(nameof(policy));
         }
 
@@ -38,7 +44,9 @@ namespace A5Soft.A5App.Application.UseCases.Security
         {
             if (!tenantId.IsValidKey()) throw new ArgumentNullException(nameof(tenantId));
 
-            var userDetails = await _repository.FetchUserIdentityAsync(User.Sid(), tenantId, ct);
+            var identity = await GetIdentityAsync();
+
+            var userDetails = await _repository.FetchUserIdentityAsync(identity.Sid(), tenantId, ct);
 
             if (null == userDetails) throw new Exception(
                 $"Failed to fetch user details (id = {tenantId}).");
@@ -60,7 +68,7 @@ namespace A5Soft.A5App.Application.UseCases.Security
             Logger.LogSecurityIssue($"User {userDetails.Email} has successfully logged in " +
                 $"to tenant database (id = {tenantId}).");
 
-            return new LoginResponse(userDetails.ToClaimsIdentity(_policy));
+            return new LoginResponse(await userDetails.ToClaimsIdentityAsync(_policy, _securityTokenProvider));
         }
     }
 }

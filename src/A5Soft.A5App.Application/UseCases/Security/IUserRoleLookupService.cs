@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text;
 using System.Threading.Tasks;
 using A5Soft.A5App.Domain.Security.Lookups;
 using A5Soft.CARMA.Application;
@@ -14,7 +13,7 @@ namespace A5Soft.A5App.Application.UseCases.Security
     /// and the use case requires the lookup.
     /// </summary>
     [RemoteService(ServiceLifetime.Transient)]
-    public interface IUserRoleLookupService
+    public interface IUserRoleLookupService 
     {
         /// <summary>
         /// Gets a list of <see cref="UserRoleLookup"/>.

@@ -1,6 +1,7 @@
 ﻿using A5Soft.A5App.Domain.Security.Lookups;
 using A5Soft.DAL.Core.MicroOrm;
 using System;
+using A5Soft.A5App.Application;
 using A5Soft.A5App.Domain.Security;
 
 namespace A5Soft.A5App.Repositories.Security.Maps
@@ -18,5 +19,15 @@ namespace A5Soft.A5App.Repositories.Security.Maps
             new FieldMapString<TenantLookup>("tenant_name", nameof(Name),
                 (c, v) => ((TenantLookupDb)c)._name = v);
 #pragma warning restore IDE0052 // Remove unread private members
+
+        /// <inheritdoc />
+        internal TenantLookupDb() { }
+
+        /// <inheritdoc />
+        internal TenantLookupDb(Guid id, string name)
+        {
+            _id = id.ToIdentity<Tenant>();
+            _name = name;
+        }
     }
 }

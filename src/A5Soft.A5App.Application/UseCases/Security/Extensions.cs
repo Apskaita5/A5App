@@ -1,9 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Globalization;
-using System.Linq;
 using System.Security.Claims;
-using A5Soft.A5App.Domain.Security;
+using A5Soft.A5App.Application.UseCases.Security.ClaimsIdentityExtensions;
 using A5Soft.CARMA.Domain;
 
 namespace A5Soft.A5App.Application.UseCases.Security
@@ -206,51 +204,6 @@ namespace A5Soft.A5App.Application.UseCases.Security
 
             return (null != result);
         }
-
-
-        /// <summary>
-        /// Returns true if the identity claims were signed using serverSecret value.
-        /// </summary>
-        /// <param name="identity"></param>
-        /// <param name="serverSecret"><see cref="ISecurityPolicy.ServerSecret"/></param>
-        internal static bool IsValid(this ClaimsIdentity identity, string serverSecret)
-        {
-            if (null == identity) throw new ArgumentNullException(nameof(identity));
-            if (serverSecret.IsNullOrWhiteSpace()) throw new ArgumentNullException(nameof(serverSecret));
-
-            var securityToken = identity.FindFirst(ApplicationClaimTypes.SecurityToken)?.Value;
-            if (securityToken.IsNullOrWhiteSpace()) return false;
-
-            var validSecurityToken = identity.Claims.CreateSecurityToken(serverSecret);
-
-            return validSecurityToken == securityToken;
-        }
-
-        /// <summary>
-        /// Creates a SecurityToken value for the claims collection specified using
-        /// the serverSecret as a salt.
-        /// </summary>
-        /// <param name="claims"></param>
-        /// <param name="serverSecret"><see cref="ISecurityPolicy.ServerSecret"/></param>
-        internal static string CreateSecurityToken(this IEnumerable<Claim> claims, string serverSecret)
-        {
-            return serverSecret + "|" + string.Join("|",
-                claims.Where(c => c.IsApplicationClaim())
-                    .OrderBy(c => c.Type).ThenBy(c => c.Value)
-                    .Select(c => $"{c.Type}:{c.Value}")).ComputeSha256Hash();
-        }
-
-
-        private static readonly string[] CommonApplicationClaims = new string[]
-            { ClaimTypes.Email, ClaimTypes.Expiration, ClaimTypes.Name, ClaimTypes.MobilePhone,
-            ClaimTypes.Sid, ClaimTypes.GroupSid};
-
-        private static bool IsApplicationClaim(this Claim claim, bool includeSecurityToken = false)
-        {
-            if (Array.IndexOf(CommonApplicationClaims, claim.Type) > -1) return true;
-            return claim.Type.StartsWith(ApplicationClaimTypes.Namespace) &&
-                (includeSecurityToken || claim.Type != ApplicationClaimTypes.SecurityToken);
-        }
-
+              
     }
 }

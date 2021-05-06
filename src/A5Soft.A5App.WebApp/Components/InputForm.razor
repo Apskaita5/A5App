@@ -1,0 +1,78 @@
+﻿@using A5Soft.CARMA.Domain
+@using Microsoft.Extensions.Localization
+                                         
+@inherits ComponentBase
+@inject IStringLocalizer<CommonLocalization> localizer
+
+<BSForm Model="@Model" ValidateOnInit="true" OnValidSubmit="@BeginSubmitAsync" OnInvalidSubmit="OnInvalid">
+    <InjectedValidator />
+    @ChildContent
+    <BSButton Color="Color.Primary" ButtonType="ButtonType.Submit" IsDisabled="@inProgress">
+        @if (inProgress)
+        {
+            <i class="fas fa-spinner fa-spin"></i>
+        }
+        @(SubmitLabel.IsNullOrWhiteSpace() ? localizer["Ok"] : SubmitLabel)
+    </BSButton>
+    @if (CancelRequired)
+    {
+        <BSButton Color="Color.Secondary" ButtonType="ButtonType.Button" IsDisabled="@inProgress" OnClick="OnCancel">
+            @(CancelLabel.IsNullOrWhiteSpace() ? localizer["Cancel"] : CancelLabel)
+        </BSButton>
+    }
+</BSForm>
+
+<ErrorModal @ref="ErrorModal" />
+
+@code
+{
+
+    [Parameter]
+    public object Model { get; set; }
+
+    [Parameter]
+    public RenderFragment ChildContent { get; set; }
+
+    [Parameter]
+    public string SubmitLabel { get; set; }
+
+    [Parameter]
+    public Func<EditContext, Task> OnSubmitAsync { get; set; }
+
+    [Parameter]
+    public string CancelLabel { get; set; }
+
+    [Parameter]
+    public Action OnCancel { get; set; }
+
+
+    private bool CancelRequired => null != OnCancel;
+
+    private ErrorModal ErrorModal { get; set; }
+
+    private bool inProgress = false;
+
+
+    private async Task BeginSubmitAsync(EditContext context)
+    {
+        inProgress = true;
+        try
+        {
+            await OnSubmitAsync(context);
+        }
+        catch (Exception e)
+        {
+            ErrorModal.Show(e);
+        }
+        finally
+        {
+            inProgress = false;
+        }
+    }
+
+    private void OnInvalid(EditContext context)
+    {
+        var i = 11;
+    }
+
+}

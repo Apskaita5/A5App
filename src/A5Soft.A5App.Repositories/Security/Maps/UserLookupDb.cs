@@ -1,6 +1,8 @@
-﻿using A5Soft.A5App.Domain.Security.Lookups;
+﻿using A5Soft.A5App.Domain.Security;
+using A5Soft.A5App.Domain.Security.Lookups;
 using A5Soft.DAL.Core.MicroOrm;
 using System;
+using A5Soft.A5App.Application;
 
 namespace A5Soft.A5App.Repositories.Security.Maps
 {
@@ -10,9 +12,8 @@ namespace A5Soft.A5App.Repositories.Security.Maps
         private static readonly IdentityMapParentGuid<UserLookup> _identityMap =
             new IdentityMapParentGuid<UserLookup>("users", "id",
             nameof(Id), () => new UserLookupDb(),
-            (c) => c.Id,
-            (c, v) => ((UserLookupDb)c)._id = v ??
-            throw new InvalidOperationException("Lookup query returned null identity for user."));
+            (c) => (Guid?)c.Id.IdentityValue,
+            (c, v) => ((UserLookupDb)c)._id = v.ToIdentity<User>());
         private static readonly FieldMapBool<UserLookup> _isSuspendedMap =
             new FieldMapBool<UserLookup>("is_suspended", nameof(IsSuspended),
             (c, v) => ((UserLookupDb)c)._isSuspended = v);

@@ -1,6 +1,7 @@
 ﻿using A5Soft.A5App.Domain.Security;
 using A5Soft.DAL.Core.MicroOrm;
 using System;
+using A5Soft.A5App.Application;
 using static A5Soft.A5App.Domain.Security.TenantGroupAssignment;
 
 namespace A5Soft.A5App.Repositories.Security.Maps

@@ -1,6 +1,7 @@
 ﻿using A5Soft.A5App.Domain.Security;
 using A5Soft.DAL.Core.MicroOrm;
 using System;
+using A5Soft.A5App.Application;
 using static A5Soft.A5App.Domain.Security.UserRole;
 
 namespace A5Soft.A5App.Repositories.Security.Maps
@@ -11,7 +12,7 @@ namespace A5Soft.A5App.Repositories.Security.Maps
         private static readonly IdentityMapParentGuid<UserRoleDto> _identityMap =
             new IdentityMapParentGuid<UserRoleDto>("roles", "id",
             nameof(Id), () => new UserRoleDb(), 
-            (c) => (Guid)c.Id.IdentityValue,
+            (c) => (Guid?)c.Id?.IdentityValue,
             (c, v) => c.Id = v.ToIdentity<UserRole>(), 
             "FetchUserRole");
         private static readonly FieldMapString<UserRoleDto> _roleNameMap = 

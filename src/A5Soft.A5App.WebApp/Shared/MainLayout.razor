@@ -1,0 +1,34 @@
+﻿@inherits LayoutComponentBase
+@inject IBootstrapCss BootstrapCss
+
+<div class="sidebar">
+    <NavMenu />
+</div>
+
+<div class="main">  
+    <ErrorModal @ref=ErrorHandler /> 
+    <ConfirmModal @ref="ConfirmHandler" />
+    <div class="content px-4">
+        <CascadingValue Value="ErrorHandler" Name="ErrorHandler">
+            <CascadingValue Value="ConfirmHandler" Name="ConfirmHandler">
+                @Body
+            </CascadingValue>
+        </CascadingValue>
+    </div>
+</div>
+
+@code
+{
+    private ErrorModal ErrorHandler { get; set; }
+    private ConfirmModal ConfirmHandler { get; set; }
+
+    /// <inheritdoc />
+        protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (firstRender)
+        {
+            await BootstrapCss.SetBootstrapCss("4.3.1");
+        }
+        await base.OnAfterRenderAsync(firstRender);
+    }
+}

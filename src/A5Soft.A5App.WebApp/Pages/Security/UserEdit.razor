@@ -1,0 +1,101 @@
+﻿@page "/Security/UserEdit"
+@page "/Security/UserEdit/{EntityId}"
+@using A5Soft.A5App.Domain.Security
+@using A5Soft.CARMA.Domain
+@using A5Soft.CARMA.Domain.Metadata
+@using System.Threading
+@using A5Soft.A5App.Application.UseCases.Security.Users
+@using A5Soft.A5App.Domain.Security.Lookups
+@using InputType = BlazorStrap.InputType
+
+@if (null == Current)
+{
+    <i class="fas fa-spinner fa-spin fa-5x"></i>
+}
+else
+{
+    <h3>@(Current.IsNew ? EntityMetadata?.GetDisplayNameForNew() : EntityMetadata?.GetDisplayNameForOld())</h3>
+
+    <InputForm Model="@Current" OnSubmitAsync=SaveAsync OnCancel=GoBack >
+        <InputField For="@(() => Current.Name)" @bind-FieldValue="@Current.Name" />
+        <InputField For="@(() => Current.Email)" @bind-FieldValue="@Current.Email" />
+        <InputField For="@(() => Current.Phone)" @bind-FieldValue="@Current.Phone" />
+        <InputField For="@(() => Current.UserGroup)" @bind-FieldValue="@Current.UserGroup" />
+        <EnumInputField For="@(() => Current.AdminRole)" @bind-FieldValue="@Current.AdminRole" />
+        <InputField For="@(() => Current.IsDisabled)" @bind-FieldValue="@Current.IsDisabled" />
+        <InputField For="@(() => Current.IsSuspended)" @bind-FieldValue="@Current.IsSuspended" />
+        <InputField For="@(() => Current.TwoFactorEnabled)" @bind-FieldValue="@Current.TwoFactorEnabled" />
+        @foreach (var tenant in Current.RolesForTenants)
+        {
+            <BSFormGroup>
+                <BSLabel>
+                    @tenant.TenantName
+                </BSLabel>
+                <BSInput InputType="InputType.Select" @bind-Value="tenant.Role" ValidateOnChange="true" />
+            </BSFormGroup>
+        }
+    </InputForm>
+}
+
+@code { 
+    [Inject]
+    private ICreateUserUseCase CreateUseCase { get; set; }
+    [Inject]
+    private IInitializeNewUserUseCase InitUseCase { get; set; }
+    [Inject]
+    private IFetchUserUseCase FetchUseCase { get; set; }
+    [Inject]
+    private IUpdateUserUseCase UpdateUseCase { get; set; }
+    [CascadingParameter(Name = "ErrorHandler")]
+    private ErrorModal ErrorHandler { get; set; }
+    [Inject]
+    private SmartNavigationManager Navigator { get; set; }
+
+    [Parameter]
+    public string EntityId { get; set; }
+
+    private User Current;
+    private AdministrativeRole[] AdministrativeRoles;
+    private List<UserGroupLookup> UserGroups;
+    private IEntityMetadata EntityMetadata;
+
+    /// <inheritdoc />
+    protected override async Task OnInitializedAsync()
+    {
+        await base.OnInitializedAsync();
+        if (EntityId.IsNullOrWhiteSpace())
+        {
+            var success = await ErrorHandler.ExecuteWithError(async () =>
+            {
+                Current = await InitUseCase.FetchAsync();
+                AdministrativeRoles = await FetchUseCase.FetchAdministrativeRoleLookupAsync();
+                UserGroups = await FetchUseCase.FetchUserGroupLookupAsync();
+            });
+            if (!success) Navigator.NavigateBackOrMain();
+        }
+        else
+        {
+            var success = await ErrorHandler.ExecuteWithError(async () =>
+            {
+                var id = new GuidDomainEntityIdentity(new Guid(EntityId), typeof(User));
+                Current = await FetchUseCase.FetchAsync(id, CancellationToken.None);
+                this.StateHasChanged();
+            });
+            if (!success) Navigator.NavigateBackOrMain();
+        }
+    }
+
+    private async Task SaveAsync(EditContext context)
+    {
+        if (Current.IsNew) await CreateUseCase.SaveAsync(Current);
+        else await UpdateUseCase.SaveAsync(Current);
+        this.StateHasChanged();
+        Navigator.NavigateBackOrMain();
+    }
+
+    private void GoBack()
+    {
+        Navigator.NavigateBackOrMain();
+    }
+
+}

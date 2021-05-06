@@ -6,7 +6,7 @@ namespace A5Soft.A5App.Application.UseCases.Security
     /// <summary>
     /// a container for security related server scope settings
     /// </summary>
-    [Service]
+    [Service(ServiceLifetime.Singleton)]
     public interface ISecurityPolicy
     {
 
@@ -42,6 +42,11 @@ namespace A5Soft.A5App.Application.UseCases.Security
         int TwoFactorAuthenticationTokenExpiresIn { get; }
 
         /// <summary>
+        /// Gets a value (in hours) indicating for how long a user can remain logged in. (min 1, max 168)
+        /// </summary>
+        int IdentityExpiresIn { get; }
+
+        /// <summary>
         /// Gets a length of a new (cryptographically random) password for a new user
         /// or for a password reset (min 6, max 9).
         /// </summary>
@@ -75,9 +80,28 @@ namespace A5Soft.A5App.Application.UseCases.Security
         string ConfirmPasswordResetMessageContent { get; }
 
         /// <summary>
+        /// A subject of an email message inviting a new user.
+        /// </summary>
+        string InviteUserMessageSubject { get; }
+
+        /// <summary>
+        /// A (HTML) content of an email message inviting a new user.
+        /// Placeholders: {0} - user name; {1} - url; {2} - user name; {3} - user password.
+        /// </summary>
+        string InviteUserMessageContent { get; }
+
+        /// <summary>
         /// An url template for user password reset (shall have {0} placeholder for request token).
         /// </summary>
         string ConfirmPasswordResetUrl { get; }
+
+        /// <summary>
+        /// Gets a value indicating whether an authorized user can create a new tenant database,
+        /// i.e. whether the server supports database creation by the app.
+        /// If the server does not support in app database creation, a database should be created manually on the server
+        /// and registered in the app by its name.
+        /// </summary>
+        bool CanCreateTenantDatabase { get; }
 
     }
 }

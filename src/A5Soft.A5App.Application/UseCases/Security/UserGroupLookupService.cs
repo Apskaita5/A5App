@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Security.Claims;
 using System.Threading.Tasks;
 using A5Soft.A5App.Application.Infrastructure;
 using A5Soft.A5App.Application.Repositories.Security;
@@ -25,8 +24,8 @@ namespace A5Soft.A5App.Application.UseCases.Security
         /// <inheritdoc />
         public UserGroupLookupService(IUserGroupRepository repository, ICacheProvider cache, 
             IAuthorizationProvider authorizationProvider, IClientDataPortal dataPortal,
-            ClaimsIdentity userIdentity, ILogger logger) 
-            : base(authorizationProvider, dataPortal, userIdentity, logger)
+            IAuthenticationStateProvider authenticationStateProvider, ILogger logger) 
+            : base(authenticationStateProvider, authorizationProvider, dataPortal, logger)
         {
             _repository = repository ?? throw new ArgumentNullException(nameof(repository));
             _cache = cache ?? throw new ArgumentNullException(nameof(cache));
@@ -36,9 +35,12 @@ namespace A5Soft.A5App.Application.UseCases.Security
         protected override async Task<List<UserGroupLookup>> DoFetchAsync()
         {
             var result = await _cache.GetOrCreate(async () => await _repository.FetchLookupAsync());
-            if (User.IsGroupAdmin())
+
+            var identity = await GetIdentityAsync();
+
+            if (identity.IsGroupAdmin())
             {
-                var currentGroupId = User.GroupSid().ToEntityIdentity<UserGroup>();
+                var currentGroupId = identity.GroupSid().ToIdentity<UserGroup>();
                 return result.Where(g => g.Id.IsSameIdentityAs(currentGroupId)).ToList();
             }
 

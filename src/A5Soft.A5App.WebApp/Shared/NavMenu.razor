@@ -1,0 +1,75 @@
+﻿@using A5Soft.A5App.Application.UseCases.Security
+@using A5Soft.CARMA.Application.Navigation
+
+@inject SmartNavigationManager Navigation
+
+<BSNavbar IsExpand="true" IsDark="false" Color="Color.Light">
+    <BSNavbarBrand Href=""><img src="zalsva.ico" /> A5</BSNavbarBrand>
+    <BSNavbarToggler @onclick="onclick" />
+    <BSCollapse @ref="NavbarCollapse" IsNavbar="true">
+        <BSNav IsList="true" Class="mr-auto" IsNavbar="true">
+            <AuthorizeView>
+                @foreach (var item in AppMenu.TopItems.Where(i =>
+                  i.IsEnabled &&
+                  (i.ItemType == MenuItemType.UseCase || i.ItemType == MenuItemType.Submenu)))
+                {
+                    <BSNavItem>
+                        @if (item.ItemType == MenuItemType.UseCase)
+                        {
+                            <BSDropdownItem OnClick="() => Navigation.NavigateToUseCase(item.UseCaseType)">@item.GetDisplayName()</BSDropdownItem>
+                        }
+                        else
+                        {
+                            <BSDropdown>
+                                <BSDropdownToggle Color="Color.Light">@item.GetDisplayName()</BSDropdownToggle>
+                                <BSDropdownMenu>
+                                    @foreach (var subItem in item.Items.Where(i => i.IsEnabled))
+                                    {
+                                        <NavMenuItem MenuItem=subItem />
+                                    }
+                                </BSDropdownMenu>
+                            </BSDropdown>
+                        }
+                    </BSNavItem>
+                }
+            </AuthorizeView>
+        </BSNav>
+        <LoginDisplay />
+        <LanguageSelector />
+    </BSCollapse>
+</BSNavbar>
+
+
+@code {
+
+    [Inject]
+    public AuthenticationStateProvider AuthenticationProvider { get; set; }
+
+    [Inject]
+    public IFetchMainMenuUseCase FetchMainMenuUseCase { get; set; }
+
+    private MainMenu AppMenu { get; set; }
+
+
+    protected override async Task OnInitializedAsync()
+    {
+        AppMenu = await FetchMainMenuUseCase.FetchAsync();
+        AuthenticationProvider.AuthenticationStateChanged += async (t) => await OnUserChangedAsync(t);
+        await base.OnInitializedAsync();
+    }
+
+
+    private BSCollapse NavbarCollapse;
+    void onclick(MouseEventArgs e)
+    {
+        NavbarCollapse.Toggle();
+        Console.WriteLine("Navbar State->" + NavbarCollapse.IsOpen.ToString());
+    }
+
+    private async Task OnUserChangedAsync(Task<AuthenticationState> state)
+    {
+        AppMenu = await FetchMainMenuUseCase.FetchAsync();
+        this.StateHasChanged();
+    }
+
+}

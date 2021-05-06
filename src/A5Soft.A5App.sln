@@ -7,9 +7,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "A5Soft.A5App.Domain", "A5So
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "A5Soft.A5App.Application", "A5Soft.A5App.Application\A5Soft.A5App.Application.csproj", "{0C565DC4-9987-4654-AF79-85EBAC22854C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "A5Soft.A5App.Infrastructure", "A5Soft.A5App.Infrastructure\A5Soft.A5App.Infrastructure.csproj", "{70004A90-F5F7-4547-9312-5BB2216E2F58}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "A5Soft.A5App.Infrastructure", "A5Soft.A5App.Infrastructure\A5Soft.A5App.Infrastructure.csproj", "{70004A90-F5F7-4547-9312-5BB2216E2F58}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "A5Soft.A5App.Repositories", "A5Soft.A5App.Repositories\A5Soft.A5App.Repositories.csproj", "{8D4ADF4D-D19D-44A0-8353-A7FECF821701}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "A5Soft.A5App.Repositories", "A5Soft.A5App.Repositories\A5Soft.A5App.Repositories.csproj", "{8D4ADF4D-D19D-44A0-8353-A7FECF821701}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "A5Soft.A5App.WebApp", "A5Soft.A5App.WebApp\A5Soft.A5App.WebApp.csproj", "{50F42D24-BD20-4602-A372-A31F72BDD3C1}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -33,6 +35,10 @@ Global
 		{8D4ADF4D-D19D-44A0-8353-A7FECF821701}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8D4ADF4D-D19D-44A0-8353-A7FECF821701}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8D4ADF4D-D19D-44A0-8353-A7FECF821701}.Release|Any CPU.Build.0 = Release|Any CPU
+		{50F42D24-BD20-4602-A372-A31F72BDD3C1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{50F42D24-BD20-4602-A372-A31F72BDD3C1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{50F42D24-BD20-4602-A372-A31F72BDD3C1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{50F42D24-BD20-4602-A372-A31F72BDD3C1}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

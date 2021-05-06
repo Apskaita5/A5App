@@ -3,6 +3,7 @@ using A5Soft.A5App.Domain.Properties;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using A5Soft.CARMA.Domain;
+using MaxLengthAttribute = A5Soft.A5App.Domain.DataAnnotations.MaxLengthAttribute;
 
 namespace A5Soft.A5App.Domain.Security
 {
@@ -24,7 +25,7 @@ namespace A5Soft.A5App.Domain.Security
             ShortName = nameof(Resources.Security_IUser_Name_ShortName),
             Prompt = nameof(Resources.Security_IUser_Name_Prompt))]
         [ValueRequired]
-        [StringValueLength(255)]
+        [MaxLength(255)]
         string Name { get; }
 
         /// <summary>
@@ -36,8 +37,8 @@ namespace A5Soft.A5App.Domain.Security
             ShortName = nameof(Resources.Security_IUser_Email_ShortName),
             Prompt = nameof(Resources.Security_IUser_Email_Prompt))]
         [ValueRequired]
-        [DomainEmailAddress]
-        [StringValueLength(255)]
+        [Email]
+        [MaxLength(255)]
         string Email { get; }
 
         /// <summary>
@@ -48,7 +49,7 @@ namespace A5Soft.A5App.Domain.Security
             Name = nameof(Resources.Security_IUser_Phone_Name),
             ShortName = nameof(Resources.Security_IUser_Phone_ShortName),
             Prompt = nameof(Resources.Security_IUser_Phone_Prompt))]
-        [StringValueLength(255)]
+        [MaxLength(255)]
         string Phone { get; }
 
         /// <summary>

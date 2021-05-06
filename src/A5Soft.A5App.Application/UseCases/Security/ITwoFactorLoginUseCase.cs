@@ -12,7 +12,7 @@ namespace A5Soft.A5App.Application.UseCases.Security
     /// A use case for two factor authentication login (second step).
     /// </summary>  
     [UseCase(ServiceLifetime.Singleton)]
-    public interface ITwoFactorLoginUseCase
+    public interface ITwoFactorLoginUseCase : IUseCase
     {
         /// <summary>
         /// Completes two factor authentication (login) by providing a token.

@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Security.Claims;
 using System.Threading.Tasks;
 using A5Soft.A5App.Application.Infrastructure;
 using A5Soft.A5App.Application.Repositories.Security;
@@ -23,8 +22,8 @@ namespace A5Soft.A5App.Application.UseCases.Security
         /// <inheritdoc />
         public UserRoleLookupService(IUserRoleRepository repository, ICacheProvider cache,
             IAuthorizationProvider authorizationProvider, IClientDataPortal dataPortal,
-            ClaimsIdentity userIdentity, ILogger logger)
-            : base(authorizationProvider, dataPortal, userIdentity, logger)
+            IAuthenticationStateProvider authenticationStateProvider, ILogger logger)
+            : base(authenticationStateProvider, authorizationProvider, dataPortal, logger)
         {
             _repository = repository ?? throw new ArgumentNullException(nameof(repository));
             _cache = cache ?? throw new ArgumentNullException(nameof(cache));

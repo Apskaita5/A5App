@@ -60,6 +60,12 @@ namespace A5Soft.A5App.Domain.Security.Queries
         [ScaffoldColumn(true)]
         public int UserCount => _userCount;
 
+        /// <summary>
+        /// Whether the user role can be deleted.
+        /// </summary>
+        public bool CanDelete 
+            => _userCount < 1;
+
         /// <inheritdoc cref="IAuditable.InsertedAt"/>
         [Browsable(true)]
         [Display(AutoGenerateField = true, ResourceType = typeof(Resources), Order = 3,

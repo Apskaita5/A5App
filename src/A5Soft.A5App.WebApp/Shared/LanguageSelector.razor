@@ -1,0 +1,33 @@
+﻿@using System.Globalization
+@using A5Soft.A5App.Application
+@inject SmartNavigationManager NavigationManager
+
+<BSDropdown>
+    <BSDropdownToggle Color="Color.Light">@CurrentFlag()</BSDropdownToggle>
+    <BSDropdownMenu Right="true">
+        @foreach (var locale in SupportedLocales.All)
+        {
+        <BSDropdownItem @onclick='() => OnSelected(locale.Name)'><span class="@("flag-icon flag-icon-" + locale.StateCode)"></span> @locale.NativeName</BSDropdownItem>
+        }
+    </BSDropdownMenu>
+</BSDropdown>
+                                  
+@code {
+    private void OnSelected(string culture)
+    {
+
+        var uri = new Uri(NavigationManager.Uri)
+        .GetComponents(UriComponents.PathAndQuery, UriFormat.Unescaped);
+        var query = $"?culture={Uri.EscapeDataString(culture)}&" +
+            $"redirectUri={Uri.EscapeDataString(uri)}";
+
+        NavigationManager.NavigateTo("/Culture/SetCulture" + query, forceLoad: true);
+    }
+
+    private MarkupString CurrentFlag()
+    {
+        var current = CultureInfo.CurrentCulture.ToSupportedLocale();
+        return new MarkupString($"<span class='flag-icon flag-icon-{current.StateCode}'></span>");
+    }
+
+}

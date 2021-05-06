@@ -1,0 +1,153 @@
+﻿@page "/Security/UserGroups"
+@using A5Soft.A5App.Application.UseCases.Security.UserGroups
+@using A5Soft.A5App.Domain.Security.Queries
+@using System.Threading
+@using A5Soft.A5App.Domain.Security
+@using A5Soft.CARMA.Domain.Metadata
+@using Microsoft.Extensions.Localization
+
+@inject IStringLocalizer<CommonLocalization> localizer
+
+<h3>@QueryUseCase.GetMetadata().GetDisplayNameForNew()</h3>
+
+<p><BSButton OnClick="CreateNew">@FetchUseCase.GetMetadata().GetDisplayNameForCreateNew()</BSButton></p>
+
+<BSTable IsResponsive="true" IsStriped="true" @ref="ResultTable">
+    <BSTableHead TableHeadType="TableHeadType.Light">
+        <tr>
+            <th scope="col"></th>
+            <th scope="col">@(EntityMetadata?.GetPropertyMetadata(nameof(UserGroupQueryResult.GroupName))?
+                                .GetDisplayShortName() ?? nameof(UserGroupQueryResult.GroupName))</th>
+            <th scope="col">
+                @(EntityMetadata?.GetPropertyMetadata(nameof(UserGroupQueryResult.MaxUsers))?
+                                .GetDisplayShortName() ?? nameof(UserGroupQueryResult.MaxUsers))
+            </th>
+            <th scope="col">
+                @(EntityMetadata?.GetPropertyMetadata(nameof(UserGroupQueryResult.UserCount))?
+                                .GetDisplayShortName() ?? nameof(UserGroupQueryResult.UserCount))
+            </th>
+            <th scope="col">
+                @(EntityMetadata?.GetPropertyMetadata(nameof(UserGroupQueryResult.MaxTenants))?
+                                .GetDisplayShortName() ?? nameof(UserGroupQueryResult.MaxTenants))
+            </th>
+            <th scope="col">@(EntityMetadata?.GetPropertyMetadata(nameof(UserGroupQueryResult.TenantCount))?
+                                .GetDisplayShortName() ?? nameof(UserGroupQueryResult.TenantCount))</th>
+        </tr>
+    </BSTableHead>
+    <tbody>
+        @if (null == ResultSet)
+        {
+        <i class="fas fa-spinner fa-spin fa-5x"></i>
+        }
+        else
+        {
+            @foreach (var item in ResultSet)
+            {
+                <tr>
+                    <td>
+                        @if (DeleteInProgress.Contains(item))
+                        {
+                            <i class="fas fa-spinner fa-spin"></i>
+                        }
+                        else
+                        {
+                            <i class="far fa-edit" @onclick="async () => await EditAsync(item)" title="@localizer["Edit"]"></i>
+                            @if (item.CanDelete)
+                            {
+                                <i class="fas fa-trash-alt" @onclick="() => Delete(item)" title="@localizer["Delete"]"></i>
+                            }
+                        }
+                    </td>
+                    <th scope="row">@item.GroupName</th>
+                    <td>@item.MaxUsers</td>
+                    <td>@item.UserCount</td>
+                    <td>@item.MaxTenants</td>
+                    <td>@item.TenantCount</td>
+                </tr>
+            }
+        }
+    </tbody>
+</BSTable>
+
+<ModalInputForm Model="@Current" HeaderText=@(Current.IsNew ?
+                                                FetchUseCase.GetMetadata().GetDisplayNameForNew() :
+                                                FetchUseCase.GetMetadata().GetDisplayNameForOld())
+                OnSubmitAsync=SaveAsync @ref="EditModal">
+    <InputField For="@(() => Current.GroupName)" @bind-FieldValue="@Current.GroupName" />
+    <InputField For="@(() => Current.MaxUsers)" @bind-FieldValue="@Current.MaxUsers" />
+    <InputField For="@(() => Current.MaxTenants)" @bind-FieldValue="@Current.MaxTenants" />
+</ModalInputForm>
+
+
+@code {
+    [Inject]
+    private IQueryUserGroupsUseCase QueryUseCase { get; set; }
+    [Inject]
+    private ICreateUserGroupUseCase CreateUseCase { get; set; }
+    [Inject]
+    private IUpdateUserGroupUseCase UpdateUseCase { get; set; }
+    [Inject]
+    private IFetchUserGroupUseCase FetchUseCase { get; set; }
+    [Inject]
+    private IDeleteUserGroupUseCase DeleteUseCase { get; set; }
+    [CascadingParameter(Name = "ErrorHandler")]
+    private ErrorModal ErrorHandler { get; set; }
+    [CascadingParameter(Name = "ConfirmHandler")]
+    private ConfirmModal ConfirmHandler { get; set; }
+
+    private BSTable ResultTable { get; set; }
+    private ModalInputForm<UserGroup> EditModal { get; set; }
+    private List<UserGroupQueryResult> ResultSet;
+    private List<UserGroupQueryResult> DeleteInProgress = new List<UserGroupQueryResult>();
+    private UserGroup Current;
+    private IEntityMetadata EntityMetadata;
+
+    /// <inheritdoc />
+    protected override async Task OnInitializedAsync()
+    {
+        Current = CreateUseCase.NewUserGroup();
+        var success = await ErrorHandler.ExecuteWithError(
+            async () => ResultSet = await QueryUseCase.QueryAsync(CancellationToken.None));
+        if (!success) ResultSet = new List<UserGroupQueryResult>();
+        EntityMetadata = QueryUseCase.GetMetadata();
+        await base.OnInitializedAsync();
+    }
+
+    private async Task SaveAsync(EditContext context)
+    {
+        if (Current.IsNew) await CreateUseCase.SaveAsync(Current);
+        else await UpdateUseCase.SaveAsync(Current);
+        ResultSet = await QueryUseCase.QueryAsync(CancellationToken.None);
+        this.StateHasChanged();
+    }
+
+    private void CreateNew()
+    {
+        Current = CreateUseCase.NewUserGroup();
+        EditModal.Show();
+    }
+
+    private async Task EditAsync(UserGroupQueryResult item)
+    {
+        var success = await ErrorHandler.ExecuteWithError(async () =>
+            Current = await FetchUseCase.FetchAsync(item.Id, CancellationToken.None));
+        if (success) EditModal.Show();
+    }
+
+    private void Delete(UserGroupQueryResult item)
+    {
+        DeleteInProgress.Add(item);
+        ConfirmHandler.Ask(string.Format(localizer["ConfirmDelete_UserGroup"], item.GroupName),
+            async () =>
+            {
+                var success = await ErrorHandler.ExecuteWithError(() => DeleteUseCase.InvokeAsync(item.Id));
+                await Task.Delay(2000);
+                if (success) ResultSet.Remove(item);
+            }, () =>
+            {
+                DeleteInProgress.Remove(item);
+                this.StateHasChanged();
+            });
+    }
+
+}

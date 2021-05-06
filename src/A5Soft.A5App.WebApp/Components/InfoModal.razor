@@ -1,0 +1,28 @@
+﻿@using Microsoft.Extensions.Localization
+
+@inject IStringLocalizer<CommonLocalization> localizer
+
+<BSModal @ref="Dialog">
+    <BSModalHeader Class="alert alert-info" OnClick="@(() => Dialog.Hide())">
+        @localizer["Info"]
+    </BSModalHeader>
+    <BSModalBody><p>@Message</p></BSModalBody>
+    <BSModalFooter>
+        <BSButton Color="Color.Primary" @onclick="@(() => Dialog.Hide())">@localizer["Close"]</BSButton>
+    </BSModalFooter>
+</BSModal>
+
+@code
+{
+    private MarkupString Message;
+
+    private BSModal Dialog;
+                   
+    public void Show(string message)
+    {
+        Message = new MarkupString(string.Join("<br/>",
+            message.Split(Environment.NewLine, StringSplitOptions.None)));
+        Dialog.Show();
+    }
+
+}

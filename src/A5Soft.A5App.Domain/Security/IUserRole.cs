@@ -2,6 +2,7 @@
 using A5Soft.A5App.Domain.Properties;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using MaxLengthAttribute = A5Soft.A5App.Domain.DataAnnotations.MaxLengthAttribute;
 
 namespace A5Soft.A5App.Domain.Security
 {
@@ -23,7 +24,7 @@ namespace A5Soft.A5App.Domain.Security
             ShortName = nameof(Resources.Security_IUserRole_Name_ShortName),
             Prompt = nameof(Resources.Security_IUserRole_Name_Prompt))]
         [ValueRequired]
-        [StringValueLength(127)]
+        [MaxLength(127)]
         string Name { get; }
 
         /// <summary>
@@ -35,7 +36,7 @@ namespace A5Soft.A5App.Domain.Security
             ShortName = nameof(Resources.Security_IUserRole_Description_ShortName),
             Prompt = nameof(Resources.Security_IUserRole_Description_Prompt))]
         [ValueRequired]
-        [StringValueLength(255)]
+        [MaxLength(255)]
         string Description { get; }
 
         /// <summary>
@@ -45,8 +46,6 @@ namespace A5Soft.A5App.Domain.Security
             Description = nameof(Resources.Security_IUserRole_UserCount_Description),
             Name = nameof(Resources.Security_IUserRole_UserCount_Name),
             ShortName = nameof(Resources.Security_IUserRole_UserCount_ShortName))]
-        [ValueRequired]
-        [StringValueLength(255)]
         int UserCount { get; }
 
         /// <summary>
@@ -58,7 +57,7 @@ namespace A5Soft.A5App.Domain.Security
             ShortName = nameof(Resources.Security_IUserRole_Permissions_ShortName),
             Prompt = nameof(Resources.Security_IUserRole_Permissions_Prompt))]
         IList<IUserRolePermission> Permissions { get; }
-
+              
     }
 
 }

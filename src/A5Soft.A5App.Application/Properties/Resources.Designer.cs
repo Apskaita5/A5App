@@ -22,7 +22,7 @@ namespace A5Soft.A5App.Application.Properties {
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "16.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    internal class Resources {
+    public class Resources {
         
         private static global::System.Resources.ResourceManager resourceMan;
         
@@ -36,7 +36,7 @@ namespace A5Soft.A5App.Application.Properties {
         ///   Returns the cached ResourceManager instance used by this class.
         /// </summary>
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
-        internal static global::System.Resources.ResourceManager ResourceManager {
+        public static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
                     global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("A5Soft.A5App.Application.Properties.Resources", typeof(Resources).Assembly);
@@ -51,7 +51,7 @@ namespace A5Soft.A5App.Application.Properties {
         ///   resource lookups using this strongly typed resource class.
         /// </summary>
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
-        internal static global::System.Globalization.CultureInfo Culture {
+        public static global::System.Globalization.CultureInfo Culture {
             get {
                 return resourceCulture;
             }
@@ -61,9 +61,135 @@ namespace A5Soft.A5App.Application.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Change your password..
+        /// </summary>
+        public static string ApplicationMenu_ChangePasswordMenuItem_Description {
+            get {
+                return ResourceManager.GetString("ApplicationMenu_ChangePasswordMenuItem_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Change Password.
+        /// </summary>
+        public static string ApplicationMenu_ChangePasswordMenuItem_Name {
+            get {
+                return ResourceManager.GetString("ApplicationMenu_ChangePasswordMenuItem_Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Common application settings and user administration..
+        /// </summary>
+        public static string ApplicationMenu_CommonGroup_Description {
+            get {
+                return ResourceManager.GetString("ApplicationMenu_CommonGroup_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Common.
+        /// </summary>
+        public static string ApplicationMenu_CommonGroup_Name {
+            get {
+                return ResourceManager.GetString("ApplicationMenu_CommonGroup_Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Login to a tenant database..
+        /// </summary>
+        public static string ApplicationMenu_LoginTenantMenuGroup_Description {
+            get {
+                return ResourceManager.GetString("ApplicationMenu_LoginTenantMenuGroup_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Login Tenant.
+        /// </summary>
+        public static string ApplicationMenu_LoginTenantMenuGroup_Name {
+            get {
+                return ResourceManager.GetString("ApplicationMenu_LoginTenantMenuGroup_Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to User administration actions..
+        /// </summary>
+        public static string ApplicationMenu_UserAdminMenuGroup_Description {
+            get {
+                return ResourceManager.GetString("ApplicationMenu_UserAdminMenuGroup_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to User Administration.
+        /// </summary>
+        public static string ApplicationMenu_UserAdminMenuGroup_Name {
+            get {
+                return ResourceManager.GetString("ApplicationMenu_UserAdminMenuGroup_Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to User group index..
+        /// </summary>
+        public static string ApplicationMenu_UserGroupsMenuItem_Description {
+            get {
+                return ResourceManager.GetString("ApplicationMenu_UserGroupsMenuItem_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to User Groups.
+        /// </summary>
+        public static string ApplicationMenu_UserGroupsMenuItem_Name {
+            get {
+                return ResourceManager.GetString("ApplicationMenu_UserGroupsMenuItem_Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to User role index.
+        /// </summary>
+        public static string ApplicationMenu_UserRolesMenuItem_Description {
+            get {
+                return ResourceManager.GetString("ApplicationMenu_UserRolesMenuItem_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to User Roles.
+        /// </summary>
+        public static string ApplicationMenu_UserRolesMenuItem_Name {
+            get {
+                return ResourceManager.GetString("ApplicationMenu_UserRolesMenuItem_Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to User index..
+        /// </summary>
+        public static string ApplicationMenu_UsersMenuItem_Description {
+            get {
+                return ResourceManager.GetString("ApplicationMenu_UsersMenuItem_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Users.
+        /// </summary>
+        public static string ApplicationMenu_UsersMenuItem_Name {
+            get {
+                return ResourceManager.GetString("ApplicationMenu_UsersMenuItem_Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to User is not authorized to {0}..
         /// </summary>
-        internal static string AuthorizationException_Message {
+        public static string AuthorizationException_Message {
             get {
                 return ResourceManager.GetString("AuthorizationException_Message", resourceCulture);
             }
@@ -72,7 +198,7 @@ namespace A5Soft.A5App.Application.Properties {
         /// <summary>
         ///   Looks up a localized string similar to create a new user.
         /// </summary>
-        internal static string DefaultPermissions_Admin_CreateUser_Name {
+        public static string DefaultPermissions_Admin_CreateUser_Name {
             get {
                 return ResourceManager.GetString("DefaultPermissions_Admin_CreateUser_Name", resourceCulture);
             }
@@ -81,7 +207,7 @@ namespace A5Soft.A5App.Application.Properties {
         /// <summary>
         ///   Looks up a localized string similar to create a user group.
         /// </summary>
-        internal static string DefaultPermissions_Admin_CreateUserGroup_Name {
+        public static string DefaultPermissions_Admin_CreateUserGroup_Name {
             get {
                 return ResourceManager.GetString("DefaultPermissions_Admin_CreateUserGroup_Name", resourceCulture);
             }
@@ -90,7 +216,7 @@ namespace A5Soft.A5App.Application.Properties {
         /// <summary>
         ///   Looks up a localized string similar to create a new user role.
         /// </summary>
-        internal static string DefaultPermissions_Admin_CreateUserRole_Name {
+        public static string DefaultPermissions_Admin_CreateUserRole_Name {
             get {
                 return ResourceManager.GetString("DefaultPermissions_Admin_CreateUserRole_Name", resourceCulture);
             }
@@ -99,7 +225,7 @@ namespace A5Soft.A5App.Application.Properties {
         /// <summary>
         ///   Looks up a localized string similar to delete a user.
         /// </summary>
-        internal static string DefaultPermissions_Admin_DeleteUser_Name {
+        public static string DefaultPermissions_Admin_DeleteUser_Name {
             get {
                 return ResourceManager.GetString("DefaultPermissions_Admin_DeleteUser_Name", resourceCulture);
             }
@@ -108,7 +234,7 @@ namespace A5Soft.A5App.Application.Properties {
         /// <summary>
         ///   Looks up a localized string similar to delete a user group.
         /// </summary>
-        internal static string DefaultPermissions_Admin_DeleteUserGroup_Name {
+        public static string DefaultPermissions_Admin_DeleteUserGroup_Name {
             get {
                 return ResourceManager.GetString("DefaultPermissions_Admin_DeleteUserGroup_Name", resourceCulture);
             }
@@ -117,7 +243,7 @@ namespace A5Soft.A5App.Application.Properties {
         /// <summary>
         ///   Looks up a localized string similar to delete a user role.
         /// </summary>
-        internal static string DefaultPermissions_Admin_DeleteUserRole_Name {
+        public static string DefaultPermissions_Admin_DeleteUserRole_Name {
             get {
                 return ResourceManager.GetString("DefaultPermissions_Admin_DeleteUserRole_Name", resourceCulture);
             }
@@ -126,7 +252,7 @@ namespace A5Soft.A5App.Application.Properties {
         /// <summary>
         ///   Looks up a localized string similar to fetch a custom user role.
         /// </summary>
-        internal static string DefaultPermissions_Admin_FetchCustomUserRole_Name {
+        public static string DefaultPermissions_Admin_FetchCustomUserRole_Name {
             get {
                 return ResourceManager.GetString("DefaultPermissions_Admin_FetchCustomUserRole_Name", resourceCulture);
             }
@@ -135,7 +261,7 @@ namespace A5Soft.A5App.Application.Properties {
         /// <summary>
         ///   Looks up a localized string similar to fetch tenant assignments to user groups.
         /// </summary>
-        internal static string DefaultPermissions_Admin_FetchTenantGroupAssignment_Name {
+        public static string DefaultPermissions_Admin_FetchTenantGroupAssignment_Name {
             get {
                 return ResourceManager.GetString("DefaultPermissions_Admin_FetchTenantGroupAssignment_Name", resourceCulture);
             }
@@ -144,7 +270,7 @@ namespace A5Soft.A5App.Application.Properties {
         /// <summary>
         ///   Looks up a localized string similar to fetch a user data.
         /// </summary>
-        internal static string DefaultPermissions_Admin_FetchUser_Name {
+        public static string DefaultPermissions_Admin_FetchUser_Name {
             get {
                 return ResourceManager.GetString("DefaultPermissions_Admin_FetchUser_Name", resourceCulture);
             }
@@ -153,7 +279,7 @@ namespace A5Soft.A5App.Application.Properties {
         /// <summary>
         ///   Looks up a localized string similar to fetch a user group.
         /// </summary>
-        internal static string DefaultPermissions_Admin_FetchUserGroup_Name {
+        public static string DefaultPermissions_Admin_FetchUserGroup_Name {
             get {
                 return ResourceManager.GetString("DefaultPermissions_Admin_FetchUserGroup_Name", resourceCulture);
             }
@@ -162,7 +288,7 @@ namespace A5Soft.A5App.Application.Properties {
         /// <summary>
         ///   Looks up a localized string similar to fetch a user role.
         /// </summary>
-        internal static string DefaultPermissions_Admin_FetchUserRole_Name {
+        public static string DefaultPermissions_Admin_FetchUserRole_Name {
             get {
                 return ResourceManager.GetString("DefaultPermissions_Admin_FetchUserRole_Name", resourceCulture);
             }
@@ -171,7 +297,7 @@ namespace A5Soft.A5App.Application.Properties {
         /// <summary>
         ///   Looks up a localized string similar to query tenants.
         /// </summary>
-        internal static string DefaultPermissions_Admin_QueryTenants_Name {
+        public static string DefaultPermissions_Admin_QueryTenants_Name {
             get {
                 return ResourceManager.GetString("DefaultPermissions_Admin_QueryTenants_Name", resourceCulture);
             }
@@ -180,7 +306,7 @@ namespace A5Soft.A5App.Application.Properties {
         /// <summary>
         ///   Looks up a localized string similar to query user groups.
         /// </summary>
-        internal static string DefaultPermissions_Admin_QueryUserGroups_Name {
+        public static string DefaultPermissions_Admin_QueryUserGroups_Name {
             get {
                 return ResourceManager.GetString("DefaultPermissions_Admin_QueryUserGroups_Name", resourceCulture);
             }
@@ -189,7 +315,7 @@ namespace A5Soft.A5App.Application.Properties {
         /// <summary>
         ///   Looks up a localized string similar to query user roles.
         /// </summary>
-        internal static string DefaultPermissions_Admin_QueryUserRoles_Name {
+        public static string DefaultPermissions_Admin_QueryUserRoles_Name {
             get {
                 return ResourceManager.GetString("DefaultPermissions_Admin_QueryUserRoles_Name", resourceCulture);
             }
@@ -198,7 +324,7 @@ namespace A5Soft.A5App.Application.Properties {
         /// <summary>
         ///   Looks up a localized string similar to query users.
         /// </summary>
-        internal static string DefaultPermissions_Admin_QueryUsers_Name {
+        public static string DefaultPermissions_Admin_QueryUsers_Name {
             get {
                 return ResourceManager.GetString("DefaultPermissions_Admin_QueryUsers_Name", resourceCulture);
             }
@@ -207,7 +333,7 @@ namespace A5Soft.A5App.Application.Properties {
         /// <summary>
         ///   Looks up a localized string similar to update a custom user role for tenant.
         /// </summary>
-        internal static string DefaultPermissions_Admin_UpdateCustomUserRole_Name {
+        public static string DefaultPermissions_Admin_UpdateCustomUserRole_Name {
             get {
                 return ResourceManager.GetString("DefaultPermissions_Admin_UpdateCustomUserRole_Name", resourceCulture);
             }
@@ -216,7 +342,7 @@ namespace A5Soft.A5App.Application.Properties {
         /// <summary>
         ///   Looks up a localized string similar to update tenant assignment to user groups.
         /// </summary>
-        internal static string DefaultPermissions_Admin_UpdateTenantGroupAssignment_Name {
+        public static string DefaultPermissions_Admin_UpdateTenantGroupAssignment_Name {
             get {
                 return ResourceManager.GetString("DefaultPermissions_Admin_UpdateTenantGroupAssignment_Name", resourceCulture);
             }
@@ -225,7 +351,7 @@ namespace A5Soft.A5App.Application.Properties {
         /// <summary>
         ///   Looks up a localized string similar to update a user data.
         /// </summary>
-        internal static string DefaultPermissions_Admin_UpdateUser_Name {
+        public static string DefaultPermissions_Admin_UpdateUser_Name {
             get {
                 return ResourceManager.GetString("DefaultPermissions_Admin_UpdateUser_Name", resourceCulture);
             }
@@ -234,7 +360,7 @@ namespace A5Soft.A5App.Application.Properties {
         /// <summary>
         ///   Looks up a localized string similar to update a user group.
         /// </summary>
-        internal static string DefaultPermissions_Admin_UpdateUserGroup_Name {
+        public static string DefaultPermissions_Admin_UpdateUserGroup_Name {
             get {
                 return ResourceManager.GetString("DefaultPermissions_Admin_UpdateUserGroup_Name", resourceCulture);
             }
@@ -243,7 +369,7 @@ namespace A5Soft.A5App.Application.Properties {
         /// <summary>
         ///   Looks up a localized string similar to update a user role.
         /// </summary>
-        internal static string DefaultPermissions_Admin_UpdateUserRole_Name {
+        public static string DefaultPermissions_Admin_UpdateUserRole_Name {
             get {
                 return ResourceManager.GetString("DefaultPermissions_Admin_UpdateUserRole_Name", resourceCulture);
             }
@@ -252,43 +378,52 @@ namespace A5Soft.A5App.Application.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Security.
         /// </summary>
-        internal static string DefaultPermissions_ModuleName_Security {
+        public static string DefaultPermissions_ModuleName_Security {
             get {
                 return ResourceManager.GetString("DefaultPermissions_ModuleName_Security", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to A permission to create a new user group..
+        ///   Looks up a localized string similar to A permission to access audit trace data for documents (created at, created by, last updated at, last updated by)..
         /// </summary>
-        internal static string DefaultPermissions_Security_CreateUserGroup_Description {
+        public static string DefaultPermissions_Security_AccessAuditTrace_Description {
             get {
-                return ResourceManager.GetString("DefaultPermissions_Security_CreateUserGroup_Description", resourceCulture);
+                return ResourceManager.GetString("DefaultPermissions_Security_AccessAuditTrace_Description", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to create a user group.
+        ///   Looks up a localized string similar to access audit trace.
         /// </summary>
-        internal static string DefaultPermissions_Security_CreateUserGroup_Name {
+        public static string DefaultPermissions_Security_AccessAuditTrace_Name {
             get {
-                return ResourceManager.GetString("DefaultPermissions_Security_CreateUserGroup_Name", resourceCulture);
+                return ResourceManager.GetString("DefaultPermissions_Security_AccessAuditTrace_Name", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to UserGroups.
+        ///   Looks up a localized string similar to Security.
         /// </summary>
-        internal static string DefaultPermissions_Security_GroupName_UserGroup {
+        public static string DefaultPermissions_Security_GroupName_Security {
             get {
-                return ResourceManager.GetString("DefaultPermissions_Security_GroupName_UserGroup", resourceCulture);
+                return ResourceManager.GetString("DefaultPermissions_Security_GroupName_Security", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Logout Tenant.
+        /// </summary>
+        public static string LoginTenantMenuItem_Logout {
+            get {
+                return ResourceManager.GetString("LoginTenantMenuItem_Logout", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Id is not specified for entity to delete of type {0}..
         /// </summary>
-        internal static string No_Id_For_Deleted_Entity {
+        public static string No_Id_For_Deleted_Entity {
             get {
                 return ResourceManager.GetString("No_Id_For_Deleted_Entity", resourceCulture);
             }
@@ -297,7 +432,7 @@ namespace A5Soft.A5App.Application.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Id is not specified for entity to update of type {0}..
         /// </summary>
-        internal static string No_Id_For_Updated_Entity {
+        public static string No_Id_For_Updated_Entity {
             get {
                 return ResourceManager.GetString("No_Id_For_Updated_Entity", resourceCulture);
             }
@@ -306,7 +441,7 @@ namespace A5Soft.A5App.Application.Properties {
         /// <summary>
         ///   Looks up a localized string similar to {0} not found (id = {1})..
         /// </summary>
-        internal static string NotFoundException_Message {
+        public static string NotFoundException_Message {
             get {
                 return ResourceManager.GetString("NotFoundException_Message", resourceCulture);
             }
@@ -315,7 +450,7 @@ namespace A5Soft.A5App.Application.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Password invalid..
         /// </summary>
-        internal static string Security_ChangePasswordUseCase_Password_Invalid {
+        public static string Security_ChangePasswordUseCase_Password_Invalid {
             get {
                 return ResourceManager.GetString("Security_ChangePasswordUseCase_Password_Invalid", resourceCulture);
             }
@@ -324,7 +459,7 @@ namespace A5Soft.A5App.Application.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Your account has been disabled..
         /// </summary>
-        internal static string Security_ConfirmResetPasswordUseCase_Account_Disabled {
+        public static string Security_ConfirmResetPasswordUseCase_Account_Disabled {
             get {
                 return ResourceManager.GetString("Security_ConfirmResetPasswordUseCase_Account_Disabled", resourceCulture);
             }
@@ -333,7 +468,7 @@ namespace A5Soft.A5App.Application.Properties {
         /// <summary>
         ///   Looks up a localized string similar to User group administrators cannot create users that wouldn&apos;t belong to the group they administrate..
         /// </summary>
-        internal static string Security_CreateUserUseCase_Cannot_Create_For_Other_Group {
+        public static string Security_CreateUserUseCase_Cannot_Create_For_Other_Group {
             get {
                 return ResourceManager.GetString("Security_CreateUserUseCase_Cannot_Create_For_Other_Group", resourceCulture);
             }
@@ -342,7 +477,7 @@ namespace A5Soft.A5App.Application.Properties {
         /// <summary>
         ///   Looks up a localized string similar to User group administrators cannot create users with administrative privileges..
         /// </summary>
-        internal static string Security_CreateUserUseCase_Cannot_Create_With_Admin_Privileges {
+        public static string Security_CreateUserUseCase_Cannot_Create_With_Admin_Privileges {
             get {
                 return ResourceManager.GetString("Security_CreateUserUseCase_Cannot_Create_With_Admin_Privileges", resourceCulture);
             }
@@ -351,7 +486,7 @@ namespace A5Soft.A5App.Application.Properties {
         /// <summary>
         ///   Looks up a localized string similar to User group administrators cannot create users that wouldn&apos;t belong to any group..
         /// </summary>
-        internal static string Security_CreateUserUseCase_Cannot_Create_Without_Group {
+        public static string Security_CreateUserUseCase_Cannot_Create_Without_Group {
             get {
                 return ResourceManager.GetString("Security_CreateUserUseCase_Cannot_Create_Without_Group", resourceCulture);
             }
@@ -360,7 +495,7 @@ namespace A5Soft.A5App.Application.Properties {
         /// <summary>
         ///   Looks up a localized string similar to User group already has maximum allowed user count..
         /// </summary>
-        internal static string Security_CreateUserUseCase_User_Group_Already_Full {
+        public static string Security_CreateUserUseCase_User_Group_Already_Full {
             get {
                 return ResourceManager.GetString("Security_CreateUserUseCase_User_Group_Already_Full", resourceCulture);
             }
@@ -369,7 +504,7 @@ namespace A5Soft.A5App.Application.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Cannot delete a user group that has assigned users..
         /// </summary>
-        internal static string Security_DeleteUserGroupUseCase_Cannot_Delete_Non_Empty_UserGroup {
+        public static string Security_DeleteUserGroupUseCase_Cannot_Delete_Non_Empty_UserGroup {
             get {
                 return ResourceManager.GetString("Security_DeleteUserGroupUseCase_Cannot_Delete_Non_Empty_UserGroup", resourceCulture);
             }
@@ -378,7 +513,7 @@ namespace A5Soft.A5App.Application.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Cannot delete a user role that is assigned to active (not disabled) users..
         /// </summary>
-        internal static string Security_DeleteUserRoleUseCase_Cannot_Delete_Role_In_Use {
+        public static string Security_DeleteUserRoleUseCase_Cannot_Delete_Role_In_Use {
             get {
                 return ResourceManager.GetString("Security_DeleteUserRoleUseCase_Cannot_Delete_Role_In_Use", resourceCulture);
             }
@@ -387,7 +522,7 @@ namespace A5Soft.A5App.Application.Properties {
         /// <summary>
         ///   Looks up a localized string similar to User group administrators cannot delete users that do not belong to any user group..
         /// </summary>
-        internal static string Security_DeleteUserUseCase_Cannot_Delete_Null_Group {
+        public static string Security_DeleteUserUseCase_Cannot_Delete_Null_Group {
             get {
                 return ResourceManager.GetString("Security_DeleteUserUseCase_Cannot_Delete_Null_Group", resourceCulture);
             }
@@ -396,7 +531,7 @@ namespace A5Soft.A5App.Application.Properties {
         /// <summary>
         ///   Looks up a localized string similar to User group administrators cannot delete users that belong to other user groups..
         /// </summary>
-        internal static string Security_DeleteUserUseCase_Cannot_Delete_Other_Group {
+        public static string Security_DeleteUserUseCase_Cannot_Delete_Other_Group {
             get {
                 return ResourceManager.GetString("Security_DeleteUserUseCase_Cannot_Delete_Other_Group", resourceCulture);
             }
@@ -405,7 +540,7 @@ namespace A5Soft.A5App.Application.Properties {
         /// <summary>
         ///   Looks up a localized string similar to No harakiri..
         /// </summary>
-        internal static string Security_DeleteUserUseCase_No_Harakiri {
+        public static string Security_DeleteUserUseCase_No_Harakiri {
             get {
                 return ResourceManager.GetString("Security_DeleteUserUseCase_No_Harakiri", resourceCulture);
             }
@@ -414,7 +549,7 @@ namespace A5Soft.A5App.Application.Properties {
         /// <summary>
         ///   Looks up a localized string similar to fetch a custom user role for a user that does not belong to the user group.
         /// </summary>
-        internal static string Security_FetchCustomUserRoleUseCase_No_Fetch_For_Other_UserGroups {
+        public static string Security_FetchCustomUserRoleUseCase_No_Fetch_For_Other_UserGroups {
             get {
                 return ResourceManager.GetString("Security_FetchCustomUserRoleUseCase_No_Fetch_For_Other_UserGroups", resourceCulture);
             }
@@ -423,7 +558,7 @@ namespace A5Soft.A5App.Application.Properties {
         /// <summary>
         ///   Looks up a localized string similar to fetch custom user role for self.
         /// </summary>
-        internal static string Security_FetchCustomUserRoleUseCase_No_Self_Fetch {
+        public static string Security_FetchCustomUserRoleUseCase_No_Self_Fetch {
             get {
                 return ResourceManager.GetString("Security_FetchCustomUserRoleUseCase_No_Self_Fetch", resourceCulture);
             }
@@ -432,7 +567,7 @@ namespace A5Soft.A5App.Application.Properties {
         /// <summary>
         ///   Looks up a localized string similar to fetch self data.
         /// </summary>
-        internal static string Security_FetchUserUseCase_No_Self_Fetch {
+        public static string Security_FetchUserUseCase_No_Self_Fetch {
             get {
                 return ResourceManager.GetString("Security_FetchUserUseCase_No_Self_Fetch", resourceCulture);
             }
@@ -441,7 +576,7 @@ namespace A5Soft.A5App.Application.Properties {
         /// <summary>
         ///   Looks up a localized string similar to access data of admin users.
         /// </summary>
-        internal static string Security_FetchUserUseCase_Unauthorized_Admin_Fetch_By_GroupAdmin {
+        public static string Security_FetchUserUseCase_Unauthorized_Admin_Fetch_By_GroupAdmin {
             get {
                 return ResourceManager.GetString("Security_FetchUserUseCase_Unauthorized_Admin_Fetch_By_GroupAdmin", resourceCulture);
             }
@@ -450,7 +585,7 @@ namespace A5Soft.A5App.Application.Properties {
         /// <summary>
         ///   Looks up a localized string similar to access data of the users outside of your group.
         /// </summary>
-        internal static string Security_FetchUserUseCase_Unauthorized_For_GroupAdmin {
+        public static string Security_FetchUserUseCase_Unauthorized_For_GroupAdmin {
             get {
                 return ResourceManager.GetString("Security_FetchUserUseCase_Unauthorized_For_GroupAdmin", resourceCulture);
             }
@@ -459,7 +594,7 @@ namespace A5Soft.A5App.Application.Properties {
         /// <summary>
         ///   Looks up a localized string similar to You are not authorized to access the tenant data..
         /// </summary>
-        internal static string Security_LoginTenantUseCase_NotAuthorized {
+        public static string Security_LoginTenantUseCase_NotAuthorized {
             get {
                 return ResourceManager.GetString("Security_LoginTenantUseCase_NotAuthorized", resourceCulture);
             }
@@ -468,7 +603,7 @@ namespace A5Soft.A5App.Application.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Your account has been disabled..
         /// </summary>
-        internal static string Security_LoginUseCase_Account_Disabled {
+        public static string Security_LoginUseCase_Account_Disabled {
             get {
                 return ResourceManager.GetString("Security_LoginUseCase_Account_Disabled", resourceCulture);
             }
@@ -477,7 +612,7 @@ namespace A5Soft.A5App.Application.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Your account has been temporally suspended due to multiple failed logins. Lockout will end in {0} min. {1} sec..
         /// </summary>
-        internal static string Security_LoginUseCase_Account_LockedOut {
+        public static string Security_LoginUseCase_Account_LockedOut {
             get {
                 return ResourceManager.GetString("Security_LoginUseCase_Account_LockedOut", resourceCulture);
             }
@@ -486,7 +621,7 @@ namespace A5Soft.A5App.Application.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Invalid password or email..
         /// </summary>
-        internal static string Security_LoginUseCase_Invalid_Password_Or_Email {
+        public static string Security_LoginUseCase_Invalid_Password_Or_Email {
             get {
                 return ResourceManager.GetString("Security_LoginUseCase_Invalid_Password_Or_Email", resourceCulture);
             }
@@ -495,7 +630,7 @@ namespace A5Soft.A5App.Application.Properties {
         /// <summary>
         ///   Looks up a localized string similar to reset password for disabled account.
         /// </summary>
-        internal static string Security_ResetPasswordUseCase_Cannot_Reset_For_Disabled_Account {
+        public static string Security_ResetPasswordUseCase_Cannot_Reset_For_Disabled_Account {
             get {
                 return ResourceManager.GetString("Security_ResetPasswordUseCase_Cannot_Reset_For_Disabled_Account", resourceCulture);
             }
@@ -504,7 +639,7 @@ namespace A5Soft.A5App.Application.Properties {
         /// <summary>
         ///   Looks up a localized string similar to set custom user roles for users that do not belong to his group.
         /// </summary>
-        internal static string Security_UpdateCustomUserRoleUseCase_Cannot_Set_For_Other_UserGroups {
+        public static string Security_UpdateCustomUserRoleUseCase_Cannot_Set_For_Other_UserGroups {
             get {
                 return ResourceManager.GetString("Security_UpdateCustomUserRoleUseCase_Cannot_Set_For_Other_UserGroups", resourceCulture);
             }
@@ -513,7 +648,7 @@ namespace A5Soft.A5App.Application.Properties {
         /// <summary>
         ///   Looks up a localized string similar to set custom user role for self.
         /// </summary>
-        internal static string Security_UpdateCustomUserRoleUseCase_Cannot_Set_For_Self {
+        public static string Security_UpdateCustomUserRoleUseCase_Cannot_Set_For_Self {
             get {
                 return ResourceManager.GetString("Security_UpdateCustomUserRoleUseCase_Cannot_Set_For_Self", resourceCulture);
             }
@@ -522,7 +657,7 @@ namespace A5Soft.A5App.Application.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Cannot grant administrative privileges..
         /// </summary>
-        internal static string Security_UpdateUserUseCase_Cannot_Grant_Admin {
+        public static string Security_UpdateUserUseCase_Cannot_Grant_Admin {
             get {
                 return ResourceManager.GetString("Security_UpdateUserUseCase_Cannot_Grant_Admin", resourceCulture);
             }
@@ -531,7 +666,7 @@ namespace A5Soft.A5App.Application.Properties {
         /// <summary>
         ///   Looks up a localized string similar to update data about self.
         /// </summary>
-        internal static string Security_UpdateUserUseCase_Cannot_Update_Self {
+        public static string Security_UpdateUserUseCase_Cannot_Update_Self {
             get {
                 return ResourceManager.GetString("Security_UpdateUserUseCase_Cannot_Update_Self", resourceCulture);
             }
@@ -540,7 +675,7 @@ namespace A5Soft.A5App.Application.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Cannot update user group..
         /// </summary>
-        internal static string Security_UpdateUserUseCase_Cannot_Update_UserGroup {
+        public static string Security_UpdateUserUseCase_Cannot_Update_UserGroup {
             get {
                 return ResourceManager.GetString("Security_UpdateUserUseCase_Cannot_Update_UserGroup", resourceCulture);
             }
@@ -549,7 +684,7 @@ namespace A5Soft.A5App.Application.Properties {
         /// <summary>
         ///   Looks up a localized string similar to update users with administrative privileges.
         /// </summary>
-        internal static string Security_UpdateUserUseCase_No_Update_Admin_Users {
+        public static string Security_UpdateUserUseCase_No_Update_Admin_Users {
             get {
                 return ResourceManager.GetString("Security_UpdateUserUseCase_No_Update_Admin_Users", resourceCulture);
             }
@@ -558,7 +693,7 @@ namespace A5Soft.A5App.Application.Properties {
         /// <summary>
         ///   Looks up a localized string similar to update users who belong to other user groups.
         /// </summary>
-        internal static string Security_UpdateUserUseCase_No_Update_For_Other_Groups {
+        public static string Security_UpdateUserUseCase_No_Update_For_Other_Groups {
             get {
                 return ResourceManager.GetString("Security_UpdateUserUseCase_No_Update_For_Other_Groups", resourceCulture);
             }
@@ -567,7 +702,7 @@ namespace A5Soft.A5App.Application.Properties {
         /// <summary>
         ///   Looks up a localized string similar to User is not logged in..
         /// </summary>
-        internal static string UnAuthenticatedException_Message {
+        public static string UnAuthenticatedException_Message {
             get {
                 return ResourceManager.GetString("UnAuthenticatedException_Message", resourceCulture);
             }

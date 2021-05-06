@@ -3,12 +3,14 @@ using System.Security.Cryptography;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using A5Soft.CARMA.Domain;
 
 namespace A5Soft.A5App.Infrastructure
 {
     /// <summary>
     /// <see cref="ISecureRandomProvider"/> implementation using <see cref="RNGCryptoServiceProvider"/>.
     /// </summary>
+    [DefaultServiceImplementation(typeof(ISecureRandomProvider))]
     public class RNGSecureRandomProvider : ISecureRandomProvider
     {
         private static readonly char[] PasswordChars = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890"

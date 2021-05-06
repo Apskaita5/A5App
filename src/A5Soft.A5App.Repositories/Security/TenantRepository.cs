@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
+using A5Soft.A5App.Application;
 using A5Soft.A5App.Repositories.Security.Maps;
 using static A5Soft.A5App.Domain.Security.Tenant;
 using A5Soft.A5App.Domain.Security.Queries;
@@ -18,20 +19,20 @@ namespace A5Soft.A5App.Repositories.Security
 {
     /// <summary>
     /// a native repository implementation for <see cref="Tenant"/>
-    /// </summary>
+    /// </summary> 
+    [DefaultServiceImplementation(typeof(ITenantRepository))]
     public class TenantRepository : ITenantRepository
     {
-        private readonly IOrmService _ormService;
+        private readonly ISecurityOrmServiceProvider _ormServiceProvider;
 
 
         /// <summary>
         /// creates a new instance of TenantRepository.
         /// </summary>
-        /// <param name="ormService">an ORM service provider for DI</param>
-        public TenantRepository(IOrmServiceProvider ormService)
+        /// <param name="securityOrmService">an ORM service provider for DI</param>
+        public TenantRepository(ISecurityOrmServiceProvider securityOrmService)
         {
-            _ormService = ormService?.GetServiceForSecurity() ??
-                throw new ArgumentNullException(nameof(ormService));
+            _ormServiceProvider = securityOrmService ?? throw new ArgumentNullException(nameof(securityOrmService));
         }
 
 
@@ -41,7 +42,7 @@ namespace A5Soft.A5App.Repositories.Security
         {
             id.EnsureValidIdentityFor<Tenant>();
 
-            return await _ormService.FetchEntityAsync<TenantDto>(id.IdentityValue, ct);
+            return await _ormServiceProvider.GetService().FetchEntityAsync<TenantDto>(id.IdentityValue, ct);
         }
 
         /// <inheritdoc cref="ITenantRepository.FetchAssignmentsAsync"/>
@@ -50,20 +51,20 @@ namespace A5Soft.A5App.Repositories.Security
         {
             id.EnsureValidIdentityFor<Tenant>();
 
-            return await _ormService.FetchEntityAsync<TenantGroupAssignmentsDto>(id.IdentityValue, ct);
+            return await _ormServiceProvider.GetService().FetchEntityAsync<TenantGroupAssignmentsDto>(id.IdentityValue, ct);
         }
 
         /// <inheritdoc cref="ITenantRepository.FetchLookupAsync"/>
         public Task<List<TenantLookup>> FetchLookupAsync(CancellationToken ct = default)
         {
-            return _ormService.FetchAllEntitiesAsync<TenantLookup>(ct);
+            return _ormServiceProvider.GetService().FetchAllEntitiesAsync<TenantLookup>(ct);
         }
 
         /// <inheritdoc cref="ITenantRepository.FetchLookupForUserAsync"/>
         public async Task<List<TenantLookup>> FetchLookupForUserAsync(IDomainEntityIdentity userId, 
             CancellationToken ct = default)
         {
-            var reader = await _ormService.Agent.GetReaderAsync("FetchTenantLookupForUser", 
+            var reader = await _ormServiceProvider.GetService().Agent.GetReaderAsync("FetchTenantLookupForUser", 
                 new SqlParam[] {SqlParam.Create("UD", userId.IdentityValue) }, ct)
                 .ConfigureAwait(false);
 
@@ -74,7 +75,7 @@ namespace A5Soft.A5App.Repositories.Security
                 while (await reader.ReadAsync(ct).ConfigureAwait(false))
                 {
                     TenantLookup newItem = new TenantLookupDb();
-                    _ormService.LoadObjectFields(newItem, reader);
+                    _ormServiceProvider.GetService().LoadObjectFields(newItem, reader);
                     result.Add(newItem);
                 }
             }
@@ -89,7 +90,7 @@ namespace A5Soft.A5App.Repositories.Security
         /// <inheritdoc cref="ITenantRepository.QueryAsync"/>
         public Task<List<TenantQueryResult>> QueryAsync(CancellationToken ct = default)
         {
-            return _ormService.QueryAsync<TenantQueryResult>(null, ct);
+            return _ormServiceProvider.GetService().QueryAsync<TenantQueryResult>(null, ct);
         }
 
         /// <inheritdoc cref="ITenantRepository.InsertAsync"/>
@@ -97,7 +98,7 @@ namespace A5Soft.A5App.Repositories.Security
         {
             if (null == dto) throw new ArgumentNullException(nameof(dto));
 
-            await _ormService.ExecuteInsertAsync(dto, userId);
+            await _ormServiceProvider.GetService().ExecuteInsertAsync(dto, userId);
 
             return dto;
         }
@@ -107,7 +108,7 @@ namespace A5Soft.A5App.Repositories.Security
         {
             if (null == dto) throw new ArgumentNullException(nameof(dto));
 
-            await _ormService.ExecuteUpdateAsync(dto);
+            await _ormServiceProvider.GetService().ExecuteUpdateAsync(dto);
 
             return dto;
         }
@@ -119,11 +120,11 @@ namespace A5Soft.A5App.Repositories.Security
 
             foreach (var deletedAssignment in dto.DeletedAssignments.Where(a => !a.Id.IsNullOrNew()))
             {
-                await _ormService.ExecuteDeleteAsync(deletedAssignment);
+                await _ormServiceProvider.GetService().ExecuteDeleteAsync(deletedAssignment);
             }
             foreach (var newAssignment in dto.Assignments.Where(a => a.Id.IsNullOrNew()))
             {
-                await _ormService.ExecuteInsertChildAsync(newAssignment, dto.Id.IdentityValue);
+                await _ormServiceProvider.GetService().ExecuteInsertChildAsync(newAssignment, dto.Id.IdentityValue);
             }
 
             return dto;
@@ -134,7 +135,7 @@ namespace A5Soft.A5App.Repositories.Security
         {
             id.EnsureValidIdentityFor<Tenant>();
 
-            await _ormService.ExecuteDeleteAsync<TenantDto>(id.IdentityValue);
+            await _ormServiceProvider.GetService().ExecuteDeleteAsync<TenantDto>(id.IdentityValue);
         }
 
         /// <inheritdoc cref="ITenantRepository.AssignToUserGroupAsync"/>
@@ -144,11 +145,11 @@ namespace A5Soft.A5App.Repositories.Security
             id.EnsureValidIdentityFor<Tenant>();
             groupId.EnsureValidIdentityFor<UserGroup>();
 
-            var current = await _ormService
+            var current = await _ormServiceProvider.GetService()
                 .FetchChildEntitiesAsync<TenantGroupAssignmentDto>(id.IdentityValue);
             if (!current.Any(c => c.GroupId.IsSameIdentityAs(groupId)))
             {
-                await _ormService.ExecuteInsertChildAsync<TenantGroupAssignmentDto>(
+                await _ormServiceProvider.GetService().ExecuteInsertChildAsync<TenantGroupAssignmentDto>(
                     new TenantGroupAssignmentDb() { GroupId = groupId }, id);
             }
         }
@@ -158,7 +159,7 @@ namespace A5Soft.A5App.Repositories.Security
         {
             groupId.EnsureValidIdentityFor<UserGroup>();
 
-            var result = await _ormService.Agent.FetchTableAsync("FetchCanAssignToUserGroup",
+            var result = await _ormServiceProvider.GetService().Agent.FetchTableAsync("FetchCanAssignToUserGroup",
                 new SqlParam[] { SqlParam.Create("CD", groupId.IdentityValue) });
             
             if (result.Rows.Count < 1) throw new InvalidOperationException(

@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using System.Security.Claims;
 using System.Threading;
 using System.Threading.Tasks;
 using A5Soft.A5App.Domain.Security.Lookups;
@@ -14,7 +13,7 @@ namespace A5Soft.A5App.Application.UseCases.Security
     /// </summary>
     [AuthenticatedAuthorization]
     [UseCase(ServiceLifetime.Transient)]
-    public interface IFetchTenantLookupUseCase
+    public interface IFetchTenantLookupUseCase : IAuthorizedUseCase
     {
         /// <summary>
         /// Gets a list of <see cref="TenantLookup"/> accessible for the user.
@@ -27,11 +26,5 @@ namespace A5Soft.A5App.Application.UseCases.Security
         /// Gets a metadata for query result.
         /// </summary>
         IEntityMetadata GetMetadata();
-
-        /// <inheritdoc cref="IAuthorizedUseCase.CanInvoke"/>
-        bool CanInvoke(bool throwOnNotAuthorized);
-
-        /// <inheritdoc cref="IAuthorizedUseCase.User"/>
-        ClaimsIdentity User { get; }
     }
 }

@@ -1,0 +1,150 @@
+﻿@page "/Security/Users"
+@using A5Soft.A5App.Domain.Security.Queries
+@using System.Threading
+@using A5Soft.A5App.Application.UseCases.Security.Users
+@using A5Soft.CARMA.Domain.Metadata
+@using Microsoft.Extensions.Localization
+
+@inject IStringLocalizer<CommonLocalization> localizer
+
+<h3>@QueryUseCase.GetMetadata().GetDisplayNameForNew()</h3>
+
+<p><BSButton OnClick="CreateNew">@FetchUseCase.GetMetadata().GetDisplayNameForCreateNew()</BSButton></p>
+
+<BSTable IsResponsive="true" IsStriped="true" >
+    <BSTableHead TableHeadType="TableHeadType.Light">
+        <tr>
+            <th scope="col"></th>
+            <th scope="col">
+                @(EntityMetadata?.GetPropertyMetadata(nameof(UserQueryResult.Name))?
+                                .GetDisplayShortName() ?? nameof(UserQueryResult.Name))
+            </th>
+            <th scope="col">
+                @(EntityMetadata?.GetPropertyMetadata(nameof(UserQueryResult.Email))?
+                    .GetDisplayShortName() ?? nameof(UserQueryResult.Email))
+            </th>
+            <th scope="col">
+                @(EntityMetadata?.GetPropertyMetadata(nameof(UserQueryResult.Phone))?
+                    .GetDisplayShortName() ?? nameof(UserQueryResult.Phone))
+            </th>
+            <th scope="col">
+                @(EntityMetadata?.GetPropertyMetadata(nameof(UserQueryResult.GroupName))?
+                    .GetDisplayShortName() ?? nameof(UserQueryResult.GroupName))
+            </th>
+            <th scope="col">
+                @(EntityMetadata?.GetPropertyMetadata(nameof(UserQueryResult.AdminRole))?
+                                .GetDisplayShortName() ?? nameof(UserQueryResult.AdminRole))
+            </th>
+            <th scope="col">
+                @(EntityMetadata?.GetPropertyMetadata(nameof(UserQueryResult.Roles))?
+                    .GetDisplayShortName() ?? nameof(UserQueryResult.Roles))
+            </th>
+            <th scope="col">
+                @(EntityMetadata?.GetPropertyMetadata(nameof(UserQueryResult.TenantCount))?
+                                .GetDisplayShortName() ?? nameof(UserQueryResult.TenantCount))
+            </th>  
+            <th scope="col">
+
+            </th>
+        </tr>
+    </BSTableHead>
+    <tbody>
+        @if (null == ResultSet)
+        {
+            <i class="fas fa-spinner fa-spin fa-5x"></i>
+        }
+        else
+        {
+            @foreach (var item in ResultSet)
+            {
+    <tr>
+        <td>
+            @if (DeleteInProgress.Contains(item))
+            {
+                <i class="fas fa-spinner fa-spin"></i>
+            }
+            else
+            {
+                <i class="far fa-edit" @onclick="() => Edit(item)" title="@localizer["Edit"]"></i>
+                <i class="fas fa-trash-alt" @onclick="() => Delete(item)" title="@localizer["Delete"]"></i>
+            }
+        </td>
+        <th scope="row">@item.Name</th>
+        <td>@item.Email</td>
+        <td>@item.Phone</td>
+        <td>@item.GroupName</td>
+        <td>@item.AdminRole</td>
+        <td>@item.Roles</td>
+        <td>@item.TenantCount</td>
+        <td>
+            @if (item.IsDisabled)
+            {
+                <i class="fas fa-user-slash" title="@EntityMetadata?.GetPropertyMetadata(nameof(UserQueryResult.IsDisabled))?.GetDisplayName()"></i>
+            }
+            else if (item.IsSuspended)
+            {
+                <i class="fas fa-user-lock" title="@EntityMetadata?.GetPropertyMetadata(nameof(UserQueryResult.IsSuspended))?.GetDisplayName()"></i>
+            }
+        </td>
+    </tr>
+            }
+        }
+    </tbody>
+</BSTable>
+
+@code {
+    [Inject]
+    private IQueryUsersUseCase QueryUseCase { get; set; }
+    [Inject]
+    private IFetchUserUseCase FetchUseCase { get; set; }
+    [Inject]
+    private IDeleteUserUseCase DeleteUseCase { get; set; }
+    [Inject]
+    private SmartNavigationManager Navigator { get; set; }
+    [CascadingParameter(Name = "ErrorHandler")]
+    private ErrorModal ErrorHandler { get; set; }
+    [CascadingParameter(Name = "ConfirmHandler")]
+    private ConfirmModal ConfirmHandler { get; set; }
+
+    private List<UserQueryResult> ResultSet;
+    private List<UserQueryResult> DeleteInProgress = new List<UserQueryResult>();
+    private IEntityMetadata EntityMetadata;
+
+    /// <inheritdoc />
+    protected override async Task OnInitializedAsync()
+    {
+        var success = await ErrorHandler.ExecuteWithError(
+            async () => ResultSet = await QueryUseCase.QueryAsync(CancellationToken.None));
+        if (!success) ResultSet = new List<UserQueryResult>();
+        EntityMetadata = QueryUseCase.GetMetadata();
+        await base.OnInitializedAsync();
+    }
+
+    private void CreateNew()
+    {
+        Navigator.NavigateToUseCase(typeof(ICreateUserUseCase));
+    }
+
+    private void Edit(UserQueryResult item)
+    {
+        Navigator.NavigateToUseCase(typeof(IUpdateUserUseCase),
+            ((Guid)item.Id.IdentityValue).ToString("N"));
+    }
+
+    private void Delete(UserQueryResult item)
+    {
+        DeleteInProgress.Add(item);
+        ConfirmHandler.Ask(string.Format(localizer["ConfirmDelete_User"], item.Name),
+            async () =>
+            {
+                var success = await ErrorHandler.ExecuteWithError(() => DeleteUseCase.InvokeAsync(item.Id));
+                if (success) ResultSet.Remove(item);
+                DeleteInProgress.Remove(item);
+                this.StateHasChanged();
+            }, () =>
+            {
+                DeleteInProgress.Remove(item);
+                this.StateHasChanged();
+            });
+    }
+}

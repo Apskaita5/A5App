@@ -120,35 +120,14 @@
   <data name="DataAnnotations_ErrorMessage_AtLeastOneRequired" xml:space="preserve">
     <value>Either {0} or {1} should be specified.</value>
   </data>
-  <data name="DataAnnotations_ErrorMessage_CompareStrings" xml:space="preserve">
-    <value>{0} does not match {1}.</value>
-  </data>
-  <data name="DataAnnotations_ErrorMessage_DateSanity" xml:space="preserve">
-    <value>{0} is either in future or way too far in past.</value>
+  <data name="DataAnnotations_ErrorMessage_DateSanity_InFuture" xml:space="preserve">
+    <value>{0} is in future.</value>
   </data>
   <data name="DataAnnotations_ErrorMessage_EmailAddress" xml:space="preserve">
     <value>Value for {0} is not a valid email address.</value>
   </data>
-  <data name="DataAnnotations_ErrorMessage_Range_ForMax" xml:space="preserve">
-    <value>Value for {0} cannot exceed {2}.</value>
-  </data>
-  <data name="DataAnnotations_ErrorMessage_Range_ForMin" xml:space="preserve">
-    <value>Value for {0} cannot be less than {1}.</value>
-  </data>
-  <data name="DataAnnotations_ErrorMessage_Range_ForRange" xml:space="preserve">
-    <value>Value for {0} should be between {1} and {2}.</value>
-  </data>
   <data name="DataAnnotations_ErrorMessage_Required" xml:space="preserve">
     <value>{0} is not specified.</value>
-  </data>
-  <data name="DataAnnotations_ErrorMessage_StringLength_ForExact" xml:space="preserve">
-    <value>Length of {0} shall be {1} characters.</value>
-  </data>
-  <data name="DataAnnotations_ErrorMessage_StringLength_ForMax" xml:space="preserve">
-    <value>Length of {0} shall not exceed {2} characters.</value>
-  </data>
-  <data name="DataAnnotations_ErrorMessage_StringLength_ForRange" xml:space="preserve">
-    <value>Length of {0} shall be between {1} and {2} characters.</value>
   </data>
   <data name="IAuditableEntity_GroupName" xml:space="preserve">
     <value>Audit Trace</value>
@@ -697,46 +676,46 @@
   <data name="Security_ITenantGroupAssignments_TenantName_ShortName" xml:space="preserve">
     <value>Tenant Name</value>
   </data>
-  <data name="Security_LoginRequestQueryCriteria_DisplayNameForNew" xml:space="preserve">
+  <data name="Security_LoginRequest_DisplayNameForNew" xml:space="preserve">
     <value>Login</value>
   </data>
-  <data name="Security_LoginRequestQueryCriteria_Email_Description" xml:space="preserve">
+  <data name="Security_LoginRequest_Email_Description" xml:space="preserve">
     <value>An email of the user that is used as a user account id.</value>
   </data>
-  <data name="Security_LoginRequestQueryCriteria_Email_Name" xml:space="preserve">
+  <data name="Security_LoginRequest_Email_Name" xml:space="preserve">
     <value>User Email</value>
   </data>
-  <data name="Security_LoginRequestQueryCriteria_Email_Prompt" xml:space="preserve">
+  <data name="Security_LoginRequest_Email_Prompt" xml:space="preserve">
     <value>Enter your email.</value>
   </data>
-  <data name="Security_LoginRequestQueryCriteria_Email_ShortName" xml:space="preserve">
+  <data name="Security_LoginRequest_Email_ShortName" xml:space="preserve">
     <value>User Email</value>
   </data>
-  <data name="Security_LoginRequestQueryCriteria_Password_Description" xml:space="preserve">
+  <data name="Security_LoginRequest_Password_Description" xml:space="preserve">
     <value>User password.</value>
   </data>
-  <data name="Security_LoginRequestQueryCriteria_Password_Name" xml:space="preserve">
+  <data name="Security_LoginRequest_Password_Name" xml:space="preserve">
     <value>User Password</value>
   </data>
-  <data name="Security_LoginRequestQueryCriteria_Password_Prompt" xml:space="preserve">
+  <data name="Security_LoginRequest_Password_Prompt" xml:space="preserve">
     <value>Enter your password.</value>
   </data>
-  <data name="Security_LoginRequestQueryCriteria_Password_ShortName" xml:space="preserve">
+  <data name="Security_LoginRequest_Password_ShortName" xml:space="preserve">
     <value>User Password</value>
   </data>
-  <data name="Security_ResetPasswordRequestQueryCriteria_DisplayNameForNew" xml:space="preserve">
+  <data name="Security_ResetPasswordRequest_DisplayNameForNew" xml:space="preserve">
     <value>Reset Password       </value>
   </data>
-  <data name="Security_ResetPasswordRequestQueryCriteria_Email_Description" xml:space="preserve">
+  <data name="Security_ResetPasswordRequest_Email_Description" xml:space="preserve">
     <value>A user email that is used as the app account id.</value>
   </data>
-  <data name="Security_ResetPasswordRequestQueryCriteria_Email_Name" xml:space="preserve">
+  <data name="Security_ResetPasswordRequest_Email_Name" xml:space="preserve">
     <value>User Email</value>
   </data>
-  <data name="Security_ResetPasswordRequestQueryCriteria_Email_Prompt" xml:space="preserve">
+  <data name="Security_ResetPasswordRequest_Email_Prompt" xml:space="preserve">
     <value>Enter your email.</value>
   </data>
-  <data name="Security_ResetPasswordRequestQueryCriteria_Email_ShortName" xml:space="preserve">
+  <data name="Security_ResetPasswordRequest_Email_ShortName" xml:space="preserve">
     <value>User Email</value>
   </data>
   <data name="Security_ChangePasswordRequestQueryCriteria_CurrentPassword_Description" xml:space="preserve">
@@ -822,5 +801,26 @@
   </data>
   <data name="Security_User_Cannot_Assign_Admin_UserGroup" xml:space="preserve">
     <value>Cannot assign admin to any user group.</value>
+  </data>
+  <data name="DataAnnotations_ErrorMessage_DateSanity_TooOld" xml:space="preserve">
+    <value>{0} is a way too old.</value>
+  </data>
+  <data name="DataAnnotations_ErrorMessage_EqualTo" xml:space="preserve">
+    <value>{0} is not equal to {1}.</value>
+  </data>
+  <data name="DataAnnotations_ErrorMessage_ExactLengthAttribute" xml:space="preserve">
+    <value>Length of {0} shall be {1} characters.</value>
+  </data>
+  <data name="DataAnnotations_ErrorMessage_MaxLengthAttribute" xml:space="preserve">
+    <value>Length of {0} shall not exceed {1} characters.</value>
+  </data>
+  <data name="DataAnnotations_ErrorMessage_MaxValueAttribute" xml:space="preserve">
+    <value>Value of {0} shall not exceed {1}.</value>
+  </data>
+  <data name="DataAnnotations_ErrorMessage_MinLengthAttribute" xml:space="preserve">
+    <value>Length of {0} shall be at least {1} characters.</value>
+  </data>
+  <data name="DataAnnotations_ErrorMessage_MinValueAttribute" xml:space="preserve">
+    <value>Value of {0} shall be at least {1}.</value>
   </data>
 </root>

@@ -2,6 +2,7 @@
 using A5Soft.CARMA.Domain;
 using A5Soft.DAL.Core.MicroOrm;
 using System;
+using A5Soft.A5App.Application;
 using static A5Soft.A5App.Domain.Security.User;
 
 namespace A5Soft.A5App.Repositories.Security.Maps
@@ -17,7 +18,7 @@ namespace A5Soft.A5App.Repositories.Security.Maps
         private static readonly FieldMapNullableGuid<UserDto> _userGroupIdMap = 
             new FieldMapNullableGuid<UserDto>("user_group_id",
             nameof(UserGroupId), (c, v) => c.UserGroupId = v.ToIdentity<UserGroup>(),
-            (c) => (Guid?)c.UserGroupId.IdentityValue, FieldPersistenceType.CRUD);
+            (c) => (Guid?)c.UserGroupId?.IdentityValue, FieldPersistenceType.CRUD);
         private static readonly FieldMapString<UserDto> _userNameMap = new FieldMapString<UserDto>("user_name",
             nameof(Name), (c, v) => c.Name = v ?? string.Empty,
             (c) => c.Name, FieldPersistenceType.CRUD);
@@ -54,7 +55,7 @@ namespace A5Soft.A5App.Repositories.Security.Maps
             (c, v) => c.UpdatedBy = v, (c) => c.UpdatedBy);
         private static readonly FieldMapString<UserDto> _hashedPasswordMap = 
             new FieldMapString<UserDto>("password_hash", nameof(HashedPassword), 
-            (c, v) => c.HashedPassword = v ?? string.Empty,
+            (c, v) => c.HashedPassword = string.Empty,
             (c) => c.HashedPassword, FieldPersistenceType.Insert);
 #pragma warning restore IDE0052 // Remove unread private members
     }

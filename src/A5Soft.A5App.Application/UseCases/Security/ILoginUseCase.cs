@@ -12,7 +12,7 @@ namespace A5Soft.A5App.Application.UseCases.Security
     /// A use case for user login.
     /// </summary> 
     [UseCase(ServiceLifetime.Singleton)]
-    public interface ILoginUseCase
+    public interface ILoginUseCase : IUseCase
     {
         /// <summary>
         /// Log in.

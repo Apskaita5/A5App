@@ -10,6 +10,16 @@ namespace A5Soft.A5App.Application.Infrastructure
     {
 
         /// <summary>
+        /// an email address of the sender, if the email is sent on behalf of other email account
+        /// </summary>
+        public string OnBehalfOfEmail { get; set; }
+
+        /// <summary>
+        /// a display name of the sender, if the email is sent on behalf of other email account
+        /// </summary>
+        public string OnBehalfOfDisplayName { get; set; }
+
+        /// <summary>
         /// an email address of the message receiver (could be ; delimited multiple addresses)
         /// </summary>
         public string Email { get; set; }

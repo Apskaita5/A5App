@@ -1,0 +1,104 @@
+﻿@using Microsoft.Extensions.Localization
+@using A5Soft.CARMA.Domain
+@using A5Soft.A5App.Application
+
+@inherits ComponentBase 
+@typeparam T
+
+@inject IStringLocalizer<CommonLocalization> localizer
+   
+<BSModal @ref="Modal">
+    <BSModalHeader OnClick="@(() => Modal.Hide())">@HeaderText</BSModalHeader>
+    <BSModalBody>  
+        <BSForm Model="@Model" ValidateOnInit="true" OnValidSubmit="@BeginSubmitAsync" @ref="Form">
+            <InjectedValidator />
+            @ChildContent  
+            <BSAlert Color="Color.Danger" IsDismissible="true" IsOpen="@alertOpen" @ref="Alert">
+                @errorMessage
+            </BSAlert>
+            <BSButton Color="Color.Primary" ButtonType="ButtonType.Submit" IsDisabled="@inProgress">
+                @if (inProgress)
+                {
+                    <i class="fas fa-spinner fa-spin"></i>
+                }
+                @(SubmitLabel.IsNullOrWhiteSpace() ? localizer["Ok"] : SubmitLabel)
+            </BSButton>
+            <BSButton Color="Color.Secondary" ButtonType="ButtonType.Button" IsDisabled="@inProgress" OnClick="() => Modal.Hide()">
+                @(CancelLabel.IsNullOrWhiteSpace() ? localizer["Cancel"] : CancelLabel)
+            </BSButton>
+        </BSForm>
+    </BSModalBody>
+</BSModal>
+
+<ErrorModal @ref="ErrorModal" />
+
+
+@code {
+
+    [Parameter]
+    public T Model { get; set; }
+
+    [Parameter]
+    public RenderFragment ChildContent { get; set; }
+
+    [Parameter]
+    public string HeaderText { get; set; }
+
+    [Parameter]
+    public string SubmitLabel { get; set; }
+
+    [Parameter]
+    public Func<EditContext, Task> OnSubmitAsync { get; set; }
+
+    [Parameter]
+    public string CancelLabel { get; set; }
+
+
+    private ErrorModal ErrorModal { get; set; }
+
+    private BSModal Modal { get; set; }
+
+    private BSForm Form { get; set; }
+
+    private bool inProgress = false;
+
+    private BSAlert Alert { get; set; }
+
+    private MarkupString errorMessage;
+    private bool alertOpen = false;
+
+
+
+    public void Show()
+    {
+        Modal.Show();
+    }
+
+    private async Task BeginSubmitAsync(EditContext context)
+    {
+        inProgress = true;
+        try
+        {
+            await OnSubmitAsync(context);
+            Modal.Hide();
+        }
+        catch (Exception e)
+        {
+            var bex = e.ToBusinessException();
+            if (null == bex)
+            {
+                errorMessage = new MarkupString(localizer["A server exception has occured and has been logged for further investigation. Try again later."]);
+            }
+            else
+            {
+                errorMessage = new MarkupString(string.Join("<br/>",
+                    bex.Message.Split(Environment.NewLine, StringSplitOptions.None)));
+            }
+            alertOpen = true;
+        }
+        finally
+        {
+            inProgress = false;
+        }
+    }
+}

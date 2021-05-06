@@ -1,8 +1,11 @@
-﻿namespace A5Soft.A5App.Application.Infrastructure
+﻿using A5Soft.CARMA.Domain;
+
+namespace A5Soft.A5App.Application.Infrastructure
 {
     /// <summary>
     /// An interface that should be implemented by a particular password (string) hashing implementation.
-    /// </summary>
+    /// </summary>   
+    [Service(ServiceLifetime.Singleton)]
     public interface IPasswordHasher
     {
 

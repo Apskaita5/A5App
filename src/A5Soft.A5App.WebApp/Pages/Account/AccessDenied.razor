@@ -1,0 +1,6 @@
+﻿@page "/account/accessdenied"
+@using Microsoft.Extensions.Localization
+
+@inject IStringLocalizer<CommonLocalization> localizer
+
+<p class="text-danger">@localizer["You do not have access to this resource."]</p>

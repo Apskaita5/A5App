@@ -2,32 +2,32 @@
 using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
+using A5Soft.A5App.Application;
 using A5Soft.A5App.Application.Repositories.Security;
 using A5Soft.A5App.Domain.Security;
 using A5Soft.A5App.Domain.Security.Lookups;
 using A5Soft.A5App.Domain.Security.Queries;
 using A5Soft.CARMA.Domain;
-using A5Soft.DAL.Core;
 using static A5Soft.A5App.Domain.Security.UserGroup;
 
 namespace A5Soft.A5App.Repositories.Security
 {
     /// <summary>
     /// a native repository implementation for <see cref="UserGroup"/>
-    /// </summary>
+    /// </summary> 
+    [DefaultServiceImplementation(typeof(IUserGroupRepository))]
     public class UserGroupRepository : IUserGroupRepository
     {
-        private readonly IOrmService _ormService;
+        private readonly ISecurityOrmServiceProvider _ormServiceProvider;
 
 
         /// <summary>
         /// creates a new instance of UserGroupRepository.
         /// </summary>
-        /// <param name="ormService">an ORM service provider for DI</param>
-        public UserGroupRepository(IOrmServiceProvider ormService)
+        /// <param name="securityOrmService">an ORM service provider for DI</param>
+        public UserGroupRepository(ISecurityOrmServiceProvider securityOrmService)
         {
-            _ormService = ormService?.GetServiceForSecurity() ?? 
-                throw new ArgumentNullException(nameof(ormService));
+            _ormServiceProvider = securityOrmService ?? throw new ArgumentNullException(nameof(securityOrmService));
         }
 
 
@@ -37,19 +37,19 @@ namespace A5Soft.A5App.Repositories.Security
         {
             id.EnsureValidIdentityFor<UserGroup>();
 
-            return await _ormService.FetchEntityAsync<UserGroupDto>(id.IdentityValue, ct);
+            return await _ormServiceProvider.GetService().FetchEntityAsync<UserGroupDto>(id.IdentityValue, ct);
         }
 
         /// <inheritdoc cref="IUserGroupRepository.QueryAsync"/>
         public Task<List<UserGroupQueryResult>> QueryAsync(CancellationToken ct = default)
         {
-            return _ormService.QueryAsync<UserGroupQueryResult>(null, ct);
+            return _ormServiceProvider.GetService().QueryAsync<UserGroupQueryResult>(null, ct);
         }
 
         /// <inheritdoc cref="IUserGroupRepository.FetchLookupAsync"/>
         public Task<List<UserGroupLookup>> FetchLookupAsync(CancellationToken ct = default)
         {
-            return _ormService.FetchAllEntitiesAsync<UserGroupLookup>(ct);
+            return _ormServiceProvider.GetService().FetchAllEntitiesAsync<UserGroupLookup>(ct);
         }
 
         /// <inheritdoc cref="IUserGroupRepository.InsertAsync"/>
@@ -57,7 +57,7 @@ namespace A5Soft.A5App.Repositories.Security
         {
             if (null == dto) throw new ArgumentNullException(nameof(dto));
 
-            await _ormService.ExecuteInsertAsync(dto, userId);
+            await _ormServiceProvider.GetService().ExecuteInsertAsync(dto, userId);
 
             return dto;
         }
@@ -67,7 +67,7 @@ namespace A5Soft.A5App.Repositories.Security
         {
             if (null == dto) throw new ArgumentNullException(nameof(dto));
 
-            await _ormService.ExecuteUpdateAsync(dto, userId);
+            await _ormServiceProvider.GetService().ExecuteUpdateAsync(dto, userId);
 
             return dto;
         }
@@ -77,7 +77,7 @@ namespace A5Soft.A5App.Repositories.Security
         {
             id.EnsureValidIdentityFor<UserGroup>();
 
-            await _ormService.ExecuteDeleteAsync<UserGroupDto>(id.IdentityValue);
+            await _ormServiceProvider.GetService().ExecuteDeleteAsync<UserGroupDto>(id.IdentityValue);
         }
 
     }

@@ -1,4 +1,5 @@
 ﻿using A5Soft.A5App.Domain.Security;
+using A5Soft.A5App.Application;
 using A5Soft.DAL.Core.MicroOrm;
 using System;
 using static A5Soft.A5App.Domain.Security.Tenant;

@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
+using A5Soft.A5App.Application;
 using A5Soft.A5App.Domain.Security.Lookups;
 using static A5Soft.A5App.Domain.Security.User;
 using static A5Soft.A5App.Domain.Security.UserTenant;
@@ -18,15 +19,16 @@ namespace A5Soft.A5App.Repositories.Security
 {
     /// <summary>
     /// a native repository implementation for <see cref="User"/>
-    /// </summary>
+    /// </summary> 
+    [DefaultServiceImplementation(typeof(IUserRepository))]
     public class UserRepository : IUserRepository
     {
-        private readonly IOrmService _ormService;
+        private readonly ISecurityOrmServiceProvider _ormServiceProvider;
        
 
-        public UserRepository(IOrmServiceProvider ormService)
+        public UserRepository(ISecurityOrmServiceProvider securityOrmService)
         {
-            _ormService = ormService?.GetServiceForSecurity() ?? throw new ArgumentNullException(nameof(ormService));
+            _ormServiceProvider = securityOrmService ?? throw new ArgumentNullException(nameof(securityOrmService));
         }
 
 
@@ -36,11 +38,11 @@ namespace A5Soft.A5App.Repositories.Security
         {
             id.EnsureValidIdentityFor<User>();
 
-            var result = await _ormService.FetchEntityAsync<UserDto>(id.IdentityValue, ct);
+            var result = await _ormServiceProvider.GetService().FetchEntityAsync<UserDto>(id.IdentityValue, ct);
 
             if (result.IsNull()) return result;
 
-            result.RolesForTenants = await _ormService.FetchChildEntitiesAsync<UserTenantDto>(
+            result.RolesForTenants = await _ormServiceProvider.GetService().FetchChildEntitiesAsync<UserTenantDto>(
                 result.Id.IdentityValue, ct);
 
             foreach (var tenant in tenants)
@@ -57,13 +59,13 @@ namespace A5Soft.A5App.Repositories.Security
         /// <inheritdoc cref="IUserRepository.FetchLookupAsync"/>
         public Task<List<UserLookup>> FetchLookupAsync(CancellationToken ct = default)
         {
-            return _ormService.FetchAllEntitiesAsync<UserLookup>(ct);
+            return _ormServiceProvider.GetService().FetchAllEntitiesAsync<UserLookup>(ct);
         }
 
         /// <inheritdoc cref="IUserRepository.QueryAsync"/>
         public Task<List<UserQueryResult>> QueryAsync(CancellationToken ct = default)
         {
-            return _ormService.QueryAsync<UserQueryResult>(null, ct);
+            return _ormServiceProvider.GetService().QueryAsync<UserQueryResult>(null, ct);
         }
 
         /// <inheritdoc cref="IUserRepository.InsertAsync"/>
@@ -71,13 +73,13 @@ namespace A5Soft.A5App.Repositories.Security
         {
             if (null == dto) throw new ArgumentNullException(nameof(dto));
 
-            await _ormService.Agent.ExecuteInTransactionAsync(async () =>
+            await _ormServiceProvider.GetService().Agent.ExecuteInTransactionAsync(async () =>
             {
-                await _ormService.ExecuteInsertAsync(dto, userId);
+                await _ormServiceProvider.GetService().ExecuteInsertAsync(dto, userId);
                 foreach (var role in dto.RolesForTenants
                     .Where(p => p.Id.IsNullOrNew() && !p.RoleId.IsNullOrNew()))
                 {
-                    await _ormService.ExecuteInsertChildAsync(role, dto.Id.IdentityValue);
+                    await _ormServiceProvider.GetService().ExecuteInsertChildAsync(role, dto.Id.IdentityValue);
                 }
             });
 
@@ -89,14 +91,14 @@ namespace A5Soft.A5App.Repositories.Security
         {
             if (null == dto) throw new ArgumentNullException(nameof(dto));
 
-            await _ormService.Agent.ExecuteInTransactionAsync(async () =>
+            await _ormServiceProvider.GetService().Agent.ExecuteInTransactionAsync(async () =>
             {
-                await _ormService.ExecuteUpdateAsync(dto, userId);
+                await _ormServiceProvider.GetService().ExecuteUpdateAsync(dto, userId);
                 if (dto.PromotedToAdminRole)
                 {
-                    await _ormService.Agent.ExecuteCommandAsync("DeleteCustomUserRoles",
+                    await _ormServiceProvider.GetService().Agent.ExecuteCommandAsync("DeleteCustomUserRoles",
                         new SqlParam[] { SqlParam.Create("UD", dto.Id.IdentityValue) });
-                    await _ormService.Agent.ExecuteCommandAsync("DeleteUserRoles",
+                    await _ormServiceProvider.GetService().Agent.ExecuteCommandAsync("DeleteUserRoles",
                         new SqlParam[] { SqlParam.Create("UD", dto.Id.IdentityValue) });
                 }
                 if (dto.AdminRole == AdministrativeRole.None)
@@ -106,15 +108,15 @@ namespace A5Soft.A5App.Repositories.Security
                     {
                         if (roleForTenant.Id.IsNullOrNew() && !roleForTenant.RoleId.IsNullOrNew())
                         {
-                            await _ormService.ExecuteInsertChildAsync(roleForTenant, dto.Id.IdentityValue);
+                            await _ormServiceProvider.GetService().ExecuteInsertChildAsync(roleForTenant, dto.Id.IdentityValue);
                         }
                         else if (!roleForTenant.Id.IsNullOrNew() && roleForTenant.RoleId.IsNullOrNew())
                         {
-                            await _ormService.ExecuteDeleteAsync<UserTenantDto>(roleForTenant.Id.IdentityValue);
+                            await _ormServiceProvider.GetService().ExecuteDeleteAsync<UserTenantDto>(roleForTenant.Id.IdentityValue);
                         }
                         else if (!roleForTenant.Id.IsNullOrNew() && !roleForTenant.RoleId.IsNullOrNew())
                         {
-                            await _ormService.ExecuteUpdateAsync(roleForTenant);
+                            await _ormServiceProvider.GetService().ExecuteUpdateAsync(roleForTenant);
                             await DeleteCustomUserRoleAsync(dto.Id, roleForTenant.TenantId);
                         }
                         else if (roleForTenant.Id.IsNullOrNew() && roleForTenant.RoleId.IsNullOrNew() 
@@ -134,7 +136,7 @@ namespace A5Soft.A5App.Repositories.Security
         {
             id.EnsureValidIdentityFor<User>();
 
-            await _ormService.ExecuteDeleteAsync<UserDto>(id.IdentityValue);
+            await _ormServiceProvider.GetService().ExecuteDeleteAsync<UserDto>(id.IdentityValue);
         }
 
         /// <inheritdoc cref="IUserRepository.UpdatePasswordAsync"/>
@@ -142,7 +144,7 @@ namespace A5Soft.A5App.Repositories.Security
         {
             id.EnsureValidIdentityFor<User>();
 
-            await _ormService.Agent.ExecuteCommandAsync("UpdateUserPassword", 
+            await _ormServiceProvider.GetService().Agent.ExecuteCommandAsync("UpdateUserPassword", 
                 new SqlParam[]
                 {
                     SqlParam.Create("UD", id.IdentityValue), 
@@ -155,7 +157,7 @@ namespace A5Soft.A5App.Repositories.Security
         {
             if (userEmail.IsNullOrWhiteSpace()) throw new ArgumentNullException(nameof(userEmail));
 
-            var result = await _ormService.Agent.FetchTableAsync("FetchLoginCredentials",
+            var result = await _ormServiceProvider.GetService().Agent.FetchTableAsync("FetchLoginCredentials",
                 new SqlParam[] {SqlParam.Create("CD", userEmail.Trim())});
 
             if (result.Rows.Count < 1) return (Id: null, PasswordHash: string.Empty);
@@ -167,7 +169,7 @@ namespace A5Soft.A5App.Repositories.Security
         public async Task<UserIdentity> FetchUserIdentityAsync(Guid userId, Guid? tenantId, 
             CancellationToken ct = default)
         {
-            var resultList = await _ormService.QueryAsync<UserIdentityDb>(
+            var resultList = await _ormServiceProvider.GetService().QueryAsync<UserIdentityDb>(
                 new SqlParam[]{ SqlParam.Create("CD", userId) }, ct);
             
             if (null == resultList || !resultList.Any()) return null;
@@ -182,7 +184,7 @@ namespace A5Soft.A5App.Repositories.Security
                 return result;
             }
 
-            var reader = await _ormService.Agent.GetReaderAsync(
+            var reader = await _ormServiceProvider.GetService().Agent.GetReaderAsync(
                 "FetchUserPermissionsForTenant", new SqlParam[]
                 {
                     SqlParam.Create("UD", userId),
@@ -208,16 +210,29 @@ namespace A5Soft.A5App.Repositories.Security
             return result;
         }
 
+        /// <inheritdoc cref="IUserRepository.CountUsersInGroupAsync"/>
+        public async Task<int> CountUsersInGroupAsync(IDomainEntityIdentity groupId)
+        {
+            groupId.EnsureValidIdentityFor<UserGroup>();
+
+            var result = await _ormServiceProvider.GetService().Agent.FetchTableAsync("FetchUserCountInGroup",
+                new SqlParam[] { SqlParam.Create("CD", groupId.IdentityValue) });
+
+            if (!result.Rows.Any()) return 0;
+
+            return result.Rows[0].GetInt32OrDefault(0, 0);
+        }
+
 
         private async Task DeleteCustomUserRoleAsync(IDomainEntityIdentity userId, IDomainEntityIdentity tenantId)
         {
-            await _ormService.Agent.ExecuteCommandAsync("DeleteCustomUserRole",
+            await _ormServiceProvider.GetService().Agent.ExecuteCommandAsync("DeleteCustomUserRole",
                 new SqlParam[]
                 {
                     SqlParam.Create("UD", userId.IdentityValue),
                     SqlParam.Create("TD", tenantId.IdentityValue)
                 });
         }
-
+          
     }
 }

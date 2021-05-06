@@ -1,6 +1,7 @@
 ﻿using A5Soft.DAL.Core.MicroOrm;
 using A5Soft.A5App.Domain.Security;
 using System;
+using A5Soft.A5App.Application;
 using static A5Soft.A5App.Domain.Security.UserGroup;
 
 namespace A5Soft.A5App.Repositories.Security.Maps

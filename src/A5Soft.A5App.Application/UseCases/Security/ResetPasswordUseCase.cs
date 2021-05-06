@@ -21,20 +21,21 @@ namespace A5Soft.A5App.Application.UseCases.Security
         private readonly ISecurityPolicy _policy;
         private readonly ISecureRandomProvider _secureRandomProvider;
         private readonly IEmailProvider _emailProvider;
+        private readonly IBaseUrlProvider _urlProvider;
 
 
         /// <inheritdoc />
-        public ResetPasswordUseCase(IUserRepository repository, ISecurityPolicy policy,
-            ISecureRandomProvider secureRandomProvider, IEmailProvider emailProvider, 
-            IClientDataPortal dataPortal, IValidationEngineProvider validationProvider,
-            IMetadataProvider metadataProvider, ILogger logger) 
-            : base(dataPortal, validationProvider, metadataProvider, logger)
+        public ResetPasswordUseCase(IClientDataPortal dataPortal, IValidationEngineProvider validationProvider,
+            IMetadataProvider metadataProvider, ILogger logger, IUserRepository repository, ISecurityPolicy policy,
+            ISecureRandomProvider secureRandomProvider, IEmailProvider emailProvider, IBaseUrlProvider urlProvider) :
+            base(dataPortal, validationProvider, metadataProvider, logger)
         {
             _repository = repository ?? throw new ArgumentNullException(nameof(repository));
             _policy = policy ?? throw new ArgumentNullException(nameof(policy));
             _secureRandomProvider =
                 secureRandomProvider ?? throw new ArgumentNullException(nameof(secureRandomProvider));
             _emailProvider = emailProvider ?? throw new ArgumentNullException(nameof(emailProvider));
+            _urlProvider = urlProvider ?? throw new ArgumentNullException(nameof(urlProvider));
         }
 
 
@@ -67,24 +68,27 @@ namespace A5Soft.A5App.Application.UseCases.Security
                     Resources.Security_ResetPasswordUseCase_Cannot_Reset_For_Disabled_Account);
             }
 
+            if (_urlProvider.BaseUrl.IsNullOrWhiteSpace()) throw new InvalidOperationException(
+                "Request URL cannot be resolved.");
+
+            var resetUrl = $"{_urlProvider.BaseUrl.Trim().TrimEnd('/')}/{_policy.ConfirmPasswordResetUrl.Trim().TrimStart('/')}";
+
             var result = ResetPasswordRequestManager.RegisterRequest(
                 loginCredentials.Id.Value, _secureRandomProvider, _policy);
 
             Logger.LogSecurityIssue($"User {parameter.Email} " +
                 $"request to reset password has been registered.");
 
-            var message = new EmailMessage()
+            await _emailProvider.SendAsync(new EmailMessage()
             {
                 Email = userDetails.Email,
                 AllowMultipleEmails = false,
                 Subject = _policy.ConfirmPasswordResetMessageSubject,
                 Content = string.Format(_policy.ConfirmPasswordResetMessageContent,
-                    userDetails.Name, result.NewPassword, 
-                    string.Format(_policy.ConfirmPasswordResetUrl, result.UrlToken)),
+                    userDetails.Name, result.NewPassword,
+                    string.Format(resetUrl, result.UrlToken)),
                 IsHtml = true
-            };
-
-            await _emailProvider.SendAsync(message);
+            });
 
             Logger.LogSecurityIssue($"A message for password reset confirmation " +
                 $"has been sent to user {parameter.Email}.");

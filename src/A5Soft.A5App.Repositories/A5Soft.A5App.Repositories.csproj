@@ -5,10 +5,14 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="securitySchema.xml" />
     <None Remove="SqlRepositories\mysql_repository.xml" />
   </ItemGroup>
 
   <ItemGroup>
+    <Content Include="securitySchema.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="SqlRepositories\mysql_repository.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>

@@ -1,5 +1,6 @@
 ﻿using A5Soft.CARMA.Domain.Metadata.DataAnnotations;
 using A5Soft.A5App.Domain.Properties;
+using System;
 
 namespace A5Soft.A5App.Domain.DataAnnotations
 {
@@ -12,6 +13,7 @@ namespace A5Soft.A5App.Domain.DataAnnotations
     /// Therefore method descriptions can only be applied to class methods (incl. inherited).
     /// They cannot be defined on business interfaces as their implementation
     /// are subject to the platform used (in rich entity models for winforms vs. javascript for web).</remarks>
+    [AttributeUsage(AttributeTargets.Method, AllowMultiple = false, Inherited = true)]
     public class DomainMethodDescriptionAttribute : MethodDescriptionAttribute
     {
         /// <inheritdoc />

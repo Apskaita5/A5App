@@ -1,0 +1,17 @@
+﻿@using Microsoft.Extensions.Localization
+@inject IStringLocalizer<CommonLocalization> localizer
+
+<CascadingAuthenticationState>
+    <AuthorizeView>
+        <Authorized>
+            <form method="post" action="Account/LogOut">
+                <BSButton Id="logoutButton" ButtonType="ButtonType.Submit" Value="Submit" Color="Color.Light"><i class="fas fa-sign-out-alt" title="@localizer["Log Out"]"></i></BSButton>
+                <BSTooltip Target="logoutButton" Placement="Placement.Left">@localizer["Log Out"]</BSTooltip>
+            </form>
+        </Authorized>
+        <NotAuthorized>
+            <BSButton Id="loginButton" ButtonType="ButtonType.Link" Href="account/login" Color="Color.Light" IsActive="true"><i class="fas fa-sign-in-alt"></i></BSButton>
+            <BSTooltip Target="loginButton" Placement="Placement.Left">@localizer["Log In"]</BSTooltip>
+        </NotAuthorized>
+    </AuthorizeView>
+</CascadingAuthenticationState>

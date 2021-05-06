@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using A5Soft.A5App.Application;
 using A5Soft.A5App.Application.Infrastructure;
 using A5Soft.A5App.Application.Repositories.Security;
+using A5Soft.A5App.Application.UseCases.Security;
 using A5Soft.A5App.Domain.Security;
 using A5Soft.A5App.Repositories.Security.Maps;
 using A5Soft.CARMA.Domain;
@@ -18,15 +19,16 @@ namespace A5Soft.A5App.Repositories.Security
     /// <summary>
     /// a native repository implementation for <see cref="CustomUserRole"/>
     /// </summary>
+    [DefaultServiceImplementation(typeof(ICustomUserRoleRepository))]
     public class CustomUserRoleRepository : ICustomUserRoleRepository
     {
-        private readonly IOrmService _ormService;
+        private readonly ISecurityOrmServiceProvider _ormServiceProvider;
         private readonly IPluginProvider _pluginProvider;
 
 
-        public CustomUserRoleRepository(IOrmServiceProvider ormService, IPluginProvider pluginProvider)
+        public CustomUserRoleRepository(ISecurityOrmServiceProvider securityOrmService, IPluginProvider pluginProvider)
         {
-            _ormService = ormService?.GetServiceForSecurity() ?? throw new ArgumentNullException(nameof(ormService));
+            _ormServiceProvider = securityOrmService ?? throw new ArgumentNullException(nameof(securityOrmService));
             _pluginProvider = pluginProvider ?? throw new ArgumentNullException(nameof(pluginProvider));
         }
 
@@ -38,7 +40,7 @@ namespace A5Soft.A5App.Repositories.Security
             userId.EnsureValidIdentityFor<User>();
             tenantId.EnsureValidIdentityFor<Tenant>();
 
-            var userTable = await _ormService.Agent.FetchTableAsync("FetchCustomUserRole",
+            var userTable = await _ormServiceProvider.GetService().Agent.FetchTableAsync("FetchCustomUserRole",
                 new SqlParam[]
                 {
                     SqlParam.Create("UD", userId.IdentityValue),
@@ -53,7 +55,7 @@ namespace A5Soft.A5App.Repositories.Security
             {
                 Id = new GuidDomainEntityIdentity(Guid.NewGuid(), typeof(CustomUserRole)),
                 UserName = userTable.Rows[0].GetStringOrDefault(0),
-                UserGroupId = userTable.Rows[0].GetGuidNullable(1).ToEntityIdentity<UserGroup>(),
+                UserGroupId = userTable.Rows[0].GetGuidNullable(1).ToIdentity<UserGroup>(),
                 UpdatedAt = userTable.Rows[0].GetDateTime(3),
                 UpdatedBy = userTable.Rows[0].GetStringOrDefault(4),
                 TenantName = userTable.Rows[0].GetStringOrDefault(5),
@@ -61,7 +63,7 @@ namespace A5Soft.A5App.Repositories.Security
                 UserId = userId
             };
 
-            var currentPermissionsTable = await _ormService.Agent.FetchTableAsync(
+            var currentPermissionsTable = await _ormServiceProvider.GetService().Agent.FetchTableAsync(
                 "FetchCustomUserRolePermissions", new SqlParam[]
                 {
                     SqlParam.Create("UD", userId.IdentityValue),
@@ -95,7 +97,7 @@ namespace A5Soft.A5App.Repositories.Security
         {
             if (null == dto) throw new ArgumentNullException(nameof(dto));
 
-            await _ormService.Agent.ExecuteInTransactionAsync(async () =>
+            await _ormServiceProvider.GetService().Agent.ExecuteInTransactionAsync(async () =>
             {
                 foreach (var permission in dto.Permissions
                     .Where(p => p.Id.IsNullOrNew() && p.Assigned))
@@ -106,15 +108,29 @@ namespace A5Soft.A5App.Repositories.Security
                         UserId = (Guid)dto.UserId.IdentityValue,
                         TenantId = (Guid)dto.TenantId.IdentityValue
                     };
-                    await _ormService.ExecuteInsertAsync(newPermission, userId);
+                    await _ormServiceProvider.GetService().ExecuteInsertAsync(newPermission, userId);
                     permission.Id = newPermission.Id;
                 }
                 foreach (var permission in dto.Permissions
                     .Where(p => !p.Id.IsNullOrNew() && !p.Assigned))
                 {
-                    await _ormService.ExecuteDeleteAsync<UserPermissionDb>(permission.Id.IdentityValue);
+                    await _ormServiceProvider.GetService().ExecuteDeleteAsync<UserPermissionDb>(permission.Id.IdentityValue);
                     permission.Id = new GuidDomainEntityIdentity(typeof(UserPermission));
                 }
+
+                var timestamp = DateTime.UtcNow;
+                timestamp = new DateTime((long)(Math.Floor((double)(timestamp.Ticks / TimeSpan.TicksPerSecond))
+                    * TimeSpan.TicksPerSecond), DateTimeKind.Utc);
+
+                await _ormServiceProvider.GetService().Agent.ExecuteCommandAsync("UpdateUserTimestamp",
+                    new SqlParam[]
+                    {
+                        SqlParam.Create("?UB", userId),
+                        SqlParam.Create("?UT", timestamp),
+                        SqlParam.Create("?CD", dto.UserId.IdentityValue)
+                    });
+                dto.UpdatedAt = timestamp;
+                dto.UpdatedBy = userId;
             });
 
             return dto;

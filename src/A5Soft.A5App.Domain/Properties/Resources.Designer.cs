@@ -79,20 +79,20 @@ namespace A5Soft.A5App.Domain.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to {0} does not match {1}..
+        ///   Looks up a localized string similar to {0} is in future..
         /// </summary>
-        public static string DataAnnotations_ErrorMessage_CompareStrings {
+        public static string DataAnnotations_ErrorMessage_DateSanity_InFuture {
             get {
-                return ResourceManager.GetString("DataAnnotations_ErrorMessage_CompareStrings", resourceCulture);
+                return ResourceManager.GetString("DataAnnotations_ErrorMessage_DateSanity_InFuture", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to {0} is either in future or way too far in past..
+        ///   Looks up a localized string similar to {0} is a way too old..
         /// </summary>
-        public static string DataAnnotations_ErrorMessage_DateSanity {
+        public static string DataAnnotations_ErrorMessage_DateSanity_TooOld {
             get {
-                return ResourceManager.GetString("DataAnnotations_ErrorMessage_DateSanity", resourceCulture);
+                return ResourceManager.GetString("DataAnnotations_ErrorMessage_DateSanity_TooOld", resourceCulture);
             }
         }
         
@@ -106,29 +106,56 @@ namespace A5Soft.A5App.Domain.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Value for {0} cannot exceed {2}..
+        ///   Looks up a localized string similar to {0} is not equal to {1}..
         /// </summary>
-        public static string DataAnnotations_ErrorMessage_Range_ForMax {
+        public static string DataAnnotations_ErrorMessage_EqualTo {
             get {
-                return ResourceManager.GetString("DataAnnotations_ErrorMessage_Range_ForMax", resourceCulture);
+                return ResourceManager.GetString("DataAnnotations_ErrorMessage_EqualTo", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Value for {0} cannot be less than {1}..
+        ///   Looks up a localized string similar to Length of {0} shall be {1} characters..
         /// </summary>
-        public static string DataAnnotations_ErrorMessage_Range_ForMin {
+        public static string DataAnnotations_ErrorMessage_ExactLengthAttribute {
             get {
-                return ResourceManager.GetString("DataAnnotations_ErrorMessage_Range_ForMin", resourceCulture);
+                return ResourceManager.GetString("DataAnnotations_ErrorMessage_ExactLengthAttribute", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Value for {0} should be between {1} and {2}..
+        ///   Looks up a localized string similar to Length of {0} shall not exceed {1} characters..
         /// </summary>
-        public static string DataAnnotations_ErrorMessage_Range_ForRange {
+        public static string DataAnnotations_ErrorMessage_MaxLengthAttribute {
             get {
-                return ResourceManager.GetString("DataAnnotations_ErrorMessage_Range_ForRange", resourceCulture);
+                return ResourceManager.GetString("DataAnnotations_ErrorMessage_MaxLengthAttribute", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Value of {0} shall not exceed {1}..
+        /// </summary>
+        public static string DataAnnotations_ErrorMessage_MaxValueAttribute {
+            get {
+                return ResourceManager.GetString("DataAnnotations_ErrorMessage_MaxValueAttribute", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Length of {0} shall be at least {1} characters..
+        /// </summary>
+        public static string DataAnnotations_ErrorMessage_MinLengthAttribute {
+            get {
+                return ResourceManager.GetString("DataAnnotations_ErrorMessage_MinLengthAttribute", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Value of {0} shall be at least {1}..
+        /// </summary>
+        public static string DataAnnotations_ErrorMessage_MinValueAttribute {
+            get {
+                return ResourceManager.GetString("DataAnnotations_ErrorMessage_MinValueAttribute", resourceCulture);
             }
         }
         
@@ -138,33 +165,6 @@ namespace A5Soft.A5App.Domain.Properties {
         public static string DataAnnotations_ErrorMessage_Required {
             get {
                 return ResourceManager.GetString("DataAnnotations_ErrorMessage_Required", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Length of {0} shall be {1} characters..
-        /// </summary>
-        public static string DataAnnotations_ErrorMessage_StringLength_ForExact {
-            get {
-                return ResourceManager.GetString("DataAnnotations_ErrorMessage_StringLength_ForExact", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Length of {0} shall not exceed {2} characters..
-        /// </summary>
-        public static string DataAnnotations_ErrorMessage_StringLength_ForMax {
-            get {
-                return ResourceManager.GetString("DataAnnotations_ErrorMessage_StringLength_ForMax", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Length of {0} shall be between {1} and {2} characters..
-        /// </summary>
-        public static string DataAnnotations_ErrorMessage_StringLength_ForRange {
-            get {
-                return ResourceManager.GetString("DataAnnotations_ErrorMessage_StringLength_ForRange", resourceCulture);
             }
         }
         
@@ -1791,126 +1791,126 @@ namespace A5Soft.A5App.Domain.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Login.
         /// </summary>
-        public static string Security_LoginRequestQueryCriteria_DisplayNameForNew {
+        public static string Security_LoginRequest_DisplayNameForNew {
             get {
-                return ResourceManager.GetString("Security_LoginRequestQueryCriteria_DisplayNameForNew", resourceCulture);
+                return ResourceManager.GetString("Security_LoginRequest_DisplayNameForNew", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to An email of the user that is used as a user account id..
         /// </summary>
-        public static string Security_LoginRequestQueryCriteria_Email_Description {
+        public static string Security_LoginRequest_Email_Description {
             get {
-                return ResourceManager.GetString("Security_LoginRequestQueryCriteria_Email_Description", resourceCulture);
+                return ResourceManager.GetString("Security_LoginRequest_Email_Description", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to User Email.
         /// </summary>
-        public static string Security_LoginRequestQueryCriteria_Email_Name {
+        public static string Security_LoginRequest_Email_Name {
             get {
-                return ResourceManager.GetString("Security_LoginRequestQueryCriteria_Email_Name", resourceCulture);
+                return ResourceManager.GetString("Security_LoginRequest_Email_Name", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Enter your email..
         /// </summary>
-        public static string Security_LoginRequestQueryCriteria_Email_Prompt {
+        public static string Security_LoginRequest_Email_Prompt {
             get {
-                return ResourceManager.GetString("Security_LoginRequestQueryCriteria_Email_Prompt", resourceCulture);
+                return ResourceManager.GetString("Security_LoginRequest_Email_Prompt", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to User Email.
         /// </summary>
-        public static string Security_LoginRequestQueryCriteria_Email_ShortName {
+        public static string Security_LoginRequest_Email_ShortName {
             get {
-                return ResourceManager.GetString("Security_LoginRequestQueryCriteria_Email_ShortName", resourceCulture);
+                return ResourceManager.GetString("Security_LoginRequest_Email_ShortName", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to User password..
         /// </summary>
-        public static string Security_LoginRequestQueryCriteria_Password_Description {
+        public static string Security_LoginRequest_Password_Description {
             get {
-                return ResourceManager.GetString("Security_LoginRequestQueryCriteria_Password_Description", resourceCulture);
+                return ResourceManager.GetString("Security_LoginRequest_Password_Description", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to User Password.
         /// </summary>
-        public static string Security_LoginRequestQueryCriteria_Password_Name {
+        public static string Security_LoginRequest_Password_Name {
             get {
-                return ResourceManager.GetString("Security_LoginRequestQueryCriteria_Password_Name", resourceCulture);
+                return ResourceManager.GetString("Security_LoginRequest_Password_Name", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Enter your password..
         /// </summary>
-        public static string Security_LoginRequestQueryCriteria_Password_Prompt {
+        public static string Security_LoginRequest_Password_Prompt {
             get {
-                return ResourceManager.GetString("Security_LoginRequestQueryCriteria_Password_Prompt", resourceCulture);
+                return ResourceManager.GetString("Security_LoginRequest_Password_Prompt", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to User Password.
         /// </summary>
-        public static string Security_LoginRequestQueryCriteria_Password_ShortName {
+        public static string Security_LoginRequest_Password_ShortName {
             get {
-                return ResourceManager.GetString("Security_LoginRequestQueryCriteria_Password_ShortName", resourceCulture);
+                return ResourceManager.GetString("Security_LoginRequest_Password_ShortName", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Reset Password       .
         /// </summary>
-        public static string Security_ResetPasswordRequestQueryCriteria_DisplayNameForNew {
+        public static string Security_ResetPasswordRequest_DisplayNameForNew {
             get {
-                return ResourceManager.GetString("Security_ResetPasswordRequestQueryCriteria_DisplayNameForNew", resourceCulture);
+                return ResourceManager.GetString("Security_ResetPasswordRequest_DisplayNameForNew", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to A user email that is used as the app account id..
         /// </summary>
-        public static string Security_ResetPasswordRequestQueryCriteria_Email_Description {
+        public static string Security_ResetPasswordRequest_Email_Description {
             get {
-                return ResourceManager.GetString("Security_ResetPasswordRequestQueryCriteria_Email_Description", resourceCulture);
+                return ResourceManager.GetString("Security_ResetPasswordRequest_Email_Description", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to User Email.
         /// </summary>
-        public static string Security_ResetPasswordRequestQueryCriteria_Email_Name {
+        public static string Security_ResetPasswordRequest_Email_Name {
             get {
-                return ResourceManager.GetString("Security_ResetPasswordRequestQueryCriteria_Email_Name", resourceCulture);
+                return ResourceManager.GetString("Security_ResetPasswordRequest_Email_Name", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Enter your email..
         /// </summary>
-        public static string Security_ResetPasswordRequestQueryCriteria_Email_Prompt {
+        public static string Security_ResetPasswordRequest_Email_Prompt {
             get {
-                return ResourceManager.GetString("Security_ResetPasswordRequestQueryCriteria_Email_Prompt", resourceCulture);
+                return ResourceManager.GetString("Security_ResetPasswordRequest_Email_Prompt", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to User Email.
         /// </summary>
-        public static string Security_ResetPasswordRequestQueryCriteria_Email_ShortName {
+        public static string Security_ResetPasswordRequest_Email_ShortName {
             get {
-                return ResourceManager.GetString("Security_ResetPasswordRequestQueryCriteria_Email_ShortName", resourceCulture);
+                return ResourceManager.GetString("Security_ResetPasswordRequest_Email_ShortName", resourceCulture);
             }
         }
         

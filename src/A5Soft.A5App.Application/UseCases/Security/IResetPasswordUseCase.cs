@@ -11,7 +11,7 @@ namespace A5Soft.A5App.Application.UseCases.Security
     /// A use case for requesting user password reset.
     /// </summary>  
     [UseCase(ServiceLifetime.Singleton)]
-    public interface IResetPasswordUseCase
+    public interface IResetPasswordUseCase : IUseCase
     {
         /// <summary>
         /// Request user password reset. 

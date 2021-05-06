@@ -15,7 +15,6 @@ namespace A5Soft.A5App.Repositories
                 { typeof(UserGroup.UserGroupDto), typeof(UserGroupDb) },
                 { typeof(UserGroupQueryResult), typeof(UserGroupQueryResultDb) },
                 { typeof(UserGroupLookup), typeof(UserGroupLookupDb) },
-                { typeof(UserGroupQueryResult), typeof(UserGroupQueryResultDb) },
                 { typeof(UserRole.UserRoleDto), typeof(UserRoleDb) },
                 { typeof(UserRoleLookup), typeof(UserRoleLookupDb) },
                 { typeof(UserRoleQueryResult), typeof(UserRoleQueryResultDb) },
@@ -25,8 +24,9 @@ namespace A5Soft.A5App.Repositories
                 { typeof(UserTenant.UserTenantDto), typeof(UserTenantDb) },
                 { typeof(User.UserDto), typeof(UserDb) },
                 { typeof(UserQueryResult), typeof(UserQueryResultDb) },
-                { typeof(TenantGroupAssignment), typeof(TenantGroupAssignmentDb) },
-                { typeof(TenantGroupAssignments.TenantGroupAssignmentsDto), typeof(TenantGroupAssignmentsDb) }
+                { typeof(TenantGroupAssignment.TenantGroupAssignmentDto), typeof(TenantGroupAssignmentDb) },
+                { typeof(TenantGroupAssignments.TenantGroupAssignmentsDto), typeof(TenantGroupAssignmentsDb) },
+                { typeof(UserLookup), typeof(UserLookupDb) }
 
 
 

@@ -1,0 +1,49 @@
+﻿@using Microsoft.Extensions.Localization
+
+@inject IStringLocalizer<CommonLocalization> localizer
+
+<BSModal @ref="Dialog" HideEvent="OnHide">
+    <BSModalHeader Class="alert alert-warning" OnClick="@(() => Dialog.Hide())">
+        <i class="fas fa-question fa-2x"></i>
+    </BSModalHeader>
+    <BSModalBody><p>@Question</p></BSModalBody>
+    <BSModalFooter>
+        <BSButton Color="Color.Primary" @onclick="@(async () => await ProceedAsync())">@localizer["Ok"]</BSButton>
+        <BSButton Color="Color.Secondary" @onclick="@(() => Dialog.Hide())">@localizer["Cancel"]</BSButton>
+    </BSModalFooter>
+</BSModal>   
+
+<ErrorModal @ref="ErrorHandler"/>
+
+@code {
+
+    private BSModal Dialog { get; set; }
+    private ErrorModal ErrorHandler { get; set; }
+    private string Question;
+    private Func<Task> OnOk;
+    private Action Finalizer;
+    private bool Proceeded = false;
+
+
+    public void Ask(string question, Func<Task> onOk, Action finalizer = null)
+    {
+        Question = question;
+        OnOk = onOk;
+        Finalizer = finalizer;
+        Proceeded = false;
+        Dialog.Show();
+    }
+
+    private async Task ProceedAsync()
+    {
+        Proceeded = true;
+        Dialog.Hide();
+        await ErrorHandler.ExecuteWithError(OnOk, Finalizer);
+    }
+
+    private void OnHide()
+    {
+        if (!Proceeded) Finalizer?.Invoke();
+    }
+
+}

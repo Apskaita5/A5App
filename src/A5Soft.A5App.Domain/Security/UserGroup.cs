@@ -6,6 +6,7 @@ using A5Soft.A5App.Domain.Core;
 namespace A5Soft.A5App.Domain.Security
 {
     /// <inheritdoc cref="IUserGroup"/>
+    [Serializable]
     public sealed class UserGroup : AuditableDomainEntity<UserGroup>, IUserGroup
     {
         #region Const

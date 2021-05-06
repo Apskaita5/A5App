@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Security.Claims;
 using System.Threading;
 using System.Threading.Tasks;
 using A5Soft.A5App.Domain.Security;
@@ -13,7 +12,7 @@ namespace A5Soft.A5App.Application.UseCases.Security
     /// </summary>
     [AuthenticatedAuthorization]
     [UseCase(ServiceLifetime.Transient)]
-    public interface ILoginTenantUseCase
+    public interface ILoginTenantUseCase : IAuthorizedUseCase
     {
         /// <summary>
         /// login to the specified tenant database
@@ -22,11 +21,5 @@ namespace A5Soft.A5App.Application.UseCases.Security
         /// <param name="ct">cancellation token (if any)</param>
         [RemoteMethod]
         Task<LoginResponse> QueryAsync(Guid tenantId, CancellationToken ct);
-
-        /// <inheritdoc cref="IAuthorizedUseCase.CanInvoke"/>
-        bool CanInvoke(bool throwOnNotAuthorized);
-
-        /// <inheritdoc cref="IAuthorizedUseCase.User"/>
-        ClaimsIdentity User { get; }
     }
 }

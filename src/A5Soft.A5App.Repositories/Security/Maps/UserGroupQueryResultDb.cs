@@ -1,4 +1,5 @@
-﻿using A5Soft.A5App.Domain.Security;
+﻿using A5Soft.A5App.Application;
+using A5Soft.A5App.Domain.Security;
 using A5Soft.A5App.Domain.Security.Queries;
 using A5Soft.DAL.Core.MicroOrm;
 
@@ -35,12 +36,12 @@ namespace A5Soft.A5App.Repositories.Security.Maps
         private static readonly FieldMapString<UserGroupQueryResult> _updatedByMap = 
             new FieldMapString<UserGroupQueryResult>("UpdatedBy", 
                 (c, v) => ((UserGroupQueryResultDb)c)._updatedBy = v);
-        private static readonly FieldMapInt32<UserGroupQueryResult> _tenantCountMap = 
-            new FieldMapInt32<UserGroupQueryResult>("TenantCount", 
-                (c, v) => ((UserGroupQueryResultDb)c)._tenantCount = v);
-        private static readonly FieldMapInt32<UserGroupQueryResult> _userCountMap = 
-            new FieldMapInt32<UserGroupQueryResult>("UserCount", 
-                (c, v) => ((UserGroupQueryResultDb)c)._userCount = v);
+        private static readonly FieldMapNullableInt32<UserGroupQueryResult> _tenantCountMap = 
+            new FieldMapNullableInt32<UserGroupQueryResult>("TenantCount", 
+                (c, v) => ((UserGroupQueryResultDb)c)._tenantCount = v ?? 0);
+        private static readonly FieldMapNullableInt32<UserGroupQueryResult> _userCountMap = 
+            new FieldMapNullableInt32<UserGroupQueryResult>("UserCount", 
+                (c, v) => ((UserGroupQueryResultDb)c)._userCount = v ?? 0);
 #pragma warning restore IDE0052 // Remove unread private members
     }
 }

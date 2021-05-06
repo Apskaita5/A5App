@@ -1,6 +1,7 @@
 ﻿using A5Soft.A5App.Domain.Properties;
 using System.ComponentModel.DataAnnotations;
 using A5Soft.A5App.Domain.DataAnnotations;
+using MaxLengthAttribute = A5Soft.A5App.Domain.DataAnnotations.MaxLengthAttribute;
 
 namespace A5Soft.A5App.Domain.Security
 {
@@ -22,7 +23,7 @@ namespace A5Soft.A5App.Domain.Security
             ShortName = nameof(Resources.Security_IUserGroup_GroupName_ShortName),
             Prompt = nameof(Resources.Security_IUserGroup_GroupName_Prompt))]
         [ValueRequired]
-        [StringValueLength(127)]
+        [MaxLength(127)]
         string GroupName { get; }
 
         /// <summary>
@@ -33,7 +34,8 @@ namespace A5Soft.A5App.Domain.Security
             Name = nameof(Resources.Security_IUserGroup_MaxUsers_Name),
             ShortName = nameof(Resources.Security_IUserGroup_MaxUsers_ShortName),
             Prompt = nameof(Resources.Security_IUserGroup_MaxUsers_Prompt))]
-        [ValueRange(1, UserGroup.AbsoluteMaxUsers)]
+        [MaxValue(UserGroup.AbsoluteMaxUsers)]
+        [MinValue(1)]
         int MaxUsers { get; }
 
         /// <summary>
@@ -53,7 +55,8 @@ namespace A5Soft.A5App.Domain.Security
             Name = nameof(Resources.Security_IUserGroup_MaxTenants_Name),
             ShortName = nameof(Resources.Security_IUserGroup_MaxTenants_ShortName),
             Prompt = nameof(Resources.Security_IUserGroup_MaxTenants_Prompt))]
-        [ValueRange(1, UserGroup.AbsoluteMaxTenants)]
+        [MaxValue(UserGroup.AbsoluteMaxTenants)]
+        [MinValue(1)]
         int MaxTenants { get; }
 
     }

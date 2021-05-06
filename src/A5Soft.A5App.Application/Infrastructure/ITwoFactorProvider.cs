@@ -1,5 +1,6 @@
 ﻿using System.Threading.Tasks;
 using A5Soft.A5App.Application.UseCases.Security;
+using A5Soft.CARMA.Domain;
 
 namespace A5Soft.A5App.Application.Infrastructure
 {
@@ -7,6 +8,7 @@ namespace A5Soft.A5App.Application.Infrastructure
     /// An interface that should be implemented by a particular two factor authentication implementation
     /// for a particular communication channel (email, SMS etc.).
     /// </summary>
+    [Service(ServiceLifetime.Singleton)]
     public interface ITwoFactorProvider
     {
 

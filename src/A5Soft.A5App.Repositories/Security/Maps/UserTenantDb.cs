@@ -1,6 +1,7 @@
 ﻿using A5Soft.CARMA.Domain;
 using A5Soft.DAL.Core.MicroOrm;
 using System;
+using A5Soft.A5App.Application;
 using A5Soft.A5App.Domain.Security;
 using static A5Soft.A5App.Domain.Security.UserTenant;
 

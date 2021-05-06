@@ -1,0 +1,142 @@
+﻿@page "/Security/UserRoles" 
+@using A5Soft.A5App.Domain.Security.Queries
+@using System.Threading
+@using A5Soft.A5App.Application.UseCases.Security.UserRoles
+@using A5Soft.CARMA.Domain.Metadata
+@using Microsoft.Extensions.Localization
+
+@inject IStringLocalizer<CommonLocalization> localizer
+
+<h3>@QueryUseCase.GetMetadata().GetDisplayNameForNew()</h3>
+
+<p><BSButton OnClick="CreateNew">@FetchUseCase.GetMetadata().GetDisplayNameForCreateNew()</BSButton></p>
+
+<BSTable IsResponsive="true" IsStriped="true" @ref="ResultTable">
+    <BSTableHead TableHeadType="TableHeadType.Light">
+        <tr>
+            <th scope="col"></th>
+            <th scope="col">
+                @(EntityMetadata?.GetPropertyMetadata(nameof(UserRoleQueryResult.Name))?
+                                .GetDisplayShortName() ?? nameof(UserRoleQueryResult.Name))
+            </th>
+            <th scope="col">
+                @(EntityMetadata?.GetPropertyMetadata(nameof(UserRoleQueryResult.Description))?
+                    .GetDisplayShortName() ?? nameof(UserRoleQueryResult.Description))
+            </th>
+            <th scope="col">
+                @(EntityMetadata?.GetPropertyMetadata(nameof(UserRoleQueryResult.UserCount))?
+                    .GetDisplayShortName() ?? nameof(UserRoleQueryResult.UserCount))
+            </th>
+            <th scope="col">
+                @(EntityMetadata?.GetPropertyMetadata(nameof(UserRoleQueryResult.InsertedAt))?
+                    .GetDisplayShortName() ?? nameof(UserRoleQueryResult.InsertedAt))
+            </th>
+            <th scope="col">
+                @(EntityMetadata?.GetPropertyMetadata(nameof(UserRoleQueryResult.InsertedBy))?
+                                .GetDisplayShortName() ?? nameof(UserRoleQueryResult.InsertedBy))
+            </th>
+            <th scope="col">
+                @(EntityMetadata?.GetPropertyMetadata(nameof(UserRoleQueryResult.UpdatedAt))?
+                    .GetDisplayShortName() ?? nameof(UserRoleQueryResult.UpdatedAt))
+            </th>
+            <th scope="col">
+                @(EntityMetadata?.GetPropertyMetadata(nameof(UserRoleQueryResult.UpdatedBy))?
+                                .GetDisplayShortName() ?? nameof(UserRoleQueryResult.UpdatedBy))
+            </th>
+        </tr>
+    </BSTableHead>
+    <tbody>
+    @if (null == ResultSet)
+    {
+        <i class="fas fa-spinner fa-spin fa-5x"></i>
+    }
+    else
+    {
+        @foreach (var item in ResultSet)
+        {
+    <tr>
+        <td>
+            @if (DeleteInProgress.Contains(item))
+            {
+                <i class="fas fa-spinner fa-spin"></i>
+            }
+            else
+            {
+                <i class="far fa-edit" @onclick="() => Edit(item)" title="@localizer["Edit"]"></i>
+                @if (item.CanDelete)
+                {
+                    <i class="fas fa-trash-alt" @onclick="() => Delete(item)" title="@localizer["Delete"]"></i>
+                }
+            }
+        </td>
+        <th scope="row">@item.Name</th>
+        <td>@item.Description</td>
+        <td>@item.UserCount</td>
+        <td>@item.InsertedAt</td>
+        <td>@item.InsertedBy</td>
+        <td>@item.UpdatedAt</td>
+        <td>@item.UpdatedBy</td>
+    </tr>
+        }
+    }
+    </tbody>
+</BSTable>
+
+@code {
+    [Inject]
+    private IQueryUserRolesUseCase QueryUseCase { get; set; }
+    [Inject]
+    private IFetchUserRoleUseCase FetchUseCase { get; set; }
+    [Inject]
+    private IDeleteUserRoleUseCase DeleteUseCase { get; set; }
+    [CascadingParameter(Name = "ErrorHandler")]
+    private ErrorModal ErrorHandler { get; set; }
+    [CascadingParameter(Name = "ConfirmHandler")]
+    private ConfirmModal ConfirmHandler { get; set; }
+    [Inject]
+    private SmartNavigationManager Navigator { get; set; }
+
+    private BSTable ResultTable { get; set; }
+    private List<UserRoleQueryResult> ResultSet;
+    private List<UserRoleQueryResult> DeleteInProgress = new List<UserRoleQueryResult>();
+    private IEntityMetadata EntityMetadata;
+
+    /// <inheritdoc />
+    protected override async Task OnInitializedAsync()
+    {
+        var success = await ErrorHandler.ExecuteWithError(
+            async () => ResultSet = await QueryUseCase.QueryAsync(CancellationToken.None));
+        if (!success) ResultSet = new List<UserRoleQueryResult>();
+        EntityMetadata = QueryUseCase.GetMetadata();
+        await base.OnInitializedAsync();
+    }
+
+    private void CreateNew()
+    {
+        Navigator.NavigateToUseCase(typeof(ICreateUserRoleUseCase));
+    }
+
+    private void Edit(UserRoleQueryResult item)
+    {
+        Navigator.NavigateToUseCase(typeof(IUpdateUserRoleUseCase), 
+            ((Guid)item.Id.IdentityValue).ToString("N"));
+    }
+
+    private void Delete(UserRoleQueryResult item)
+    {
+        DeleteInProgress.Add(item);
+        ConfirmHandler.Ask(string.Format(localizer["ConfirmDelete_UserRole"], item.Name),
+            async () =>
+            {
+                var success = await ErrorHandler.ExecuteWithError(() => DeleteUseCase.InvokeAsync(item.Id));
+                if (success) ResultSet.Remove(item);
+                DeleteInProgress.Remove(item);
+                this.StateHasChanged();
+            }, () =>
+            {
+                DeleteInProgress.Remove(item);
+                this.StateHasChanged();
+            });
+    }
+
+}

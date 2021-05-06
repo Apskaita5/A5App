@@ -4,6 +4,7 @@ using System.Threading.Tasks;
 using A5Soft.A5App.Application.Infrastructure;
 using A5Soft.A5App.Application.Properties;
 using A5Soft.A5App.Application.Repositories.Security;
+using A5Soft.A5App.Application.UseCases.Security.ClaimsIdentityExtensions;
 using A5Soft.A5App.Domain.Security;
 using A5Soft.CARMA.Application;
 using A5Soft.CARMA.Application.DataPortal;
@@ -19,6 +20,7 @@ namespace A5Soft.A5App.Application.UseCases.Security
         ILoginUseCase
     {
         private readonly IUserRepository _repository;
+        private readonly ISecurityTokenProvider _securityTokenProvider;
         private readonly ISecurityPolicy _policy;
         private readonly IPasswordHasher _passwordHasher;
         private readonly ISecureRandomProvider _secureRandomProvider;
@@ -26,13 +28,15 @@ namespace A5Soft.A5App.Application.UseCases.Security
 
 
         /// <inheritdoc />
-        public LoginUseCase(IUserRepository repository, ISecurityPolicy policy, 
-            IPasswordHasher passwordHasher, ISecureRandomProvider secureRandomProvider,
-            ITwoFactorProvider twoFactorProvider, IClientDataPortal dataPortal, 
-            IValidationEngineProvider validationProvider, IMetadataProvider metadataProvider, 
-            ILogger logger) : base(dataPortal, validationProvider, metadataProvider, logger)
+        public LoginUseCase(IClientDataPortal dataPortal, IValidationEngineProvider validationProvider,
+            IMetadataProvider metadataProvider, ILogger logger, IUserRepository repository,
+            ISecurityTokenProvider securityTokenProvider, ISecurityPolicy policy, IPasswordHasher passwordHasher,
+            ISecureRandomProvider secureRandomProvider, ITwoFactorProvider twoFactorProvider) : base(dataPortal,
+            validationProvider, metadataProvider, logger)
         {
             _repository = repository ?? throw new ArgumentNullException(nameof(repository));
+            _securityTokenProvider =
+                securityTokenProvider ?? throw new ArgumentNullException(nameof(securityTokenProvider));
             _policy = policy ?? throw new ArgumentNullException(nameof(policy));
             _passwordHasher = passwordHasher ?? throw new ArgumentNullException(nameof(passwordHasher));
             _secureRandomProvider =
@@ -99,7 +103,7 @@ namespace A5Soft.A5App.Application.UseCases.Security
 
             Logger.LogSecurityIssue($"User {criteria.Email} has successfully logged in.");
 
-            return new LoginResponse(userDetails.ToClaimsIdentity(_policy));
+            return new LoginResponse(await userDetails.ToClaimsIdentityAsync(_policy, _securityTokenProvider));
         }
 
     }

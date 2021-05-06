@@ -1,4 +1,5 @@
-﻿using A5Soft.A5App.Domain.Security.Queries;
+﻿using A5Soft.A5App.Application;
+using A5Soft.A5App.Domain.Security.Queries;
 using A5Soft.DAL.Core.MicroOrm;
 using A5Soft.A5App.Domain.Security;
 
@@ -13,9 +14,9 @@ namespace A5Soft.A5App.Repositories.Security.Maps
         private static readonly FieldMapGuid<UserQueryResult> _idMap =
             new FieldMapGuid<UserQueryResult>(nameof(Id),
             (c, v) => ((UserQueryResultDb)c)._id = v.ToIdentity<User>());
-        private static readonly FieldMapGuid<UserQueryResult> _groupIdMap =
-            new FieldMapGuid<UserQueryResult>(nameof(GroupId),
-            (c, v) => ((UserQueryResultDb)c)._groupId = v.ToIdentity<UserGroup>());
+        private static readonly FieldMapNullableGuid<UserQueryResult> _groupIdMap =
+            new FieldMapNullableGuid<UserQueryResult>(nameof(GroupId),
+            (c, v) => ((UserQueryResultDb)c)._groupId = v?.ToIdentity<UserGroup>());
         private static readonly FieldMapString<UserQueryResult> _groupNameMap =
             new FieldMapString<UserQueryResult>(nameof(GroupName),
             (c, v) => ((UserQueryResultDb)c)._groupName = v ?? string.Empty);

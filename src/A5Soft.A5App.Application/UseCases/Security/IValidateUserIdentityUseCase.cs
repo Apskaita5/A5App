@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System.Security.Claims;
+using System.Threading.Tasks;
 using A5Soft.CARMA.Application;
 using A5Soft.CARMA.Domain;
 
@@ -9,15 +10,16 @@ namespace A5Soft.A5App.Application.UseCases.Security
     /// user credentials has not changed. Throws <see cref="UnauthenticatedException"/> if
     /// the identity is not valid for any reason.
     /// </summary>
-    [AuthenticatedAuthorization]
-    [UseCase(ServiceLifetime.Transient)]
-    public interface IValidateUserIdentityUseCase
+    [UseCase(ServiceLifetime.Singleton)]
+    public interface IValidateUserIdentityUseCase : IUseCase
     {
         /// <summary>
         /// Checks if the current user identity is valid, i.e. not forged, not expired,
         /// user credentials has not changed. Throws <see cref="UnauthenticatedException"/> if
         /// the identity is not valid for any reason.
         /// </summary>
-        Task InvokeAsync();
+        /// <param name="identity">identity to validate</param>
+        [RemoteMethod]
+        Task InvokeAsync(ClaimsIdentity identity);
     }
 }

@@ -1,4 +1,5 @@
-﻿using A5Soft.A5App.Domain.Security.Queries;
+﻿using A5Soft.A5App.Application;
+using A5Soft.A5App.Domain.Security.Queries;
 using A5Soft.DAL.Core.MicroOrm;
 using A5Soft.CARMA.Domain;
 using A5Soft.A5App.Domain.Security;

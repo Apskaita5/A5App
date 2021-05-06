@@ -1,0 +1,59 @@
+﻿@using Microsoft.Extensions.Localization
+@using A5Soft.A5App.Application
+
+@inject IStringLocalizer<CommonLocalization> localizer
+      
+<BSModal @ref="Dialog">
+    <BSModalHeader Class="alert alert-danger" OnClick="@(() => Dialog.Hide())">
+        @localizer["Error."]
+    </BSModalHeader>
+    <BSModalBody><p>@errorMessage</p></BSModalBody>
+    <BSModalFooter>
+        <BSButton Color="Color.Primary" @onclick="@(() => Dialog.Hide())">@localizer["Close"]</BSButton>
+    </BSModalFooter>
+</BSModal>
+
+@code
+{
+    private MarkupString errorMessage;
+
+    private BSModal Dialog;
+
+    public void Show(Exception ex)
+    {
+        var bex = ex.ToBusinessException();
+        if (null == bex)
+        {
+            errorMessage = new MarkupString(localizer["A server exception has occured and has been logged for further investigation. Try again later."]);
+        }
+        else
+        {
+            errorMessage = new MarkupString(string.Join("<br/>",
+                bex.Message.Split(Environment.NewLine, StringSplitOptions.None)));
+        }
+        Dialog.Show();
+    }
+
+    public async Task<bool> ExecuteWithError(Func<Task> action, Action finalizer = null)
+    {
+        try
+        {
+            await action();
+            return true;
+        }
+        catch (Exception e)
+        {
+            Show(e);
+            finalizer?.Invoke();
+            return false;
+        }
+    }
+
+    public void Show(string message)
+    {
+        errorMessage = new MarkupString(string.Join("<br/>",
+            message.Split(Environment.NewLine, StringSplitOptions.None)));
+        Dialog.Show();
+    }
+            
+}

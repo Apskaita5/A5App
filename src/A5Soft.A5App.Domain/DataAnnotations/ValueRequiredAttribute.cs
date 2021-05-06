@@ -1,17 +1,21 @@
 ﻿using A5Soft.A5App.Domain.Properties;
+using A5Soft.CARMA.Domain.Rules.DataAnnotations.CommonRules;
+using System;
 
 namespace A5Soft.A5App.Domain.DataAnnotations
 {
     /// <summary>
     /// required rule
     /// </summary>
-    public class ValueRequiredAttribute : A5Soft.CARMA.Domain.Rules.DataAnnotations.CommonRules.RequiredAttribute
+    [AttributeUsage(AttributeTargets.Property, AllowMultiple = false, Inherited = true)]
+    public class ValueRequiredAttribute : RequiredAttributeBase
     {
         /// <inheritdoc />
-        public ValueRequiredAttribute()
+        public ValueRequiredAttribute() { }
+
+        protected override string GetLocalizedErrorMessageFor(string localizedPropName)
         {
-            ErrorMessageResourceType = typeof(Resources);
-            ErrorMessageResourceName = nameof(Resources.DataAnnotations_ErrorMessage_Required);
+            return string.Format(Resources.DataAnnotations_ErrorMessage_Required, localizedPropName);
         }
     }
 }

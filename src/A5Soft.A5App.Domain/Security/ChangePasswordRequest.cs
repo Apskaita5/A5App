@@ -1,7 +1,6 @@
 ﻿using A5Soft.A5App.Domain.DataAnnotations;
 using A5Soft.A5App.Domain.Properties;
 using System;
-using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 
 namespace A5Soft.A5App.Domain.Security
@@ -47,7 +46,7 @@ namespace A5Soft.A5App.Domain.Security
             ShortName = nameof(Resources.Security_ChangePasswordRequestQueryCriteria_RepeatedPassword_ShortName),
             Prompt = nameof(Resources.Security_ChangePasswordRequestQueryCriteria_RepeatedPassword_Prompt))]
         [DataType(DataType.Password)]
-        [CompareStrings(nameof(NewPassword))]
+        [EqualTo(nameof(NewPassword))]
         public string RepeatedPassword { get; set; } = string.Empty;
 
     }

@@ -1,0 +1,1059 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Schema xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+ <Description>DB schema for the mysql database vnext_sec using engine InnoDB, charset utf8mb4.</Description>
+ <Tables>
+  <TableSchema>
+   <Name>old_user_emails</Name>
+   <Description>DB schema for table old_user_emails ('') using engine InnoDB, charset utf8_general_ci.</Description>
+   <Fields>
+    <FieldSchema>
+     <Name>id</Name>
+     <DataType>Char</DataType>
+     <Length>32</Length>
+     <NotNull>true</NotNull>
+     <Autoincrement>false</Autoincrement>
+     <Unsigned>false</Unsigned>
+     <EnumValues />
+     <Description />
+     <CollationType>ASCII_Binary</CollationType>
+     <IndexType>Primary</IndexType>
+     <IndexName />
+     <OnUpdateForeignKey>Cascade</OnUpdateForeignKey>
+     <OnDeleteForeignKey>Restrict</OnDeleteForeignKey>
+     <RefTable />
+     <RefField />
+    </FieldSchema>
+    <FieldSchema>
+     <Name>user_id</Name>
+     <DataType>Char</DataType>
+     <Length>32</Length>
+     <NotNull>true</NotNull>
+     <Autoincrement>false</Autoincrement>
+     <Unsigned>false</Unsigned>
+     <EnumValues />
+     <Description />
+     <CollationType>ASCII_Binary</CollationType>
+     <IndexType>ForeignKey</IndexType>
+     <IndexName>old_user_emails_user_id_fk</IndexName>
+     <OnUpdateForeignKey>Cascade</OnUpdateForeignKey>
+     <OnDeleteForeignKey>Cascade</OnDeleteForeignKey>
+     <RefTable>users</RefTable>
+     <RefField>id</RefField>
+    </FieldSchema>
+    <FieldSchema>
+     <Name>old_email</Name>
+     <DataType>VarChar</DataType>
+     <Length>255</Length>
+     <NotNull>true</NotNull>
+     <Autoincrement>false</Autoincrement>
+     <Unsigned>false</Unsigned>
+     <EnumValues />
+     <Description />
+     <CollationType>Default</CollationType>
+     <IndexType>None</IndexType>
+     <IndexName />
+     <OnUpdateForeignKey>Cascade</OnUpdateForeignKey>
+     <OnDeleteForeignKey>Restrict</OnDeleteForeignKey>
+     <RefTable />
+     <RefField />
+    </FieldSchema>
+    <FieldSchema>
+     <Name>changed_at</Name>
+     <DataType>DateTime</DataType>
+     <Length>255</Length>
+     <NotNull>true</NotNull>
+     <Autoincrement>false</Autoincrement>
+     <Unsigned>false</Unsigned>
+     <EnumValues />
+     <Description />
+     <CollationType>Default</CollationType>
+     <IndexType>None</IndexType>
+     <IndexName />
+     <OnUpdateForeignKey>Cascade</OnUpdateForeignKey>
+     <OnDeleteForeignKey>Restrict</OnDeleteForeignKey>
+     <RefTable />
+     <RefField />
+    </FieldSchema>
+   </Fields>
+  </TableSchema>
+  <TableSchema>
+   <Name>permissions</Name>
+   <Description>DB schema for table permissions ('') using engine InnoDB, charset utf8_general_ci.</Description>
+   <Fields>
+    <FieldSchema>
+     <Name>id</Name>
+     <DataType>Char</DataType>
+     <Length>32</Length>
+     <NotNull>true</NotNull>
+     <Autoincrement>false</Autoincrement>
+     <Unsigned>false</Unsigned>
+     <EnumValues />
+     <Description />
+     <CollationType>ASCII_Binary</CollationType>
+     <IndexType>Primary</IndexType>
+     <IndexName />
+     <OnUpdateForeignKey>Cascade</OnUpdateForeignKey>
+     <OnDeleteForeignKey>Restrict</OnDeleteForeignKey>
+     <RefTable />
+     <RefField />
+    </FieldSchema>
+    <FieldSchema>
+     <Name>plugin_id</Name>
+     <DataType>Char</DataType>
+     <Length>32</Length>
+     <NotNull>false</NotNull>
+     <Autoincrement>false</Autoincrement>
+     <Unsigned>false</Unsigned>
+     <EnumValues />
+     <Description />
+     <CollationType>ASCII_Binary</CollationType>
+     <IndexType>ForeignKey</IndexType>
+     <IndexName>permissions_plugin_id_fk</IndexName>
+     <OnUpdateForeignKey>Cascade</OnUpdateForeignKey>
+     <OnDeleteForeignKey>Cascade</OnDeleteForeignKey>
+     <RefTable>plugins</RefTable>
+     <RefField>id</RefField>
+    </FieldSchema>
+   </Fields>
+  </TableSchema>
+  <TableSchema>
+   <Name>plugins</Name>
+   <Description>DB schema for table plugins ('') using engine InnoDB, charset utf8_general_ci.</Description>
+   <Fields>
+    <FieldSchema>
+     <Name>id</Name>
+     <DataType>Char</DataType>
+     <Length>32</Length>
+     <NotNull>true</NotNull>
+     <Autoincrement>false</Autoincrement>
+     <Unsigned>false</Unsigned>
+     <EnumValues />
+     <Description />
+     <CollationType>ASCII_Binary</CollationType>
+     <IndexType>Primary</IndexType>
+     <IndexName />
+     <OnUpdateForeignKey>Cascade</OnUpdateForeignKey>
+     <OnDeleteForeignKey>Restrict</OnDeleteForeignKey>
+     <RefTable />
+     <RefField />
+    </FieldSchema>
+    <FieldSchema>
+     <Name>plugin_name</Name>
+     <DataType>VarChar</DataType>
+     <Length>255</Length>
+     <NotNull>true</NotNull>
+     <Autoincrement>false</Autoincrement>
+     <Unsigned>false</Unsigned>
+     <EnumValues />
+     <Description />
+     <CollationType>Default</CollationType>
+     <IndexType>None</IndexType>
+     <IndexName />
+     <OnUpdateForeignKey>Cascade</OnUpdateForeignKey>
+     <OnDeleteForeignKey>Restrict</OnDeleteForeignKey>
+     <RefTable />
+     <RefField />
+    </FieldSchema>
+    <FieldSchema>
+     <Name>inserted_at</Name>
+     <DataType>DateTime</DataType>
+     <Length>255</Length>
+     <NotNull>true</NotNull>
+     <Autoincrement>false</Autoincrement>
+     <Unsigned>false</Unsigned>
+     <EnumValues />
+     <Description />
+     <CollationType>Default</CollationType>
+     <IndexType>None</IndexType>
+     <IndexName />
+     <OnUpdateForeignKey>Cascade</OnUpdateForeignKey>
+     <OnDeleteForeignKey>Restrict</OnDeleteForeignKey>
+     <RefTable />
+     <RefField />
+    </FieldSchema>
+    <FieldSchema>
+     <Name>inserted_by</Name>
+     <DataType>VarChar</DataType>
+     <Length>255</Length>
+     <NotNull>true</NotNull>
+     <Autoincrement>false</Autoincrement>
+     <Unsigned>false</Unsigned>
+     <EnumValues />
+     <Description />
+     <CollationType>Default</CollationType>
+     <IndexType>None</IndexType>
+     <IndexName />
+     <OnUpdateForeignKey>Cascade</OnUpdateForeignKey>
+     <OnDeleteForeignKey>Restrict</OnDeleteForeignKey>
+     <RefTable />
+     <RefField />
+    </FieldSchema>
+   </Fields>
+  </TableSchema>
+  <TableSchema>
+   <Name>role_permissions</Name>
+   <Description>DB schema for table role_permissions ('') using engine InnoDB, charset utf8_general_ci.</Description>
+   <Fields>
+    <FieldSchema>
+     <Name>id</Name>
+     <DataType>Char</DataType>
+     <Length>32</Length>
+     <NotNull>true</NotNull>
+     <Autoincrement>false</Autoincrement>
+     <Unsigned>false</Unsigned>
+     <EnumValues />
+     <Description />
+     <CollationType>ASCII_Binary</CollationType>
+     <IndexType>Primary</IndexType>
+     <IndexName />
+     <OnUpdateForeignKey>Cascade</OnUpdateForeignKey>
+     <OnDeleteForeignKey>Restrict</OnDeleteForeignKey>
+     <RefTable />
+     <RefField />
+    </FieldSchema>
+    <FieldSchema>
+     <Name>role_id</Name>
+     <DataType>Char</DataType>
+     <Length>32</Length>
+     <NotNull>true</NotNull>
+     <Autoincrement>false</Autoincrement>
+     <Unsigned>false</Unsigned>
+     <EnumValues />
+     <Description />
+     <CollationType>ASCII_Binary</CollationType>
+     <IndexType>ForeignKey</IndexType>
+     <IndexName>role_permissions_role_id_fk</IndexName>
+     <OnUpdateForeignKey>Cascade</OnUpdateForeignKey>
+     <OnDeleteForeignKey>Cascade</OnDeleteForeignKey>
+     <RefTable>roles</RefTable>
+     <RefField>id</RefField>
+    </FieldSchema>
+    <FieldSchema>
+     <Name>permission_id</Name>
+     <DataType>Char</DataType>
+     <Length>32</Length>
+     <NotNull>true</NotNull>
+     <Autoincrement>false</Autoincrement>
+     <Unsigned>false</Unsigned>
+     <EnumValues />
+     <Description />
+     <CollationType>ASCII_Binary</CollationType>
+     <IndexType>ForeignKey</IndexType>
+     <IndexName>role_permissions_permission_id_fk</IndexName>
+     <OnUpdateForeignKey>Cascade</OnUpdateForeignKey>
+     <OnDeleteForeignKey>Cascade</OnDeleteForeignKey>
+     <RefTable>permissions</RefTable>
+     <RefField>id</RefField>
+    </FieldSchema>
+   </Fields>
+  </TableSchema>
+  <TableSchema>
+   <Name>roles</Name>
+   <Description>DB schema for table roles ('') using engine InnoDB, charset utf8_general_ci.</Description>
+   <Fields>
+    <FieldSchema>
+     <Name>id</Name>
+     <DataType>Char</DataType>
+     <Length>32</Length>
+     <NotNull>true</NotNull>
+     <Autoincrement>false</Autoincrement>
+     <Unsigned>false</Unsigned>
+     <EnumValues />
+     <Description />
+     <CollationType>ASCII_Binary</CollationType>
+     <IndexType>Primary</IndexType>
+     <IndexName />
+     <OnUpdateForeignKey>Cascade</OnUpdateForeignKey>
+     <OnDeleteForeignKey>Restrict</OnDeleteForeignKey>
+     <RefTable />
+     <RefField />
+    </FieldSchema>
+    <FieldSchema>
+     <Name>role_name</Name>
+     <DataType>VarChar</DataType>
+     <Length>127</Length>
+     <NotNull>true</NotNull>
+     <Autoincrement>false</Autoincrement>
+     <Unsigned>false</Unsigned>
+     <EnumValues />
+     <Description />
+     <CollationType>Default</CollationType>
+     <IndexType>None</IndexType>
+     <IndexName />
+     <OnUpdateForeignKey>Cascade</OnUpdateForeignKey>
+     <OnDeleteForeignKey>Restrict</OnDeleteForeignKey>
+     <RefTable />
+     <RefField />
+    </FieldSchema>
+    <FieldSchema>
+     <Name>role_description</Name>
+     <DataType>VarChar</DataType>
+     <Length>255</Length>
+     <NotNull>true</NotNull>
+     <Autoincrement>false</Autoincrement>
+     <Unsigned>false</Unsigned>
+     <EnumValues />
+     <Description />
+     <CollationType>Default</CollationType>
+     <IndexType>None</IndexType>
+     <IndexName />
+     <OnUpdateForeignKey>Cascade</OnUpdateForeignKey>
+     <OnDeleteForeignKey>Restrict</OnDeleteForeignKey>
+     <RefTable />
+     <RefField />
+    </FieldSchema>
+    <FieldSchema>
+     <Name>inserted_at</Name>
+     <DataType>DateTime</DataType>
+     <Length>255</Length>
+     <NotNull>true</NotNull>
+     <Autoincrement>false</Autoincrement>
+     <Unsigned>false</Unsigned>
+     <EnumValues />
+     <Description />
+     <CollationType>Default</CollationType>
+     <IndexType>None</IndexType>
+     <IndexName />
+     <OnUpdateForeignKey>Cascade</OnUpdateForeignKey>
+     <OnDeleteForeignKey>Restrict</OnDeleteForeignKey>
+     <RefTable />
+     <RefField />
+    </FieldSchema>
+    <FieldSchema>
+     <Name>inserted_by</Name>
+     <DataType>VarChar</DataType>
+     <Length>255</Length>
+     <NotNull>true</NotNull>
+     <Autoincrement>false</Autoincrement>
+     <Unsigned>false</Unsigned>
+     <EnumValues />
+     <Description />
+     <CollationType>Default</CollationType>
+     <IndexType>None</IndexType>
+     <IndexName />
+     <OnUpdateForeignKey>Cascade</OnUpdateForeignKey>
+     <OnDeleteForeignKey>Restrict</OnDeleteForeignKey>
+     <RefTable />
+     <RefField />
+    </FieldSchema>
+    <FieldSchema>
+     <Name>updated_at</Name>
+     <DataType>DateTime</DataType>
+     <Length>255</Length>
+     <NotNull>true</NotNull>
+     <Autoincrement>false</Autoincrement>
+     <Unsigned>false</Unsigned>
+     <EnumValues />
+     <Description />
+     <CollationType>Default</CollationType>
+     <IndexType>None</IndexType>
+     <IndexName />
+     <OnUpdateForeignKey>Cascade</OnUpdateForeignKey>
+     <OnDeleteForeignKey>Restrict</OnDeleteForeignKey>
+     <RefTable />
+     <RefField />
+    </FieldSchema>
+    <FieldSchema>
+     <Name>updated_by</Name>
+     <DataType>VarChar</DataType>
+     <Length>255</Length>
+     <NotNull>true</NotNull>
+     <Autoincrement>false</Autoincrement>
+     <Unsigned>false</Unsigned>
+     <EnumValues />
+     <Description />
+     <CollationType>Default</CollationType>
+     <IndexType>None</IndexType>
+     <IndexName />
+     <OnUpdateForeignKey>Cascade</OnUpdateForeignKey>
+     <OnDeleteForeignKey>Restrict</OnDeleteForeignKey>
+     <RefTable />
+     <RefField />
+    </FieldSchema>
+   </Fields>
+  </TableSchema>
+  <TableSchema>
+   <Name>tenants</Name>
+   <Description>DB schema for table tenants ('') using engine InnoDB, charset utf8_general_ci.</Description>
+   <Fields>
+    <FieldSchema>
+     <Name>id</Name>
+     <DataType>Char</DataType>
+     <Length>32</Length>
+     <NotNull>true</NotNull>
+     <Autoincrement>false</Autoincrement>
+     <Unsigned>false</Unsigned>
+     <EnumValues />
+     <Description />
+     <CollationType>ASCII_Binary</CollationType>
+     <IndexType>Primary</IndexType>
+     <IndexName />
+     <OnUpdateForeignKey>Cascade</OnUpdateForeignKey>
+     <OnDeleteForeignKey>Restrict</OnDeleteForeignKey>
+     <RefTable />
+     <RefField />
+    </FieldSchema>
+    <FieldSchema>
+     <Name>tenant_name</Name>
+     <DataType>VarChar</DataType>
+     <Length>255</Length>
+     <NotNull>true</NotNull>
+     <Autoincrement>false</Autoincrement>
+     <Unsigned>false</Unsigned>
+     <EnumValues />
+     <Description />
+     <CollationType>Default</CollationType>
+     <IndexType>None</IndexType>
+     <IndexName />
+     <OnUpdateForeignKey>Cascade</OnUpdateForeignKey>
+     <OnDeleteForeignKey>Restrict</OnDeleteForeignKey>
+     <RefTable />
+     <RefField />
+    </FieldSchema>
+    <FieldSchema>
+     <Name>db_name</Name>
+     <DataType>VarChar</DataType>
+     <Length>100</Length>
+     <NotNull>true</NotNull>
+     <Autoincrement>false</Autoincrement>
+     <Unsigned>false</Unsigned>
+     <EnumValues />
+     <Description />
+     <CollationType>Default</CollationType>
+     <IndexType>None</IndexType>
+     <IndexName />
+     <OnUpdateForeignKey>Cascade</OnUpdateForeignKey>
+     <OnDeleteForeignKey>Restrict</OnDeleteForeignKey>
+     <RefTable />
+     <RefField />
+    </FieldSchema>
+    <FieldSchema>
+     <Name>inserted_at</Name>
+     <DataType>DateTime</DataType>
+     <Length>255</Length>
+     <NotNull>true</NotNull>
+     <Autoincrement>false</Autoincrement>
+     <Unsigned>false</Unsigned>
+     <EnumValues />
+     <Description />
+     <CollationType>Default</CollationType>
+     <IndexType>None</IndexType>
+     <IndexName />
+     <OnUpdateForeignKey>Cascade</OnUpdateForeignKey>
+     <OnDeleteForeignKey>Restrict</OnDeleteForeignKey>
+     <RefTable />
+     <RefField />
+    </FieldSchema>
+    <FieldSchema>
+     <Name>inserted_by</Name>
+     <DataType>VarChar</DataType>
+     <Length>255</Length>
+     <NotNull>true</NotNull>
+     <Autoincrement>false</Autoincrement>
+     <Unsigned>false</Unsigned>
+     <EnumValues />
+     <Description />
+     <CollationType>Default</CollationType>
+     <IndexType>None</IndexType>
+     <IndexName />
+     <OnUpdateForeignKey>Cascade</OnUpdateForeignKey>
+     <OnDeleteForeignKey>Restrict</OnDeleteForeignKey>
+     <RefTable />
+     <RefField />
+    </FieldSchema>
+   </Fields>
+  </TableSchema>
+  <TableSchema>
+   <Name>user_group_tenants</Name>
+   <Description>DB schema for table user_group_tenants ('') using engine InnoDB, charset utf8_general_ci.</Description>
+   <Fields>
+    <FieldSchema>
+     <Name>id</Name>
+     <DataType>Char</DataType>
+     <Length>32</Length>
+     <NotNull>true</NotNull>
+     <Autoincrement>false</Autoincrement>
+     <Unsigned>false</Unsigned>
+     <EnumValues />
+     <Description />
+     <CollationType>ASCII_Binary</CollationType>
+     <IndexType>Primary</IndexType>
+     <IndexName />
+     <OnUpdateForeignKey>Cascade</OnUpdateForeignKey>
+     <OnDeleteForeignKey>Restrict</OnDeleteForeignKey>
+     <RefTable />
+     <RefField />
+    </FieldSchema>
+    <FieldSchema>
+     <Name>user_group_id</Name>
+     <DataType>Char</DataType>
+     <Length>32</Length>
+     <NotNull>true</NotNull>
+     <Autoincrement>false</Autoincrement>
+     <Unsigned>false</Unsigned>
+     <EnumValues />
+     <Description />
+     <CollationType>ASCII_Binary</CollationType>
+     <IndexType>ForeignKey</IndexType>
+     <IndexName>user_group_tenants_user_group_id_fk</IndexName>
+     <OnUpdateForeignKey>Cascade</OnUpdateForeignKey>
+     <OnDeleteForeignKey>Cascade</OnDeleteForeignKey>
+     <RefTable>user_groups</RefTable>
+     <RefField>id</RefField>
+    </FieldSchema>
+    <FieldSchema>
+     <Name>tenant_id</Name>
+     <DataType>Char</DataType>
+     <Length>32</Length>
+     <NotNull>true</NotNull>
+     <Autoincrement>false</Autoincrement>
+     <Unsigned>false</Unsigned>
+     <EnumValues />
+     <Description />
+     <CollationType>ASCII_Binary</CollationType>
+     <IndexType>ForeignKey</IndexType>
+     <IndexName>user_group_tenants_tenant_id_fk</IndexName>
+     <OnUpdateForeignKey>Cascade</OnUpdateForeignKey>
+     <OnDeleteForeignKey>Cascade</OnDeleteForeignKey>
+     <RefTable>tenants</RefTable>
+     <RefField>id</RefField>
+    </FieldSchema>
+   </Fields>
+  </TableSchema>
+  <TableSchema>
+   <Name>user_groups</Name>
+   <Description>DB schema for table user_groups ('') using engine InnoDB, charset utf8_general_ci.</Description>
+   <Fields>
+    <FieldSchema>
+     <Name>id</Name>
+     <DataType>Char</DataType>
+     <Length>32</Length>
+     <NotNull>true</NotNull>
+     <Autoincrement>false</Autoincrement>
+     <Unsigned>false</Unsigned>
+     <EnumValues />
+     <Description />
+     <CollationType>ASCII_Binary</CollationType>
+     <IndexType>Primary</IndexType>
+     <IndexName />
+     <OnUpdateForeignKey>Cascade</OnUpdateForeignKey>
+     <OnDeleteForeignKey>Restrict</OnDeleteForeignKey>
+     <RefTable />
+     <RefField />
+    </FieldSchema>
+    <FieldSchema>
+     <Name>group_name</Name>
+     <DataType>VarChar</DataType>
+     <Length>127</Length>
+     <NotNull>true</NotNull>
+     <Autoincrement>false</Autoincrement>
+     <Unsigned>false</Unsigned>
+     <EnumValues />
+     <Description />
+     <CollationType>Default</CollationType>
+     <IndexType>None</IndexType>
+     <IndexName />
+     <OnUpdateForeignKey>Cascade</OnUpdateForeignKey>
+     <OnDeleteForeignKey>Restrict</OnDeleteForeignKey>
+     <RefTable />
+     <RefField />
+    </FieldSchema>
+    <FieldSchema>
+     <Name>max_users</Name>
+     <DataType>IntegerSmall</DataType>
+     <Length>255</Length>
+     <NotNull>true</NotNull>
+     <Autoincrement>false</Autoincrement>
+     <Unsigned>true</Unsigned>
+     <EnumValues />
+     <Description />
+     <CollationType>Default</CollationType>
+     <IndexType>None</IndexType>
+     <IndexName />
+     <OnUpdateForeignKey>Cascade</OnUpdateForeignKey>
+     <OnDeleteForeignKey>Restrict</OnDeleteForeignKey>
+     <RefTable />
+     <RefField />
+    </FieldSchema>
+    <FieldSchema>
+     <Name>max_tenants</Name>
+     <DataType>IntegerSmall</DataType>
+     <Length>255</Length>
+     <NotNull>true</NotNull>
+     <Autoincrement>false</Autoincrement>
+     <Unsigned>true</Unsigned>
+     <EnumValues />
+     <Description />
+     <CollationType>Default</CollationType>
+     <IndexType>None</IndexType>
+     <IndexName />
+     <OnUpdateForeignKey>Cascade</OnUpdateForeignKey>
+     <OnDeleteForeignKey>Restrict</OnDeleteForeignKey>
+     <RefTable />
+     <RefField />
+    </FieldSchema>
+    <FieldSchema>
+     <Name>inserted_at</Name>
+     <DataType>DateTime</DataType>
+     <Length>255</Length>
+     <NotNull>true</NotNull>
+     <Autoincrement>false</Autoincrement>
+     <Unsigned>false</Unsigned>
+     <EnumValues />
+     <Description />
+     <CollationType>Default</CollationType>
+     <IndexType>None</IndexType>
+     <IndexName />
+     <OnUpdateForeignKey>Cascade</OnUpdateForeignKey>
+     <OnDeleteForeignKey>Restrict</OnDeleteForeignKey>
+     <RefTable />
+     <RefField />
+    </FieldSchema>
+    <FieldSchema>
+     <Name>inserted_by</Name>
+     <DataType>VarChar</DataType>
+     <Length>255</Length>
+     <NotNull>true</NotNull>
+     <Autoincrement>false</Autoincrement>
+     <Unsigned>false</Unsigned>
+     <EnumValues />
+     <Description />
+     <CollationType>Default</CollationType>
+     <IndexType>None</IndexType>
+     <IndexName />
+     <OnUpdateForeignKey>Cascade</OnUpdateForeignKey>
+     <OnDeleteForeignKey>Restrict</OnDeleteForeignKey>
+     <RefTable />
+     <RefField />
+    </FieldSchema>
+    <FieldSchema>
+     <Name>updated_at</Name>
+     <DataType>DateTime</DataType>
+     <Length>255</Length>
+     <NotNull>true</NotNull>
+     <Autoincrement>false</Autoincrement>
+     <Unsigned>false</Unsigned>
+     <EnumValues />
+     <Description />
+     <CollationType>Default</CollationType>
+     <IndexType>None</IndexType>
+     <IndexName />
+     <OnUpdateForeignKey>Cascade</OnUpdateForeignKey>
+     <OnDeleteForeignKey>Restrict</OnDeleteForeignKey>
+     <RefTable />
+     <RefField />
+    </FieldSchema>
+    <FieldSchema>
+     <Name>updated_by</Name>
+     <DataType>VarChar</DataType>
+     <Length>255</Length>
+     <NotNull>true</NotNull>
+     <Autoincrement>false</Autoincrement>
+     <Unsigned>false</Unsigned>
+     <EnumValues />
+     <Description />
+     <CollationType>Default</CollationType>
+     <IndexType>None</IndexType>
+     <IndexName />
+     <OnUpdateForeignKey>Cascade</OnUpdateForeignKey>
+     <OnDeleteForeignKey>Restrict</OnDeleteForeignKey>
+     <RefTable />
+     <RefField />
+    </FieldSchema>
+   </Fields>
+  </TableSchema>
+  <TableSchema>
+   <Name>user_permissions</Name>
+   <Description>DB schema for table user_permissions ('') using engine InnoDB, charset utf8_general_ci.</Description>
+   <Fields>
+    <FieldSchema>
+     <Name>id</Name>
+     <DataType>Char</DataType>
+     <Length>32</Length>
+     <NotNull>true</NotNull>
+     <Autoincrement>false</Autoincrement>
+     <Unsigned>false</Unsigned>
+     <EnumValues />
+     <Description />
+     <CollationType>ASCII_Binary</CollationType>
+     <IndexType>Primary</IndexType>
+     <IndexName />
+     <OnUpdateForeignKey>Cascade</OnUpdateForeignKey>
+     <OnDeleteForeignKey>Restrict</OnDeleteForeignKey>
+     <RefTable />
+     <RefField />
+    </FieldSchema>
+    <FieldSchema>
+     <Name>user_id</Name>
+     <DataType>Char</DataType>
+     <Length>32</Length>
+     <NotNull>true</NotNull>
+     <Autoincrement>false</Autoincrement>
+     <Unsigned>false</Unsigned>
+     <EnumValues />
+     <Description />
+     <CollationType>ASCII_Binary</CollationType>
+     <IndexType>ForeignKey</IndexType>
+     <IndexName>user_permissions_user_id_fk</IndexName>
+     <OnUpdateForeignKey>Cascade</OnUpdateForeignKey>
+     <OnDeleteForeignKey>Cascade</OnDeleteForeignKey>
+     <RefTable>users</RefTable>
+     <RefField>id</RefField>
+    </FieldSchema>
+    <FieldSchema>
+     <Name>tenant_id</Name>
+     <DataType>Char</DataType>
+     <Length>32</Length>
+     <NotNull>true</NotNull>
+     <Autoincrement>false</Autoincrement>
+     <Unsigned>false</Unsigned>
+     <EnumValues />
+     <Description />
+     <CollationType>ASCII_Binary</CollationType>
+     <IndexType>ForeignKey</IndexType>
+     <IndexName>user_permissions_tenant_id_fk</IndexName>
+     <OnUpdateForeignKey>Cascade</OnUpdateForeignKey>
+     <OnDeleteForeignKey>Cascade</OnDeleteForeignKey>
+     <RefTable>tenants</RefTable>
+     <RefField>id</RefField>
+    </FieldSchema>
+    <FieldSchema>
+     <Name>permission_id</Name>
+     <DataType>Char</DataType>
+     <Length>32</Length>
+     <NotNull>true</NotNull>
+     <Autoincrement>false</Autoincrement>
+     <Unsigned>false</Unsigned>
+     <EnumValues />
+     <Description />
+     <CollationType>ASCII_Binary</CollationType>
+     <IndexType>ForeignKey</IndexType>
+     <IndexName>user_permissions_permission_id_fk</IndexName>
+     <OnUpdateForeignKey>Cascade</OnUpdateForeignKey>
+     <OnDeleteForeignKey>Cascade</OnDeleteForeignKey>
+     <RefTable>permissions</RefTable>
+     <RefField>id</RefField>
+    </FieldSchema>
+   </Fields>
+  </TableSchema>
+  <TableSchema>
+   <Name>user_roles</Name>
+   <Description>DB schema for table user_roles ('') using engine InnoDB, charset utf8_general_ci.</Description>
+   <Fields>
+    <FieldSchema>
+     <Name>id</Name>
+     <DataType>Char</DataType>
+     <Length>32</Length>
+     <NotNull>true</NotNull>
+     <Autoincrement>false</Autoincrement>
+     <Unsigned>false</Unsigned>
+     <EnumValues />
+     <Description />
+     <CollationType>ASCII_Binary</CollationType>
+     <IndexType>Primary</IndexType>
+     <IndexName />
+     <OnUpdateForeignKey>Cascade</OnUpdateForeignKey>
+     <OnDeleteForeignKey>Restrict</OnDeleteForeignKey>
+     <RefTable />
+     <RefField />
+    </FieldSchema>
+    <FieldSchema>
+     <Name>user_id</Name>
+     <DataType>Char</DataType>
+     <Length>32</Length>
+     <NotNull>true</NotNull>
+     <Autoincrement>false</Autoincrement>
+     <Unsigned>false</Unsigned>
+     <EnumValues />
+     <Description />
+     <CollationType>ASCII_Binary</CollationType>
+     <IndexType>ForeignKey</IndexType>
+     <IndexName>user_roles_user_id_fk</IndexName>
+     <OnUpdateForeignKey>Cascade</OnUpdateForeignKey>
+     <OnDeleteForeignKey>Cascade</OnDeleteForeignKey>
+     <RefTable>users</RefTable>
+     <RefField>id</RefField>
+    </FieldSchema>
+    <FieldSchema>
+     <Name>role_id</Name>
+     <DataType>Char</DataType>
+     <Length>32</Length>
+     <NotNull>true</NotNull>
+     <Autoincrement>false</Autoincrement>
+     <Unsigned>false</Unsigned>
+     <EnumValues />
+     <Description />
+     <CollationType>ASCII_Binary</CollationType>
+     <IndexType>ForeignKey</IndexType>
+     <IndexName>user_roles_role_id_fk</IndexName>
+     <OnUpdateForeignKey>Cascade</OnUpdateForeignKey>
+     <OnDeleteForeignKey>Cascade</OnDeleteForeignKey>
+     <RefTable>roles</RefTable>
+     <RefField>id</RefField>
+    </FieldSchema>
+    <FieldSchema>
+     <Name>tenant_id</Name>
+     <DataType>Char</DataType>
+     <Length>32</Length>
+     <NotNull>true</NotNull>
+     <Autoincrement>false</Autoincrement>
+     <Unsigned>false</Unsigned>
+     <EnumValues />
+     <Description />
+     <CollationType>ASCII_Binary</CollationType>
+     <IndexType>ForeignKey</IndexType>
+     <IndexName>user_roles_tenant_id_fk</IndexName>
+     <OnUpdateForeignKey>Cascade</OnUpdateForeignKey>
+     <OnDeleteForeignKey>Cascade</OnDeleteForeignKey>
+     <RefTable>tenants</RefTable>
+     <RefField>id</RefField>
+    </FieldSchema>
+   </Fields>
+  </TableSchema>
+  <TableSchema>
+   <Name>users</Name>
+   <Description>DB schema for table users ('') using engine InnoDB, charset utf8_general_ci.</Description>
+   <Fields>
+    <FieldSchema>
+     <Name>id</Name>
+     <DataType>Char</DataType>
+     <Length>32</Length>
+     <NotNull>true</NotNull>
+     <Autoincrement>false</Autoincrement>
+     <Unsigned>false</Unsigned>
+     <EnumValues />
+     <Description />
+     <CollationType>ASCII_Binary</CollationType>
+     <IndexType>Primary</IndexType>
+     <IndexName />
+     <OnUpdateForeignKey>Cascade</OnUpdateForeignKey>
+     <OnDeleteForeignKey>Restrict</OnDeleteForeignKey>
+     <RefTable />
+     <RefField />
+    </FieldSchema>
+    <FieldSchema>
+     <Name>user_group_id</Name>
+     <DataType>Char</DataType>
+     <Length>32</Length>
+     <NotNull>false</NotNull>
+     <Autoincrement>false</Autoincrement>
+     <Unsigned>false</Unsigned>
+     <EnumValues />
+     <Description />
+     <CollationType>ASCII_Binary</CollationType>
+     <IndexType>ForeignKey</IndexType>
+     <IndexName>users_user_group_id_fk</IndexName>
+     <OnUpdateForeignKey>Cascade</OnUpdateForeignKey>
+     <OnDeleteForeignKey>SetNull</OnDeleteForeignKey>
+     <RefTable>user_groups</RefTable>
+     <RefField>id</RefField>
+    </FieldSchema>
+    <FieldSchema>
+     <Name>user_name</Name>
+     <DataType>VarChar</DataType>
+     <Length>255</Length>
+     <NotNull>true</NotNull>
+     <Autoincrement>false</Autoincrement>
+     <Unsigned>false</Unsigned>
+     <EnumValues />
+     <Description />
+     <CollationType>Default</CollationType>
+     <IndexType>None</IndexType>
+     <IndexName />
+     <OnUpdateForeignKey>Cascade</OnUpdateForeignKey>
+     <OnDeleteForeignKey>Restrict</OnDeleteForeignKey>
+     <RefTable />
+     <RefField />
+    </FieldSchema>
+    <FieldSchema>
+     <Name>user_email</Name>
+     <DataType>VarChar</DataType>
+     <Length>255</Length>
+     <NotNull>true</NotNull>
+     <Autoincrement>false</Autoincrement>
+     <Unsigned>false</Unsigned>
+     <EnumValues />
+     <Description />
+     <CollationType>Default</CollationType>
+     <IndexType>Simple</IndexType>
+     <IndexName>users_user_email_idx</IndexName>
+     <OnUpdateForeignKey>Cascade</OnUpdateForeignKey>
+     <OnDeleteForeignKey>Restrict</OnDeleteForeignKey>
+     <RefTable />
+     <RefField />
+    </FieldSchema>
+    <FieldSchema>
+     <Name>user_phone</Name>
+     <DataType>VarChar</DataType>
+     <Length>255</Length>
+     <NotNull>true</NotNull>
+     <Autoincrement>false</Autoincrement>
+     <Unsigned>false</Unsigned>
+     <EnumValues />
+     <Description />
+     <CollationType>Default</CollationType>
+     <IndexType>None</IndexType>
+     <IndexName />
+     <OnUpdateForeignKey>Cascade</OnUpdateForeignKey>
+     <OnDeleteForeignKey>Restrict</OnDeleteForeignKey>
+     <RefTable />
+     <RefField />
+    </FieldSchema>
+    <FieldSchema>
+     <Name>password_hash</Name>
+     <DataType>VarChar</DataType>
+     <Length>255</Length>
+     <NotNull>true</NotNull>
+     <Autoincrement>false</Autoincrement>
+     <Unsigned>false</Unsigned>
+     <EnumValues />
+     <Description />
+     <CollationType>Default</CollationType>
+     <IndexType>None</IndexType>
+     <IndexName />
+     <OnUpdateForeignKey>Cascade</OnUpdateForeignKey>
+     <OnDeleteForeignKey>Restrict</OnDeleteForeignKey>
+     <RefTable />
+     <RefField />
+    </FieldSchema>
+    <FieldSchema>
+     <Name>is_suspended</Name>
+     <DataType>IntegerTiny</DataType>
+     <Length>255</Length>
+     <NotNull>true</NotNull>
+     <Autoincrement>false</Autoincrement>
+     <Unsigned>true</Unsigned>
+     <EnumValues />
+     <Description />
+     <CollationType>Default</CollationType>
+     <IndexType>None</IndexType>
+     <IndexName />
+     <OnUpdateForeignKey>Cascade</OnUpdateForeignKey>
+     <OnDeleteForeignKey>Restrict</OnDeleteForeignKey>
+     <RefTable />
+     <RefField />
+    </FieldSchema>
+    <FieldSchema>
+     <Name>is_disabled</Name>
+     <DataType>IntegerTiny</DataType>
+     <Length>255</Length>
+     <NotNull>true</NotNull>
+     <Autoincrement>false</Autoincrement>
+     <Unsigned>true</Unsigned>
+     <EnumValues />
+     <Description />
+     <CollationType>Default</CollationType>
+     <IndexType>None</IndexType>
+     <IndexName />
+     <OnUpdateForeignKey>Cascade</OnUpdateForeignKey>
+     <OnDeleteForeignKey>Restrict</OnDeleteForeignKey>
+     <RefTable />
+     <RefField />
+    </FieldSchema>
+    <FieldSchema>
+     <Name>two_factor_enabled</Name>
+     <DataType>IntegerTiny</DataType>
+     <Length>255</Length>
+     <NotNull>true</NotNull>
+     <Autoincrement>false</Autoincrement>
+     <Unsigned>true</Unsigned>
+     <EnumValues />
+     <Description />
+     <CollationType>Default</CollationType>
+     <IndexType>None</IndexType>
+     <IndexName />
+     <OnUpdateForeignKey>Cascade</OnUpdateForeignKey>
+     <OnDeleteForeignKey>Restrict</OnDeleteForeignKey>
+     <RefTable />
+     <RefField />
+    </FieldSchema>
+    <FieldSchema>
+     <Name>administrative_role_id</Name>
+     <DataType>IntegerTiny</DataType>
+     <Length>255</Length>
+     <NotNull>true</NotNull>
+     <Autoincrement>false</Autoincrement>
+     <Unsigned>true</Unsigned>
+     <EnumValues />
+     <Description />
+     <CollationType>Default</CollationType>
+     <IndexType>None</IndexType>
+     <IndexName />
+     <OnUpdateForeignKey>Cascade</OnUpdateForeignKey>
+     <OnDeleteForeignKey>Restrict</OnDeleteForeignKey>
+     <RefTable />
+     <RefField />
+    </FieldSchema>
+    <FieldSchema>
+     <Name>inserted_at</Name>
+     <DataType>DateTime</DataType>
+     <Length>255</Length>
+     <NotNull>true</NotNull>
+     <Autoincrement>false</Autoincrement>
+     <Unsigned>false</Unsigned>
+     <EnumValues />
+     <Description />
+     <CollationType>Default</CollationType>
+     <IndexType>None</IndexType>
+     <IndexName />
+     <OnUpdateForeignKey>Cascade</OnUpdateForeignKey>
+     <OnDeleteForeignKey>Restrict</OnDeleteForeignKey>
+     <RefTable />
+     <RefField />
+    </FieldSchema>
+    <FieldSchema>
+     <Name>inserted_by</Name>
+     <DataType>VarChar</DataType>
+     <Length>255</Length>
+     <NotNull>true</NotNull>
+     <Autoincrement>false</Autoincrement>
+     <Unsigned>false</Unsigned>
+     <EnumValues />
+     <Description />
+     <CollationType>Default</CollationType>
+     <IndexType>None</IndexType>
+     <IndexName />
+     <OnUpdateForeignKey>Cascade</OnUpdateForeignKey>
+     <OnDeleteForeignKey>Restrict</OnDeleteForeignKey>
+     <RefTable />
+     <RefField />
+    </FieldSchema>
+    <FieldSchema>
+     <Name>updated_at</Name>
+     <DataType>DateTime</DataType>
+     <Length>255</Length>
+     <NotNull>true</NotNull>
+     <Autoincrement>false</Autoincrement>
+     <Unsigned>false</Unsigned>
+     <EnumValues />
+     <Description />
+     <CollationType>Default</CollationType>
+     <IndexType>None</IndexType>
+     <IndexName />
+     <OnUpdateForeignKey>Cascade</OnUpdateForeignKey>
+     <OnDeleteForeignKey>Restrict</OnDeleteForeignKey>
+     <RefTable />
+     <RefField />
+    </FieldSchema>
+    <FieldSchema>
+     <Name>updated_by</Name>
+     <DataType>VarChar</DataType>
+     <Length>255</Length>
+     <NotNull>true</NotNull>
+     <Autoincrement>false</Autoincrement>
+     <Unsigned>false</Unsigned>
+     <EnumValues />
+     <Description />
+     <CollationType>Default</CollationType>
+     <IndexType>None</IndexType>
+     <IndexName />
+     <OnUpdateForeignKey>Cascade</OnUpdateForeignKey>
+     <OnDeleteForeignKey>Restrict</OnDeleteForeignKey>
+     <RefTable />
+     <RefField />
+    </FieldSchema>
+   </Fields>
+  </TableSchema>
+ </Tables>
+ <ExtensionGuid />
+</Schema>

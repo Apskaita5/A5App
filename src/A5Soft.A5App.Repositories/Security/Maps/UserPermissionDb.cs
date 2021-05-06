@@ -2,6 +2,7 @@
 using A5Soft.CARMA.Domain;
 using A5Soft.DAL.Core.MicroOrm;
 using System;
+using A5Soft.A5App.Application;
 
 namespace A5Soft.A5App.Repositories.Security.Maps
 {

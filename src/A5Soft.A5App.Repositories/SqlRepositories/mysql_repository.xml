@@ -7,8 +7,8 @@
  <SqlImplementation>mysql</SqlImplementation>
  <Items>
   <SqlRepositoryItem>
-   <Token>FetchDatabaseName</Token>
-   <Query>SELECT db_name FROM tenants WHERE id = ?CD;</Query>
+   <Token>FetchDatabaseNameDictionary</Token>
+   <Query>SELECT t.id, t.db_name FROM tenants t;</Query>
    <UsedByTypes>Base.OrmServiceProvider</UsedByTypes>
   </SqlRepositoryItem>
   <SqlRepositoryItem>
@@ -110,6 +110,21 @@
    <Token>FetchUserGroup</Token>
    <Query>SELECT u.id AS Id, u.group_name AS GroupName, u.max_users AS MaxUsers, u.max_tenants AS MaxTenants, u.inserted_at AS InsertedAt, u.inserted_by AS InsertedBy, u.updated_at AS UpdatedAt, u.updated_by AS UpdatedBy, COUNT(q.id) AS UserCount FROM user_groups u LEFT JOIN users q ON q.user_group_id = u.id WHERE u.id = ?id GROUP BY u.id;</Query>
    <UsedByTypes>Security.UserGroupRepository</UsedByTypes>
+  </SqlRepositoryItem>
+  <SqlRepositoryItem>
+   <Token>FetchUserCountInGroup</Token>
+   <Query>SELECT COUNT(u.id) FROM users u WHERE u.user_group_id = ?CD ;</Query>
+   <UsedByTypes>Security.UserRepository</UsedByTypes>
+  </SqlRepositoryItem>
+  <SqlRepositoryItem>
+   <Token>FetchUserCount</Token>
+   <Query>SELECT COUNT(u.id) FROM users u;</Query>
+   <UsedByTypes>Base.OrmServiceProvider</UsedByTypes>
+  </SqlRepositoryItem>
+  <SqlRepositoryItem>
+   <Token>UpdateUserTimestamp</Token>
+   <Query>UPDATE users SET updated_by=?UB, updated_at=?UT WHERE id =?CD ;</Query>
+   <UsedByTypes>Security.CustomUserRoleRepository</UsedByTypes>
   </SqlRepositoryItem>
  </Items>
 </SqlRepository>

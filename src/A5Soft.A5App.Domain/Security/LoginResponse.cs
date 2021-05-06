@@ -66,7 +66,6 @@ namespace A5Soft.A5App.Domain.Security
         /// <summary>
         /// an identity object for the user (if success)
         /// </summary>
-        [XmlIgnore]
         public ClaimsIdentity Identity { get; set; }
 
     }

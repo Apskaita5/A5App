@@ -1,0 +1,104 @@
+﻿@using System.Linq.Expressions 
+@using InputType = BlazorStrap.InputType
+@using A5Soft.CARMA.Domain.Metadata
+@using A5Soft.CARMA.Domain.Reflection 
+@using A5Soft.CARMA.Domain
+
+@typeparam T
+  
+<BSFormGroup>
+    <BSAlert Color="Color.Info" IsOpen="@isOpen">
+        @metadata?.GetDisplayDescription()
+    </BSAlert>
+    <BSLabel>
+        @metadata?.GetDisplayName()
+        @if (!metadata?.GetDisplayDescription()?.IsNullOrWhiteSpace() ?? false)
+        {
+            <i class="far fa-question-circle" @onclick="() => isOpen = !isOpen"></i>
+        }
+    </BSLabel>
+    <BSInput InputType="InputType.Select" ValueChanged="async (T v) => await OnValueChanged(v)"
+             ValueExpression="For" ValidateOnChange="true" PlaceHolder="@metadata?.GetDisplayPrompt()" >
+        @if (isNullable)
+        {
+            <option value=@string.Empty></option>
+        }
+        @foreach (var enumValue in Values)
+        {
+            <option value="@enumValue">@enumValue.GetEnumDisplayName()</option>
+        }
+    </BSInput>
+    <BSFormFeedback For="@For" />
+</BSFormGroup>
+
+
+@code {   
+
+    [Parameter]
+    public Expression<Func<T>> For { get; set; }
+
+    [Parameter]
+    public T FieldValue { get; set; }
+
+    [Parameter]
+    public EventCallback<T> FieldValueChanged { get; set; }
+
+    [Parameter]
+    public T[] Values { get; set; }
+
+    [Inject]
+    private IMetadataProvider metadataProvider { get; set; }
+
+    private bool isNullable;
+    private IPropertyMetadata metadata;
+    private bool isOpen;
+
+
+    private async Task OnValueChanged(T value)
+    {
+        FieldValue = value;
+        await FieldValueChanged.InvokeAsync(FieldValue);
+    }
+
+    /// <inheritdoc />
+    protected override Task OnInitializedAsync()
+    {
+        var valueType = Nullable.GetUnderlyingType(typeof(T));
+        isNullable = (null != valueType);
+        if (null == valueType) valueType = typeof(T);
+
+        if (!valueType.IsEnum) throw new InvalidOperationException(
+            $"EnumInputField component can only handle enum values while {typeof(T).FullName} is not.");
+
+        return base.OnInitializedAsync();
+    }
+
+    /// <inheritdoc />
+    protected override Task OnParametersSetAsync()
+    {
+        if (null == Values || Values.Length < 1)
+        {
+            var valueType = Nullable.GetUnderlyingType(typeof(T));
+            if (null == valueType) valueType = typeof(T);
+
+            if (!valueType.IsEnum) throw new InvalidOperationException(
+                $"EnumInputField component can only handle enum values while {typeof(T).FullName} is not.");
+
+            var result = new List<T>();
+            foreach (T value in Enum.GetValues(valueType))
+            {
+                result.Add(value);
+            }
+            Values = result.ToArray();
+        }
+
+        var fieldIdentifier = FieldIdentifier.Create(For);
+        var entityMetadata = metadataProvider.GetEntityMetadata(fieldIdentifier.Model.GetType());
+        metadata = null;
+        if (entityMetadata.Properties.ContainsKey(fieldIdentifier.FieldName))
+            metadata = entityMetadata.Properties[fieldIdentifier.FieldName];
+
+        return base.OnParametersSetAsync();
+    }
+
+}

@@ -1,10 +1,12 @@
 ﻿using A5Soft.A5App.Application.UseCases.Security;
+using A5Soft.CARMA.Domain;
 
 namespace A5Soft.A5App.Application.Infrastructure
 {
     /// <summary>
     /// Provides methods to generate cryptographically secure random values.
-    /// </summary>
+    /// </summary> 
+    [Service(ServiceLifetime.Singleton)]
     public interface ISecureRandomProvider
     {
         /// <summary>

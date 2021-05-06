@@ -21,18 +21,7 @@ namespace A5Soft.A5App.Domain.Security
         #endregion
 
         #region Constructors
-
-        /// <inheritdoc />
-        public UserRole(IValidationEngineProvider validationEngineProvider) : base(validationEngineProvider)
-        {
-            _permissions = new DomainBindingList<UserRolePermission>(validationEngineProvider)
-            {
-                AllowNew = false,
-                AllowRemove = false
-            };
-            RegisterChildValue(_permissions, nameof(_permissions), true);
-        }
-
+                      
         /// <summary>
         /// Creates a new instance for an existing entity.
         /// </summary>
@@ -50,6 +39,27 @@ namespace A5Soft.A5App.Domain.Security
                 AllowRemove = false
             };
             _permissions.AddRange(dto.Permissions.Select(
+                d => new UserRolePermission(d, validationEngineProvider)));
+            RegisterChildValue(_permissions, nameof(_permissions), true);
+        }
+
+        /// <summary>
+        /// Initializes a new instance for a new entity.
+        /// </summary>
+        /// <param name="permissions">DTO containing data for the available permissions</param>
+        /// <param name="validationEngineProvider">validation engine provider for DI</param>
+        public UserRole(List<UserRolePermission.UserRolePermissionDto> permissions, 
+            IValidationEngineProvider validationEngineProvider)
+            : base(validationEngineProvider)
+        {
+            if (null == permissions) throw new ArgumentNullException(nameof(permissions));
+
+            _permissions = new DomainBindingList<UserRolePermission>(validationEngineProvider)
+            {
+                AllowNew = false,
+                AllowRemove = false
+            };
+            _permissions.AddRange(permissions.Select(
                 d => new UserRolePermission(d, validationEngineProvider)));
             RegisterChildValue(_permissions, nameof(_permissions), true);
         }
@@ -116,17 +126,19 @@ namespace A5Soft.A5App.Domain.Security
 
             var selectedPermissions = entity.Permissions
                 .Where(p => p.Assigned)
-                .Select(p => (Guid)p.Id.IdentityValue)
+                .Select(p => p.PermissionId)
                 .ToList();
 
             using (SuspendBindings())
             {
                 using (SuspendValidation())
                 {
+                    Name = entity.Name;
+                    Description = entity.Description;
                     foreach (var permission in _permissions)
                     {
                         permission.Assigned = selectedPermissions
-                            .Contains((Guid)permission.Id.IdentityValue);
+                            .Contains(permission.PermissionId);
                     }
                 }
             }

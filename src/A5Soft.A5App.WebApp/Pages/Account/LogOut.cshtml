@@ -1,0 +1,12 @@
+﻿@page
+@using A5Soft.A5App.WebApp
+@using Microsoft.AspNetCore.Authentication
+@attribute [IgnoreAntiforgeryToken]
+@functions {
+    public async Task<IActionResult> OnPost()
+    {
+        await HttpContext.SignOutAsync(AppAuthenticationHandler.AuthSchemaName);
+
+        return Redirect("~/");
+    }
+}
