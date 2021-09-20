@@ -9,9 +9,10 @@
     <BSCollapse @ref="NavbarCollapse" IsNavbar="true">
         <BSNav IsList="true" Class="mr-auto" IsNavbar="true">
             <AuthorizeView>
+                <BSDropdownItem OnClick="() => Navigation.NavigateTo(testUrl)">Test</BSDropdownItem>
                 @foreach (var item in AppMenu.TopItems.Where(i =>
-                  i.IsEnabled &&
-                  (i.ItemType == MenuItemType.UseCase || i.ItemType == MenuItemType.Submenu)))
+                   i.IsEnabled &&
+                       (i.ItemType == MenuItemType.UseCase || i.ItemType == MenuItemType.Submenu)))
                 {
                     <BSNavItem>
                         @if (item.ItemType == MenuItemType.UseCase)
@@ -41,6 +42,8 @@
 
 
 @code {
+
+        private const string testUrl = @"/Security/MultiFile";
 
     [Inject]
     public AuthenticationStateProvider AuthenticationProvider { get; set; }

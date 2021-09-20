@@ -1,0 +1,47 @@
+﻿@page "/Security/MultiFile"
+@using System.IO
+@using BlazorInputFile
+<h3>MultiFile</h3>
+
+<EditForm Model="@Current" OnValidSubmit="@HandleValidSubmit">
+    <DataAnnotationsValidator />
+    <ValidationSummary />
+
+    <InputText id="name" @bind-Value="Current.Name" />
+
+    @foreach (var file in Current.Files)
+    {
+        <InputText id="description" @bind-Value="file.Description" />
+        <InputFile OnChange="(files) => OnInputFileChange(files, file)" />
+    }
+
+
+    <button type="submit">Submit</button>
+</EditForm>
+
+<button @onclick="() => Current.Files.Add(new FileItem())">
+    AddItem
+</button>
+
+@code {
+
+    private MultiFiles Current;
+
+    protected override async Task OnInitializedAsync()
+    {
+        await base.OnInitializedAsync();
+        Current = new MultiFiles();
+    }
+
+    private void HandleValidSubmit()
+    {
+        int i = 11;
+    }
+
+    private Task OnInputFileChange(IFileListEntry[] files, FileItem file)
+    {
+        file.FileStream = files.FirstOrDefault()?.Data;
+        return Task.CompletedTask;
+    }
+
+}

@@ -10,15 +10,10 @@ namespace A5Soft.A5App.Application.UseCases.Security
     /// </summary>
     public class AuthenticatedAuthorizationAttribute : AuthorizationBaseAttribute
     {
-        public override bool AuthorizationImplementedForParam<TParam>() => false;
-
         protected override bool Authorize(ClaimsIdentity identity, Type useCaseType,
             ILogger logger, bool throwOnUnauthorized) => true;
 
-        protected override bool Authorize<TParam>(ClaimsIdentity identity, Type useCaseType,
-            TParam parameter, ILogger logger, bool throwOnUnauthorized)
-            => true;
-
+        
         protected override void ThrowNotAuthenticatedException()
         {
             throw new UnauthenticatedException();

@@ -20,6 +20,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="BlazorInputFile" Version="0.2.0" />
     <PackageReference Include="BlazorStrap" Version="1.5.1" />
     <PackageReference Include="BlazorStrap.Extensions.BSDataTable" Version="1.5.0" />
     <PackageReference Include="Castle.Core" Version="4.4.1" />

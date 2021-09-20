@@ -27,8 +27,7 @@ namespace A5Soft.A5App.Application.UseCases.Security
         }
         
 
-        /// <inheritdoc />
-        public override bool AuthorizationImplementedForParam<TParam>() => false;
+        
 
         protected override bool Authorize(ClaimsIdentity identity, Type useCaseType, ILogger logger, bool throwOnUnauthorized)
         {
@@ -42,9 +41,7 @@ namespace A5Soft.A5App.Application.UseCases.Security
             throw new AuthorizationException(_permissionName.GetLocalizableValue());
         }
 
-        protected override bool Authorize<TParam>(ClaimsIdentity identity, Type useCaseType,
-            TParam parameter, ILogger logger, bool throwOnUnauthorized)
-            => Authorize(identity, useCaseType, logger, throwOnUnauthorized);
+        
 
         protected override void ThrowNotAuthenticatedException()
         {

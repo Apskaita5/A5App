@@ -13,7 +13,7 @@ namespace A5Soft.A5App.Domain.Security
         /// Gets a SHA256 hash value for a string.
         /// </summary>
         /// <param name="rawData">a string to compute SHA256 hash for</param>
-        public static string ComputeSha256Hash(this string rawData)
+        internal static string ComputeSha256Hash(this string rawData)
         {
             if (rawData.IsNullOrWhiteSpace()) return string.Empty;
             // Create a SHA256   
